@@ -32,5 +32,162 @@ AP 02/2026 Research proposal form [English version]) ที่แนบบทส
 - คำไหนที่ผิดให้เปลี่ยนเป็นสีแดง
 - ข้อมูลส่วนตัวจะให้ผู้ใช้เป็นคนกรอกเอง
 - ไม่รองรับรายเซ็นดิจิตอล
-- ไม่นำข้อมูลของผู้ใช้ไปเผยแพร่
-- 
+- ไม่นำข้อมูลของผู้ใช้ไปเผยแพร่ 
+
+**System Overview**
+
+1. **Frontend (HTML/CSS/JS):**
+* UI สำหรับ Upload ไฟล์, เลือกหมวดหมู่เอกสาร, กรอก Form ข้อมูลส่วนตัว/ข้อมูลเพิ่มเติม
+* Document Editor / Previewer (แสดงตัวอย่าง 4 รูปแบบ/การจัดหน้า A4, ซูม/สลับแบบได้, แก้ไขข้อความในหน้า Preview ได้)
+* Highlight ข้อความที่ต้องแก้ไขเอง/คำผิด/ข้อความกำกวม (เช่น ใช้สีแดง/ไฮไลต์)
+* Export เป็น PDF/DOCX
+
+
+2. **Backend & AI Service:**
+* API Server (Node.js/Python FastAPI) สำหรับจัดการ File Upload, Validation ชนิดไฟล์
+* Document Parser (อ่าน PDF, DOCX, TXT)
+* AI Model / LLM Prompt Engine (วิเคราะห์เนื้อหา, ปรับระดับภาษาเป็นทางการ, ตรวจคำผิด/อักขระ, สกัด/จัดโครงสร้างข้อมูล)
+* Error Handling & Notification System (แจ้งเตือนกรณีประมวลผลล้มเหลว/อ่านไฟล์ไม่ได้)
+
+
+
+
+***Roadmap***
+
+# Phase 1: การออกแบบระบบและพัฒนาระบบส่วนหน้า (Frontend Base & UI)
+# Week 1: Requirement, Architecture & Core Frontend UI
+
+Day 1
+- รวบรวมข้อกำหนด (Requirements) และรูปแบบเอกสารมาตรฐาน เช่น AP 02/2026 Research Proposal Form (ภาษาอังกฤษ/สเปก TH Sarabun New ขนาด 16/18 pt, การเว้นวรรค/ตั้งค่าหน้า A4)
+- วาง Architecture ของระบบ Frontend + Backend + AI Pipeline
+
+Day 2
+- ออกแบบ Layout หน้าเว็บ (UI/UX Mockup): ส่วน Upload ไฟล์, เลือกหมวดหมู่เอกสาร (ราชการ, วิจัย EC-MFU ฯลฯ), ช่องใส่รายละเอียดเพิ่มเติม
+
+Day 3
+- พัฒนาโครงสร้าง HTML/CSS หน้า Dashboard & Document Generator Form
+- ทำส่วน Drag & Drop / File Input พร้อมสคริปต์ตรวจสอบชนิดไฟล์ (File Type Validation: PDF, DOCX, TXT) ทางฝั่ง Client
+
+Day 4
+- สร้างฟอร์มกรอกข้อมูลส่วนตัว/หัวข้อวันที่ (ส่วนที่ระบบกำหนดให้ผู้ใช้ต้องกรอกเอง ไม่ให้ AI เติมให้อัตโนมัติ)
+
+Day 5 
+- สร้างหน้าต่าง Error Handling UI/Modal สำหรับแสดงการแจ้งเตือนข้อผิดพลาด (เช่น ไฟล์ไม่รองรับ, ขนาดเกิน, เซิร์ฟเวอร์ขัดข้อง)
+
+----------
+
+# Phase 2: ระบบตรวจจับ/อ่านไฟล์ และ Backend Integration
+# Week 2: Backend API, Document Parser & Validation
+
+Day 6
+- สถาปนา Backend API Server (เช่น Node.js Express หรือ Python FastAPI) และตั้งค่า CORS / Security
+
+Day 7
+- พัฒนาระบบรับส่งไฟล์ (File Upload Endpoint) และระบบ Validation ชนิดไฟล์แบบ Strict (MIME Type check)
+
+Day 8
+- พัฒนาโมดูลอ่านไฟล์ (Document Parser Engine) สกัด Text จาก PDF/DOCX
+
+Day 9
+- พัฒนา Error Catching สำหรับการอ่านไฟล์ (ส่ง Response แจ้งเตือนข้อผิดพลาดแบบระบุสาเหตุอย่างชัดเจนเมื่อประมวลผลล้มเหลว)
+
+Day 10
+- เชื่อมต่อ Frontend กับ Backend API ทดสอบการส่งไฟล์และอ่านเนื้อหาดิบออกมา
+
+----------
+
+# Phase 3: การเทรน AI / Prompt Engineering & ตรวจสอบภาษา
+# Week 3: AI Processing Engine (Text Analysis, Grammar & Style Upgrade)
+
+Day 11
+- ออกแบบ Prompt / AI Processing Pipeline เพื่อวิเคราะห์เนื้อหาเอกสารแยกตามหมวดหมู่
+
+Day 12
+- พัฒนาระบบ "ปรับเปลี่ยนภาษาให้เป็นทางการ" (Formalizing Text) ตามเกณฑ์เอกสารราชการ/งานวิจัย
+
+Day 13
+- พัฒนาระบบ "ตรวจคำผิด อักขระ สัญลักษณ์ และข้อความกำกวม"
+- สร้างกติกาให้ AI ชี้จุดผิด/จุดที่ไม่สมบูรณ์ แล้วทำ Mark หรือส่ง HTML Tag สีแดงสำหรับคำที่ต้องแก้ไข
+
+Day 14
+- พัฒนาระบบแยกแยะ "ส่วนข้อมูลส่วนตัว/วันที่/หัวข้อเฉพาะ" ที่ระบุให้ผู้ใช้ต้องเติมเอง (เว้นช่อง/ทำเน้นสีไว้)
+
+Day 15
+- ทดสอบ AI Pipeline กับตัวอย่างเอกสาร AP 02/2026 เพื่อปรับจูนความแม่นยำภาษาไทยและอังกฤษ
+
+----------
+
+# Phase 4: ระบบสร้างแบบจำลองเอกสาร (4 Layout Templates) & Live Editor
+# Week 4: Layout Engine & 4 Prototype Previews
+
+Day 16 
+- สร้าง Template Engine สำหรับแสดงผลขนาด A4 (CSS `@page`, Dimensions 210mm x 297mm) พร้อมฟอนต์ TH Sarabun New (ขนาด 16pt / หัวข้อ 18pt) และระบุเลขหน้าทุกหน้า
+
+Day 17
+- พัฒนา **4 Prototype Layouts** ที่มีความแตกต่างกันในด้านโครงสร้างการจัดวาง/การเว้นระยะ/การสรุปความ
+
+Day 18 
+- พัฒนาส่วน UI Component ให้ผู้ใช้กดสลับสไลด์/เลือกดูตัวอย่างเอกสารทั้ง 4 แบบได้แบบ Real-time
+
+Day 19 
+- พัฒนาระบบ **Interactive Inline Editing** (ใช้ `contenteditable` หรือ Rich Text JS Editor) ให้ผู้ใช้คลิกแก้ไขข้อความบนหน้า Preview และเติมข้อมูลส่วนตัวได้ทันที
+
+Day 20 (Fri)
+- ปรับแต่งสไตล์ให้ส่วนที่ขาดข้อมูล/คำผิด แสดงผลเป็น **ข้อความสีแดง** เพื่อให้ผู้ใช้สังเกตเห็นและแก้ไขได้สะดวก
+
+
+----------
+
+# Phase 5: ระบบส่งออกเอกสาร (Export to DOCX / PDF) & Data Privacy
+# Week 5: Export Functionality & Privacy Control
+
+ Day 21 
+- พัฒนาระบบดาวน์โหลดเป็น **PDF** (แปลงจาก HTML/Word โดยตรงเพื่อให้ฟอนต์ TH Sarabun New และระยะย่อหน้าถูกต้อง 100%)
+
+Day 22
+- พัฒนาระบบดาวน์โหลดเป็น **DOCX (Microsoft Word)** โดยรักษา Formatting/Font Style ให้ตรงตามเกณฑ์ AP 02/2026
+
+Day 23 
+- พัฒนาระบบตรวจสอบลายเซ็นและนโยบายความเป็นส่วนตัว (Privacy Guard): ลบไฟล์ชั่วคราวบน Server ทันทีหลังประมวลผลเสร็จสิ้น ไม่เก็บข้อมูลผู้ใช้ไว้เผยแพร่
+
+Day 24
+- ปรับปรุงระบบแจ้งเตือนระบบขัดข้อง (System Fallback & Timeout Handlers) กรณี AI ประมวลผลช้าเกินไปหรือเซิร์ฟเวอร์โหลดสูง
+
+Day 25
+- ทดสอบความถูกต้องของกติกาเอกสาร AP 02/2026 (ตรวจจุด, การเว้นวรรค, เลขหน้า, ฟอนต์, สัญลักษณ์)
+
+----------
+
+# Phase 6: Integration Test, QA & Deployment
+# Week 6: Testing, Refinement & Delivery
+
+Day 26 
+- End-to-End Testing: ทดสอบ Upload -> วิเคราะห์ -> เลือก Template 1 ใน 4 -> แก้ไขข้อความสีแดง -> ดาวน์โหลด PDF/DOCX
+
+Day 27 
+- ทดสอบไฟล์ขอบเขตสภาวะวิกฤต (Edge Cases): ไฟล์เสีย, ไฟล์ขนาดใหญ่, ภาษาปนกัน, การหลุดของฟอร์แมต A4
+
+ Day 28 
+- ปรับปรุง Performance ของระบบ Frontend (CSS Layout Performance) และ AI Response Speed
+
+Day 29 
+- จัดทำเอกสารคู่มือการใช้งานและการตั้งค่าการเทรน AI เพิ่มเติมในอนาคต
+
+Day 30 
+- ส่งมอบ Prototype เวอร์ชันสมบูรณ์ และทดสอบระบบจริงร่วมกับผู้ใช้งาน
+
+----------
+
+# รายการ Checklist คุณสมบัติที่ต้องมีในระบบ (Feature Checklist)
+
+| คุณสมบัติ (Feature) | วิธีการทำ / เทคโนโลยีที่แนะนำ |
+| --- | --- |
+| อ่านและวิเคราะห์ไฟล์ | PDF.js / mammoth.js / Python docx-pdf parser + AI LLM Integration |
+| ตรวจสอบชนิดไฟล์ | Client-side File API + Backend MIME Validation |
+| แสดงตัวอย่าง 4 แบบแตกต่างกัน | CSS A4 Template Engine + Dynamic HTML Injection |
+| แก้ไขข้อความในตัวอย่างได้ | HTML5 `contenteditable` / Quill.js / TinyMCE |
+| แสดงส่วนต้องเติม/คำผิดเป็นสีแดง | Dynamic Parsing Regex & AI Error Tagging (`<span class="text-red">...</span>`) |
+| ดาวน์โหลด PDF / DOCX | `html2pdf.js` / `docx.js` / Server-side LibreOffice Conversion |
+| มาตรฐาน AP 02/2026 | @font-face TH Sarabun New, 16pt Body, 18pt Heading, A4 Page Break Engine |
+| ระบบแจ้งเตือน Error | Toast / Modal Alert System สำหรับ Catch Exception |
+| ความปลอดภัยข้อมูล | In-Memory Processing & Auto-delete Temp Files |
