@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Document preview</title>
+<style>
+  body { margin: 0; background: #e5e7eb; font-family: 'TH Sarabun New', 'Sarabun', sans-serif; font-size: 16pt; }
+  .page { width: 210mm; height: 297mm; margin: 20px auto; padding: 25mm; box-sizing: border-box;
+          background: #fff; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+  h1, h2, h3 { font-size: 18pt; font-weight: bold; margin: 0 0 6pt; }
+  p, ul, ol { margin: 0 0 6pt; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 6pt; }
+  td { border: 1px solid #000; padding: 2mm; }
+  .red { color: #d00000; }
+  .placeholder { background: #fff0f0; border-bottom: 1px dashed #d00000; }
+  .page-number { position: absolute; bottom: 12mm; left: 0; right: 0; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div id="app">กำลังโหลด...</div>
+  <div class="page-number">1</div>
+</div>
+
+<script>
+function renderRuns(parent, runs) {
+  runs.forEach(function (run) {
+    var span = document.createElement('span');
+    if (run.placeholder) {
+      span.className = 'red placeholder';
+      span.textContent = '[' + (run.label || run.placeholder) + ']';
+    } else {
+      span.textContent = run.text || '';
+      if (run.flag) {
+        span.className = 'red';
+        span.title = run.note || '';
+      }
+    }
+    if (run.bold) span.style.fontWeight = 'bold';
+    if (run.italic) span.style.fontStyle = 'italic';
+    parent.appendChild(span);
+  });
+}
+
+function render(doc) {
+  var app = document.getElementById('app');
+  app.textContent = '';
+  doc.blocks.forEach(function (block) {
+    var el;
+    if (block.type === 'heading') {
+      el = document.createElement('h' + (block.level || 1));
+      renderRuns(el, block.runs || []);
+    } else if (block.type === 'paragraph') {
+      el = document.createElement('p');
+      renderRuns(el, block.runs || []);
+    } else if (block.type === 'list') {
+      el = document.createElement(block.ordered ? 'ol' : 'ul');
+      (block.items || []).forEach(function (item) {
+        var li = document.createElement('li');
+        renderRuns(li, item);
+        el.appendChild(li);
+      });
+    } else if (block.type === 'table') {
+      el = document.createElement('table');
+      (block.rows || []).forEach(function (row) {
+        var tr = document.createElement('tr');
+        row.forEach(function (cell) {
+          var td = document.createElement('td');
+          renderRuns(td, cell);
+          tr.appendChild(td);
+        });
+        el.appendChild(tr);
+      });
+    }
+    if (el) app.appendChild(el);
+  });
+}
+
+fetch('mock/sample-doc.json')
+  .then(function (res) {
+    if (!res.ok) throw new Error('โหลดไฟล์ไม่ได้ (' + res.status + ')');
+    return res.json();
+  })
+  .then(render)
+  .catch(function (err) {
+    document.getElementById('app').textContent = 'เกิดข้อผิดพลาด: ' + err.message;
+  });
+</script>
+</body>
+</html>
