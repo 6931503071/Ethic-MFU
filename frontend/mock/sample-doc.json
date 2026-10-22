@@ -1,31 +1,91 @@
 {
   "doc_type": "ap02_research_proposal",
   "variant": 1,
-  "blocks": [
-    { "type": "heading", "level": 1, "runs": [{ "text": "Research Proposal Form (AP 02/2026)" }] },
-    { "type": "heading", "level": 2, "runs": [{ "text": "General information" }] },
-    { "type": "paragraph", "runs": [
-      { "text": "ชื่อโครงการ: " },
-      { "text": "การศึกษาผลของการออกกำลังกายต่อความเครียดของนักศึกษา" }
-    ]},
-    { "type": "paragraph", "runs": [
-      { "text": "ผู้วิจัยหลัก: " },
-      { "placeholder": "researcher_name", "label": "ชื่อผู้วิจัย" }
-    ]},
-    { "type": "paragraph", "runs": [
-      { "text": "วันที่ยื่นเอกสาร: " },
-      { "placeholder": "submission_date", "label": "วันที่" }
-    ]},
-    { "type": "heading", "level": 2, "runs": [{ "text": "Background and rationale" }] },
-    { "type": "paragraph", "runs": [
-      { "text": "ความเครียดเป็นปัญหาที่พบบ่อยในนักศึกษา " },
-      { "text": "กลุ่มตัวอย่างบางส่วน", "flag": "ambiguous", "note": "ระบุจำนวนและเกณฑ์คัดเลือกกลุ่มตัวอย่างให้ชัดเจน" },
-      { "text": " จะได้รับการประเมินด้วยแบบสอบถามมาตรฐาน" }
-    ]},
-    { "type": "heading", "level": 2, "runs": [{ "text": "Objectives" }] },
-    { "type": "list", "ordered": true, "items": [
-      [{ "text": "เพื่อศึกษาระดับความเครียดของนักศึกษา" }],
-      [{ "text": "เพื่อเปรียบเทียบความเครียดก่อนและหลังการออกกำลังกาย" }]
-    ]}
+  "blocks": 
+  [
+    {
+      "type": "heading", "level": 1, "runs": [{ "text": "Research Proposal Form (AP 02/2026)" }] 
+    },
+    { 
+      "type": "heading", "level": 2, "runs": [{ "text": "General information" }] 
+    },
+    { 
+      "type": "paragraph", "runs": 
+      [
+        {
+          "text": "ชื่อโครงการ: " 
+        },
+        { 
+          "text": "การศึกษาผลของการออกกำลังกายต่อความเครียดของนักศึกษา" 
+        }
+      ]
+    },
+    { 
+      "type": "paragraph", "runs": 
+      [
+        { 
+          "text": "ผู้วิจัยหลัก: " 
+        },
+        { 
+          "placeholder": "researcher_name", "label": "ชื่อผู้วิจัย" 
+        }
+      ]
+    },
+    { 
+      "type": "paragraph", "runs": 
+      [
+        { 
+          "text": "วันที่ยื่นเอกสาร: " 
+        },
+        { 
+          "placeholder": "submission_date", "label": "วันที่" 
+        }
+      ]
+    },
+    { 
+      "type": "heading", "level": 2, "runs": 
+      [
+        { 
+          "text": "Background and rationale" 
+        }
+      ] 
+    },
+    { 
+      "type": "paragraph", "runs": 
+      [
+        { 
+          "text": "ความเครียดเป็นปัญหาที่พบบ่อยในนักศึกษา " 
+        },
+        { 
+          "text": "กลุ่มตัวอย่างบางส่วน", "flag": "ambiguous", "note": "ระบุจำนวนและเกณฑ์คัดเลือกกลุ่มตัวอย่างให้ชัดเจน" 
+        },
+        { 
+          "text": " จะได้รับการประเมินด้วยแบบสอบถามมาตรฐาน" 
+        }
+      ]
+    },
+    { 
+      "type": "heading", "level": 2, "runs": 
+      [
+        { 
+          "text": "Objectives" 
+        }
+      ]
+    },
+    { 
+      "type": "list", "ordered": true, "items": 
+      [
+      [
+        { 
+          "text": "เพื่อศึกษาระดับความเครียดของนักศึกษา" 
+        }
+      ],
+      [
+        { 
+          "text": "เพื่อเปรียบเทียบความเครียดก่อนและหลังการออกกำลังกาย" 
+        }
+      ]
+      ]
+    }
   ]
 }

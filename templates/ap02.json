@@ -5,7 +5,8 @@
   "language": ["en", "th"],
   "note": "ร่างโครง: หัวข้อใน sections เป็นตัวอย่างชั่วคราว ให้แทนด้วยหัวข้อจริงจากฟอร์ม AP 02/2026 ฉบับทางการ",
 
-  "format": {
+  "format": 
+  {
     "page_size": "A4",
     "margins_mm": { "top": 25, "bottom": 25, "left": 25, "right": 25 },
     "font_family": "TH Sarabun New",
