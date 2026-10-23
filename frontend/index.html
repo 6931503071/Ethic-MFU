@@ -1,169 +1,63 @@
 <!DOCTYPE html>
 <html lang="th">
   <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document preview</title>
-      <style>
-        body 
-        { 
-          margin: 0; 
-          background: #e5e7eb; 
-          font-family: 'TH Sarabun New', 'Sarabun', sans-serif; 
-          font-size: 16pt; 
-        }
-        .page 
-        { 
-          width: 210mm; 
-          height: 297mm; 
-          margin: 20px auto; 
-          padding: 25mm; 
-          box-sizing: border-box;
-          background: #fff; 
-          position: relative; 
-          overflow: hidden; 
-          box-shadow: 0 2px 8px rgba(0,0,0,.2); 
-        }
-        h1, h2, h3 
-        {
-          font-size: 18pt; 
-          font-weight: bold; 
-          margin: 0 0 6pt; 
-        }
-        p, ul, ol 
-        { 
-          margin: 0 0 6pt; 
-        }
-        table 
-        { 
-          border-collapse: collapse; 
-          width: 100%; 
-          margin-bottom: 6pt; 
-        }
-        td 
-        { 
-          border: 1px solid #000; 
-          padding: 2mm; 
-        }
-        .red 
-        { 
-          color: #d00000; 
-        }
-        .placeholder 
-        { 
-          background: #fff0f0; 
-          border-bottom: 1px dashed #d00000; 
-        }
-        .page-number 
-        { 
-          position: absolute; 
-          bottom: 12mm; left: 0; 
-          right: 0; text-align: center; 
-        }
-      </style>
-  </head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Document Generator - AP 02/2026</title>
+        <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
 <body>
-  <div class="page">
-    <div id="app">กำลังโหลด...</div>
-    <div class="page-number">1</div>
+
+<div class="topbar">Document Generator &middot; AP 02/2026</div>
+
+<main class="panel" id="controls">
+  <h2>1. เลือกภาษาของเอกสาร</h2>
+  <p class="muted">เอกสารที่สร้างทั้ง 4 แบบจะเป็นภาษาที่เลือกเท่านั้น ไม่ปนกัน</p>
+  <div class="langs" role="radiogroup" aria-label="เลือกภาษาของเอกสาร">
+    <label class="lang">
+      <input type="radio" name="lang" value="th" checked>
+      <span><b>ภาษาไทย</b><small>แบบเสนอโครงการวิจัยเพื่อพิจารณา</small></span>
+    </label>
+    <label class="lang">
+      <input type="radio" name="lang" value="en">
+      <span><b>English</b><small>Research Protocol Proposal Form for Ethical Review</small></span>
+    </label>
   </div>
 
-<script>
-  function renderRuns(parent, runs) 
-  {
-    runs.forEach
-    (function (run) 
-    {
-      var span = document.createElement('span');
-      if (run.placeholder) 
-      {
-        span.className = 'red placeholder';
-        span.textContent = '[' + (run.label || run.placeholder) + ']';
-      } 
-      else 
-      {
-        span.textContent = run.text || '';
-        if (run.flag) 
-        {
-        span.className = 'red';
-        span.title = run.note || '';
-        }
-      }
-        if (run.bold) span.style.fontWeight = 'bold';
-        if (run.italic) span.style.fontStyle = 'italic';
-        parent.appendChild(span);
-    }
-    );
-  }
+  <h2>2. ยืนยันเพื่อสร้างเอกสาร</h2>
+  <p class="muted" id="pick-summary">ภาษาที่เลือก: ภาษาไทย &rarr; จะได้เอกสารภาษาไทย 4 แบบ</p>
+  <button class="btn" id="btn-generate" type="button">ยืนยันและสร้างเอกสาร 4 แบบ</button>
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+  <div class="notice">ข้อมูลในเอกสารตอนนี้เป็น<b>ข้อมูลตัวอย่างจำลอง</b> ยังไม่ได้อ่านจากไฟล์ที่อัปโหลดหรือผ่าน AI ส่วนที่เป็นสีแดงคือช่องที่ผู้ใช้ต้องกรอกเอง หรือข้อความที่ต้องแก้ไข</div>
+</main>
 
-function render(doc) 
-{
-  var app = document.getElementById('app');
-  app.textContent = '';
-  doc.blocks.forEach
-  (function (block) 
-  {
-    var el;
-    if (block.type === 'heading') 
-    {
-      el = document.createElement('h' + (block.level || 1));
-      renderRuns(el, block.runs || []);
-    } 
-    else if (block.type === 'paragraph') 
-    {
-      el = document.createElement('p');
-      renderRuns(el, block.runs || []);
-    } 
-    else if (block.type === 'list') 
-    {
-      el = document.createElement(block.ordered ? 'ol' : 'ul');
-      (block.items || []).forEach
-      (function (item) 
-      {
-        var li = document.createElement('li');
-        renderRuns(li, item);
-        el.appendChild(li);
-      }
-      );
-    } 
-    else if (block.type === 'table') 
-    {
-      el = document.createElement('table');
-      (block.rows || []).forEach
-      (function (row) 
-      {
-        var tr = document.createElement('tr');
-        row.forEach
-        (function (cell) 
-        {
-          var td = document.createElement('td');
-          renderRuns(td, cell);
-          tr.appendChild(td);
-        }
-        );
-        el.appendChild(tr);
-      }
-    );
-    }
-    if (el) app.appendChild(el);
-  }
-  );
-}
+<section class="panel" id="result" hidden>
+  <div class="toolbar">
+    <label>ซูม
+      <select id="zoom">
+        <option value="60">60%</option>
+        <option value="80">80%</option>
+        <option value="100" selected>100%</option>
+        <option value="120">120%</option>
+      </select>
+    </label>
+    <button class="btn ghost" id="btn-print" type="button">พิมพ์ / บันทึกเป็น PDF (ชั่วคราว)</button>
+  </div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="เลือกแบบเอกสาร"></div>
+  <div class="desc" id="desc"></div>
+  <div id="variants"></div>
+</section>
 
-fetch('mock/sample-doc.json')
-  .then(function (res) 
-  {
-    if (!res.ok) throw new Error('โหลดไฟล์ไม่ได้ (' + res.status + ')');
-    return res.json();
-  })
-  .then(render)
-  .catch
-  (function (err) 
-  {
-    document.getElementById('app').textContent = 'เกิดข้อผิดพลาด: ' + err.message;
-  }
-  );
-</script>
+<div class="modal" id="error-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="err-title">
+  <div class="modal-box">
+    <h3 id="err-title">เกิดข้อผิดพลาด</h3>
+    <p id="err-msg"></p>
+    <button class="btn" id="err-close" type="button">ปิด</button>
+  </div>
+</div>
+
+<script src="js/app.js" defer></script>
 </body>
 </html>

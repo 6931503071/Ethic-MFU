@@ -1,0 +1,25 @@
+:root 
+          { 
+            --red:#d00000; 
+            --redbg:#fff0f0; --ink:#111; 
+            --bg:#e5e7eb; 
+            --line:#cbd5e1; 
+            --accent:#1d4ed8; 
+          }
+        * {
+            box-sizing: border-box; 
+          }
+          body 
+          { 
+            margin:0; 
+            background:var(--bg); 
+            color:var(--ink);
+            font-family:'TH Sarabun New','Sarabun','Noto Sans Thai',Tahoma,sans-serif; 
+            font-size:18px; 
+          }
+          [
+            hidden
+          ] 
+          { 
+            display:none !important; 
+          }

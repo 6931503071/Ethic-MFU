@@ -1,0 +1,1611 @@
+{
+  "id": "ap02_research_proposal",
+  "form_code": "AP 02/2026",
+  "name": "แบบเสนอโครงการวิจัยเพื่อพิจารณา (AP 02/2026)",
+  "submit_to": "https://submission-ec.mfu.ac.th",
+  "language": [
+    "th",
+    "en"
+  ],
+  "source": "สร้างจากไฟล์ฟอร์มจริง AP_02_2026 (docx + pdf) ที่ผู้ใช้อัปโหลด",
+  "language_note": "มีทั้งฉบับภาษาไทย (15 หน้า) และฉบับภาษาอังกฤษ (16 หน้า) ไฟล์นี้เก็บข้อความสองภาษาไว้ในโครงเดียวกัน (คีย์ที่ลงท้ายด้วย _en คือภาษาอังกฤษ) ตำแหน่งของบทสรุปย่อภาษาไทยที่ต้องแนบ ยังรอยืนยัน",
+  "format": {
+    "page_size": "A4",
+    "page_mm": {
+      "width": 210,
+      "height": 297
+    },
+    "margins_mm": {
+      "top": 25.4,
+      "bottom": 20,
+      "left": 24.9,
+      "right": 24.9
+    },
+    "header_footer_distance_mm": {
+      "header": 9.9,
+      "footer": 8.9
+    },
+    "font_family": "TH Sarabun New",
+    "body_size_pt": 16,
+    "heading_size_pt": 18,
+    "page_numbers": true,
+    "output": "pdf_saved_from_word",
+    "digital_signature": false,
+    "note": "ค่า margins อ่านจากไฟล์ docx จริง ตัวฟอร์มต้นฉบับมีข้อความบางส่วนขนาด 14-15 pt แต่กฎของผู้ใช้กำหนดเนื้อหา 16 และหัวข้อ 18"
+  },
+  "header": {
+    "left": "Version…... Date…………………………",
+    "right": "AP 02/2026",
+    "fields": [
+      {
+        "id": "form_version",
+        "label": "Version",
+        "fill_by": "user"
+      },
+      {
+        "id": "form_date",
+        "label": "Date",
+        "fill_by": "user"
+      }
+    ],
+    "note": "ฟอร์มจริงมี header นี้ทุกหน้า"
+  },
+  "footer": {
+    "text": "หน้า {PAGE} จาก {NUMPAGES}",
+    "text_en": "Page {PAGE} from {NUMPAGES}"
+  },
+  "rules": {
+    "highlight_color": "red",
+    "highlight_targets": [
+      "placeholder",
+      "typo",
+      "ambiguous",
+      "incomplete"
+    ],
+    "check_spacing_and_punctuation": true,
+    "check_thai_spelling": true,
+    "personal_data_filled_by": "user",
+    "fill_by_meaning": {
+      "ai": "ระบบเติมจากไฟล์ที่ผู้ใช้อัปโหลด ถ้าไม่พบข้อมูลให้แสดงเป็นช่องสีแดง",
+      "user": "ผู้ใช้กรอกเอง แสดงเป็นช่องสีแดงเสมอ (ข้อมูลส่วนตัว วันที่ ตัวเลขเงิน ชื่อผู้รับผิดชอบ)"
+    }
+  },
+  "known_form_issues": [
+    "เลขหัวข้อซ้ำในทั้งสองฉบับ: ในข้อ 3 มี '3. Research Advisor' และ '4. Research Coordinator' แล้วข้อ 4 ถัดไปก็เป็น '4. Study Period'",
+    "เลขข้อ 12.2 ซ้ำกันในทั้งสองฉบับ: งานวิจัยเรื่องเฉพาะ และสรุปการวัดผล",
+    "ภาคผนวกข้อ (10) ในทั้งสองฉบับอ้างถึง 'Section 12.1.7' ซึ่งไม่มีในฟอร์ม (น่าจะหมายถึง 12.2)",
+    "เฉพาะฉบับไทย: ข้อ 12.1.4 เขียน AP 03_2/2026 แต่ภาคผนวกข้อ (3) เขียน AP 03_x/2024 (ฉบับอังกฤษเขียน 2026 ตรงกันทั้งหมด)",
+    "เฉพาะฉบับอังกฤษ: ข้อ 12.2 C (Food Products) รายการแรกไม่มีเลขกำกับ แล้วเริ่มเลข 1) จากรายการถัดไป ขณะที่ฉบับไทยเลข 1) ถึง 7)",
+    "เฉพาะฉบับอังกฤษ: ข้อ 12.2 G เอกสารแนบ Device specification อยู่เป็นหัวข้อย่อยใต้ข้อ 1 และเลขข้อข้ามจาก 1 ไปเป็น 3 (ฉบับไทยแยกเป็นข้อ 2)",
+    "จำนวนหน้าไม่เท่ากัน: ฉบับไทย 15 หน้า ฉบับอังกฤษ 16 หน้า (ขึ้นกับความยาวข้อความ)"
+  ],
+  "sections": [
+    {
+      "id": "title",
+      "number": "1",
+      "title": "ชื่อโครงการวิจัย (Title)",
+      "fields": [
+        {
+          "id": "title_th",
+          "label": "(ชื่อภาษาไทย)",
+          "type": "text",
+          "fill_by": "ai",
+          "label_en": "(Thai Title)"
+        },
+        {
+          "id": "title_en",
+          "label": "(ชื่อภาษาอังกฤษ)",
+          "type": "text",
+          "fill_by": "ai",
+          "label_en": "(English Title)"
+        }
+      ],
+      "title_en": "Research Project Title"
+    },
+    {
+      "id": "field_of_study",
+      "number": "2",
+      "title": "สาขาวิชาที่ทำการวิจัย",
+      "fields": [
+        {
+          "id": "field_of_study",
+          "label": "สาขาวิชา",
+          "type": "text",
+          "fill_by": "ai",
+          "hint": "ระบุสาขา ได้แก่ แพทยศาสตร์ (ระบุสาขาย่อย เช่น อายุรศาสตร์ ศัลยศาสตร์) ทันตแพทยศาสตร์ สาธารณสุขศาสตร์ เภสัชศาสตร์ พยาบาลศาสตร์ สหเวชศาสตร์ เทคนิคการแพทย์ สังคมศาสตร์ เป็นต้น",
+          "label_en": "Field of research",
+          "hint_en": "Specify the field, e.g., Medicine (specify the sub-specialty, such as Internal Medicine, Surgery, etc.), Dentistry, Public Health, Pharmacy, Nursing, Allied Health Sciences, Medical Technology, Social Sciences, etc."
+        }
+      ],
+      "title_en": "Field of Research"
+    },
+    {
+      "id": "team",
+      "number": "3",
+      "title": "ผู้วิจัย ผู้วิจัยร่วม และที่ปรึกษา",
+      "subsections": [
+        {
+          "id": "pi",
+          "number": "3.1",
+          "title": "ผู้วิจัยหลัก หรือ หัวหน้าโครงการวิจัย (Principal Investigator)",
+          "fields": [
+            {
+              "id": "pi_name",
+              "label": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Academic Title-Name-Surname"
+            },
+            {
+              "id": "pi_affiliation",
+              "label": "สาขาวิชาและหน่วยงาน",
+              "type": "text",
+              "fill_by": "user",
+              "hint": "นักศึกษา ให้ระบุชั้นปี",
+              "label_en": "Department/Affiliation",
+              "hint_en": "If a student, specify year of study"
+            },
+            {
+              "id": "pi_address",
+              "label": "ที่อยู่ (ที่ทำงาน)",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Address (Workplace)"
+            },
+            {
+              "id": "pi_phone",
+              "label": "เบอร์โทรศัพท์",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Telephone Number"
+            },
+            {
+              "id": "pi_email",
+              "label": "อีเมล",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Email"
+            }
+          ],
+          "title_en": "Principal Investigator (PI)"
+        },
+        {
+          "id": "co_investigators",
+          "number": "3.2",
+          "title": "ผู้วิจัยร่วม (Co-Investigators)",
+          "hint": "นักศึกษา ให้ระบุชั้นปี",
+          "fields": [
+            {
+              "id": "co_investigators",
+              "label": "ผู้วิจัยร่วม",
+              "type": "table",
+              "fill_by": "user",
+              "columns": [
+                "ลำดับ",
+                "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+                "สาขาวิชาและหน่วยงาน",
+                "เบอร์โทร / อีเมล"
+              ],
+              "min_rows": 3,
+              "label_en": "Co-Investigator(s)",
+              "columns_en": [
+                "No.",
+                "Academic Title-Name-Surname",
+                "Department/Affiliation",
+                "Telephone/Email"
+              ]
+            }
+          ],
+          "title_en": "Co-Investigator(s)",
+          "hint_en": "If a student, specify year of study"
+        },
+        {
+          "id": "advisors",
+          "number": "3.",
+          "title": "ที่ปรึกษาโครงการวิจัย (Research Advisor)",
+          "fields": [
+            {
+              "id": "advisors",
+              "label": "ที่ปรึกษา",
+              "type": "table",
+              "fill_by": "user",
+              "columns": [
+                "ลำดับ",
+                "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+                "สาขาวิชาและหน่วยงาน",
+                "เบอร์โทร / อีเมล"
+              ],
+              "min_rows": 2,
+              "label_en": "Research Advisor(s)",
+              "columns_en": [
+                "No.",
+                "Academic Title-Name-Surname",
+                "Department/Affiliation",
+                "Telephone/Email"
+              ]
+            }
+          ],
+          "title_en": "Research Advisor(s)"
+        },
+        {
+          "id": "coordinator",
+          "number": "4.",
+          "title": "ผู้ประสานงานโครงการวิจัย (Research Coordinator)",
+          "fields": [
+            {
+              "id": "coord_name",
+              "label": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Academic Title-Name-Surname"
+            },
+            {
+              "id": "coord_phone",
+              "label": "เบอร์โทรศัพท์",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Telephone Number"
+            },
+            {
+              "id": "coord_email",
+              "label": "อีเมล",
+              "type": "text",
+              "fill_by": "user",
+              "label_en": "Email"
+            }
+          ],
+          "title_en": "Research Coordinator"
+        }
+      ],
+      "title_en": "Investigators, Co-Investigators, and Research Advisor"
+    },
+    {
+      "id": "timeline",
+      "number": "4",
+      "title": "ช่วงเวลาที่ทำการวิจัย",
+      "fields": [
+        {
+          "id": "start_month_year",
+          "label": "เดือน/ปี ที่จะเริ่มเก็บข้อมูลในผู้เข้าร่วมการวิจัย (เดือน... พ.ศ. ...)",
+          "type": "text",
+          "fill_by": "user",
+          "label_en": "Month/Year data collection with participants is expected to begin (Month ... B.E. ...)"
+        },
+        {
+          "id": "duration_months",
+          "label": "ระยะเวลาที่จะเก็บข้อมูลในผู้เข้าร่วมการวิจัย (... เดือน)",
+          "type": "text",
+          "fill_by": "user",
+          "label_en": "Duration of data collection with participants (... months)"
+        },
+        {
+          "id": "end_month_year",
+          "label": "เดือน/ปี ที่คาดว่าจะสิ้นสุดการวิจัย (เดือน... พ.ศ. ...)",
+          "type": "text",
+          "fill_by": "user",
+          "label_en": "Month/Year the study is expected to end (Month ... B.E. ...)"
+        }
+      ],
+      "title_en": "Study Period"
+    },
+    {
+      "id": "location",
+      "number": "5",
+      "title": "สถานที่ทำการวิจัย",
+      "fields": [
+        {
+          "id": "location",
+          "label": "ทำการวิจัยที่สถาบันเดียวหรือสหสถาบัน (multicentre) ระบุห้อง ตึก อาคาร",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "Specify whether the study is single-center or multicentre; specify the room, floor/ward, and building."
+        }
+      ],
+      "title_en": "Study Site(s)"
+    },
+    {
+      "id": "background",
+      "number": "6",
+      "title": "ความสำคัญของปัญหาที่จะทำการวิจัย",
+      "fields": [
+        {
+          "id": "background",
+          "label": "ความสำคัญและขนาดของปัญหา เหตุผล (rationale) และช่องว่างความรู้เดิม (gap of knowledge)",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "Summarize the significance and magnitude of the problem, the rationale for conducting this research, and how this study will address the existing gap of knowledge."
+        }
+      ],
+      "title_en": "Background and Significance of the Research Problem"
+    },
+    {
+      "id": "objectives",
+      "number": "7",
+      "title": "วัตถุประสงค์ของการวิจัย",
+      "fields": [
+        {
+          "id": "objective_primary",
+          "label": "7.1 วัตถุประสงค์หลัก",
+          "type": "numbered_list",
+          "fill_by": "ai",
+          "min_items": 1,
+          "label_en": "7.1 Primary Objective"
+        },
+        {
+          "id": "objective_secondary",
+          "label": "7.2 วัตถุประสงค์รอง",
+          "type": "numbered_list",
+          "fill_by": "ai",
+          "min_items": 3,
+          "label_en": "7.2 Secondary Objective(s)"
+        }
+      ],
+      "title_en": "Objectives of the Study"
+    },
+    {
+      "id": "benefits",
+      "number": "8",
+      "title": "ประโยชน์ที่จะได้จากการวิจัย",
+      "fields": [
+        {
+          "id": "benefits",
+          "label": "ผลการวิจัยจะนำไปใช้แก้ปัญหาหรือมีประโยชน์อย่างไร",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "Describe how the research findings can be applied to solve the problem, or what benefits they will provide."
+        }
+      ],
+      "title_en": "Expected Benefits of the Research"
+    },
+    {
+      "id": "literature",
+      "number": "9",
+      "title": "การรวบรวมรายงานที่เกี่ยวข้องกับการวิจัยที่จะกระทำ",
+      "fields": [
+        {
+          "id": "literature",
+          "label": "รายงานวิจัยที่เกี่ยวข้อง (อ้างอิงรูปแบบ Vancouver หรือ APA)",
+          "type": "textarea",
+          "fill_by": "ai",
+          "hint": "งานวิจัยทางคลินิกเกี่ยวกับยา สมุนไพร ผลิตภัณฑ์ธรรมชาติ เครื่องสำอาง อาหารเสริม และเครื่องมือแพทย์ ให้ทบทวนในสัตว์ทดลองและมนุษย์ เน้นความปลอดภัย ผลข้างเคียง เหตุการณ์ไม่พึงประสงค์",
+          "label_en": "Describe whether similar studies have been reported previously and their findings (cite references using the Vancouver or APA style).",
+          "hint_en": "For clinical research involving drugs, herbal medicines, natural products, cosmetics, or dietary/food supplements: review prior preclinical (animal) and human studies, specifying experimental details and efficacy data, with particular emphasis on safety, side effects, and adverse events. For research involving medical devices, summarize prior studies of the device with the same emphasis."
+        }
+      ],
+      "title_en": "Literature Review"
+    },
+    {
+      "id": "design",
+      "number": "10",
+      "title": "รูปแบบการวิจัย",
+      "fields": [
+        {
+          "id": "study_design",
+          "label": "ระบุรูปแบบ Study design ที่ตอบคำถามการวิจัยได้",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "Specify the study design. The design selected should be appropriate to answer the research question."
+        }
+      ],
+      "title_en": "Study Design"
+    },
+    {
+      "id": "population",
+      "number": "11",
+      "title": "ลักษณะตัวอย่างหรือประชากรที่ทำการศึกษา",
+      "fields": [
+        {
+          "id": "target_population",
+          "label": "11.1 ประชากรเป้าหมาย",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "11.1 Target Population"
+        },
+        {
+          "id": "sample_size",
+          "label": "11.2 ขนาดตัวอย่าง จำนวนผู้เข้าร่วมการวิจัยที่ต้องการ และสูตรการคำนวณขนาดตัวอย่าง",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "11.2 Sample Size (number of participants required) and the sample size calculation formula"
+        },
+        {
+          "id": "recruitment",
+          "label": "11.3 วิธีการเข้าถึงและสรรหาผู้เข้าร่วมการวิจัย (Recruitment Process)",
+          "type": "checkbox_group",
+          "fill_by": "ai",
+          "options": [
+            "เชิญชวนโดยตรง (อธิบายรายละเอียด)",
+            "ผ่านสื่อสังคมออนไลน์หรือแอปพลิเคชั่น (ส่งข้อความให้คณะกรรมการพิจารณา)",
+            "ขอความร่วมมือผ่านแพทย์/พยาบาล",
+            "แผ่นป้ายประชาสัมพันธ์ (ระบุสถานที่ติดแผ่นป้าย และส่งแผ่นป้ายให้คณะกรรมการพิจารณา)",
+            "อื่นๆ (อธิบายรายละเอียด)"
+          ],
+          "label_en": "11.3 Recruitment Process",
+          "options_en": [
+            "Direct invitation — describe details ...",
+            "Via social media or applications (submit the message/advertisement to the Committee for review)",
+            "Referral through physicians/nurses",
+            "Public notice/poster (specify the posting location and submit the poster to the Committee for review)",
+            "Other — describe details ..."
+          ]
+        },
+        {
+          "id": "inclusion",
+          "label": "11.4 เกณฑ์การคัดเข้าร่วมการวิจัย (Inclusion criteria)",
+          "type": "numbered_list",
+          "fill_by": "ai",
+          "min_items": 3,
+          "label_en": "11.4 Inclusion Criteria"
+        },
+        {
+          "id": "exclusion",
+          "label": "11.5 เกณฑ์การคัดออกจากการวิจัย (Exclusion criteria)",
+          "type": "numbered_list",
+          "fill_by": "ai",
+          "min_items": 3,
+          "label_en": "11.5 Exclusion Criteria"
+        },
+        {
+          "id": "withdrawal",
+          "label": "11.6 เกณฑ์การถอนออกจากการวิจัย (Withdrawal criteria)",
+          "type": "numbered_list",
+          "fill_by": "ai",
+          "min_items": 3,
+          "label_en": "11.6 Withdrawal Criteria"
+        },
+        {
+          "id": "early_termination",
+          "label": "11.7 เกณฑ์การยุติการวิจัยก่อนกำหนด (Early termination criteria)",
+          "type": "numbered_list",
+          "fill_by": "ai",
+          "min_items": 3,
+          "label_en": "11.7 Early Termination Criteria"
+        }
+      ],
+      "title_en": "Study Population / Sample Characteristics"
+    },
+    {
+      "id": "methodology",
+      "number": "12",
+      "title": "ระเบียบวิธีวิจัย",
+      "subsections": [
+        {
+          "id": "procedure",
+          "number": "12.1",
+          "title": "การดำเนินการวิจัย",
+          "fields": [
+            {
+              "id": "proc_detail",
+              "label": "12.1.1 การดำเนินการวิจัยโดยละเอียด",
+              "type": "textarea",
+              "fill_by": "ai",
+              "hint": "แนบ Flow chart และรูปประกอบ",
+              "attach_separately": true,
+              "label_en": "12.1.1 Provide a detailed description of the study procedures.",
+              "hint_en": "Attach a flow chart and illustrative figures to facilitate review."
+            },
+            {
+              "id": "proc_groups",
+              "label": "12.1.2 การแบ่งกลุ่ม วิธีแบ่งกลุ่ม และการดำเนินการในแต่ละกลุ่ม (ถ้ามี)",
+              "type": "textarea",
+              "fill_by": "ai",
+              "optional": true,
+              "label_en": "12.1.2 If participants are allocated into groups, specify the allocation method and the study procedures for each group."
+            },
+            {
+              "id": "proc_placebo",
+              "label": "12.1.3 การใช้ยาหลอก (placebo / control) (ถ้ามี)",
+              "type": "textarea",
+              "fill_by": "ai",
+              "optional": true,
+              "hint": "ระบุว่าโรคที่ศึกษามีวิธีรักษามาตรฐานหรือไม่ เหตุผลที่ต้องใช้ยาหลอก และแนวทางหลีกเลี่ยงอันตรายในกลุ่มที่ได้ยาหลอก",
+              "label_en": "12.1.3 If a placebo/control is used, state whether a standard treatment exists for the condition under study, explain the justification for using a placebo, and describe the measures in place to avoid harm to participants receiving the placebo.",
+              "hint_en": "State whether a standard treatment exists, the justification for the placebo, and measures to avoid harm."
+            },
+            {
+              "id": "proc_biosamples",
+              "label": "12.1.4 การเก็บตัวอย่างชีวภาพเพื่อใช้ในอนาคต (ถ้ามี)",
+              "type": "textarea",
+              "fill_by": "ai",
+              "optional": true,
+              "hint": "ระบุสถานที่เก็บ ระยะเวลา และการขอความยินยอมล่วงหน้า (ต้องส่งเอกสาร AP 03_2)",
+              "label_en": "12.1.4 If biological specimens will be stored for future use, specify the storage location and duration, and whether broad/advance consent will be obtained.",
+              "hint_en": "If applicable, submit the Information Sheet and Broad Consent Form for storage of data and biological specimens for future research (AP 03_2/2026)."
+            },
+            {
+              "id": "proc_media",
+              "label": "12.1.5 การถ่ายภาพหรือบันทึกเสียง และวิธีรักษาความลับ (ถ้ามี)",
+              "type": "textarea",
+              "fill_by": "ai",
+              "optional": true,
+              "hint": "เช่น แถบบังตา การใช้รหัสภาพแทนชื่อ",
+              "label_en": "12.1.5 If photographs or audio recordings are taken, describe how participant confidentiality will be protected.",
+              "hint_en": "e.g., use of eye-blinding bars, image coding in place of participant names, etc."
+            },
+            {
+              "id": "proc_after",
+              "label": "12.1.6 การดำเนินการกับผู้เข้าร่วมการวิจัยเมื่องานวิจัยเสร็จสิ้น",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "12.1.6 Describe the procedures for participants upon completion of the study."
+            }
+          ],
+          "title_en": "Study Procedures"
+        },
+        {
+          "id": "special",
+          "number": "12.2",
+          "title": "งานวิจัยที่เป็นเรื่องเฉพาะ ได้แก่",
+          "subsections": [
+            {
+              "id": "special_a",
+              "number": "A",
+              "title": "งานวิจัยเกี่ยวกับยา (Investigational Drug)",
+              "optional": true,
+              "gate": {
+                "id": "special_a_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "drugs",
+                  "label": "รายการยา (ถ้ามีหลายชนิด ให้ระบุให้ครบทุกชนิดที่ใช้)",
+                  "type": "table",
+                  "fill_by": "ai",
+                  "columns": [
+                    "ชื่อยา",
+                    "รายละเอียด (เลือก)"
+                  ],
+                  "min_rows": 2,
+                  "row_options": [
+                    "ยายังไม่ได้รับการรับรองจาก อย.",
+                    "ขึ้นทะเบียน อย.แล้ว ใช้ในขนาดยามาตรฐานและข้อบ่งชี้ที่ได้รับการรับรองจาก อย.",
+                    "ขึ้นทะเบียน อย. แล้ว แต่ขนาดยาที่ไม่ใช่ขนาดยามาตรฐาน",
+                    "ขึ้นทะเบียน อย. แล้ว แต่ใช้ในข้อบ่งชี้ต่างจากที่ได้รับการรับรองจาก อย."
+                  ],
+                  "label_en": "Drug list (if more than one drug is used, list all of them)",
+                  "columns_en": [
+                    "Drug name",
+                    "Details (mark “/”)"
+                  ],
+                  "row_options_en": [
+                    "Drug not yet approved by the Thai FDA",
+                    "Registered with the Thai FDA; used at the approved standard dose and indication",
+                    "Registered with the Thai FDA, but used at a non-standard dose",
+                    "Registered with the Thai FDA, but used for an indication other than the approved indication (off-label use)"
+                  ]
+                }
+              ],
+              "title_en": "Research Involving Drugs (Investigational Drug)"
+            },
+            {
+              "id": "special_b",
+              "number": "B",
+              "title": "งานวิจัยที่มีการตรวจวินิจฉัยหรือทำหัตถการนอกเหนือจากการปฏิบัติทางคลินิกปกติ",
+              "optional": true,
+              "gate": {
+                "id": "special_b_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "procedures",
+                  "label": "รายละเอียด (เลือก และระบุเพิ่มเติม)",
+                  "type": "checkbox_group",
+                  "fill_by": "ai",
+                  "with_detail": true,
+                  "options": [
+                    "การเจาะเลือดหรือเก็บตัวอย่างชีวภาพ",
+                    "การตรวจเอกซเรย์คอมพิวเตอร์",
+                    "การตรวจที่ได้รับปริมาณรังสีสูงเพิ่มเติมจากปกติ",
+                    "การฉายรังสีเพิ่มเติมจากปกติ",
+                    "การดมยาสลบ/การผ่าตัด เพิ่มเติมจากปกติ",
+                    "อื่นๆ เพิ่มเติมจากปกติ"
+                  ],
+                  "label_en": "Details (mark “/” in [ ] box and specify)",
+                  "options_en": [
+                    "Blood draw or collection of biological specimens — specify ...",
+                    "Computed tomography (CT) scan — specify ...",
+                    "Procedure involving a higher-than-standard radiation dose — specify ...",
+                    "Additional radiation therapy beyond standard practice — specify ...",
+                    "Additional anesthesia/surgery beyond standard practice — specify ...",
+                    "Other procedures beyond standard practice ..."
+                  ]
+                }
+              ],
+              "title_en": "Research Involving Diagnostic Tests or Procedures Beyond Standard Clinical Practice"
+            },
+            {
+              "id": "special_c",
+              "number": "C",
+              "title": "งานวิจัยเกี่ยวกับอาหาร: ผลิตภัณฑ์อาหาร",
+              "optional": true,
+              "gate": {
+                "id": "special_c_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "food_1",
+                  "label": "1) คุณลักษณะเฉพาะ: สูตรส่วนประกอบ ที่มาของวัตถุดิบ และรูปแบบ (เช่น ของแห้ง ของแข็ง ของเหลว ผง)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "Specific characteristics, including the formulation/composition, source of raw materials, and physical form (e.g., dried, solid, liquid, or powder)"
+                },
+                {
+                  "id": "food_2",
+                  "label": "2) กระบวนการเตรียม ขั้นตอนการผลิต",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "1) Preparation process/manufacturing steps"
+                },
+                {
+                  "id": "food_3",
+                  "label": "3) วิธีการบริโภคและวิธีการเก็บรักษา",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "2) Method of consumption and storage conditions"
+                },
+                {
+                  "id": "food_4",
+                  "label": "4) ข้อมูลความปลอดภัยของอาหาร (พิษวิทยา การก่อภูมิแพ้ การศึกษาในสัตว์ทดลองและมนุษย์) (ถ้ามี)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "3) Food safety data (toxicological studies, allergenicity studies, preclinical/animal and human studies), if available"
+                },
+                {
+                  "id": "food_5",
+                  "label": "5) ชนิดและปริมาณสารอาหาร เปรียบเทียบกับบัญชีหมายเลข 3 ท้ายประกาศ สธ. (ฉบับที่ 445) พ.ศ. 2566",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "4) Details of nutrient types and quantities, compared against Schedule No. 3 attached to the Notification of the Ministry of Public Health (No. 445) B.E. 2566, Thai Dietary Reference Intake"
+                },
+                {
+                  "id": "food_6",
+                  "label": "6) ชนิดและอัตราส่วนของวัตถุเจือปนอาหาร เปรียบเทียบกับบัญชีหมายเลข 1 และ 2 ท้ายประกาศ สธ. (ฉบับที่ 418) พ.ศ. 2563",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "5) Details of the type and proportion of food additives, compared against Schedules No. 1 and No. 2 attached to the Notification of the Ministry of Public Health (No. 418) B.E. 2563, Re: Criteria, Conditions, and Proportions of Food Additives (No. 2) (attach details of the type and quantity of food additives)"
+                },
+                {
+                  "id": "food_7",
+                  "label": "7) มาตรการป้องกันการปนเปื้อนจุลินทรีย์ สารพิษตกค้าง หรือสารพิษอื่น",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "6) Measures to prevent microbial contamination, pesticide/chemical residues, or other toxic substances"
+                }
+              ],
+              "title_en": "Food-Related Research: Food Products"
+            },
+            {
+              "id": "special_d",
+              "number": "D",
+              "title": "งานวิจัยเกี่ยวกับอาหาร: ผลิตภัณฑ์เสริมอาหาร",
+              "optional": true,
+              "gate": {
+                "id": "special_d_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "supp_1",
+                  "label": "1) คุณลักษณะเฉพาะ: สูตรส่วนประกอบ ที่มาของวัตถุดิบ และรูปแบบ (เช่น เม็ด แคปซูล น้ำ)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "1) Specific characteristics, including the formulation/composition, source of raw materials, and form (e.g., tablet, capsule, liquid)"
+                },
+                {
+                  "id": "supp_2",
+                  "label": "2) วิธีการบริโภคและวิธีการเก็บรักษา",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "2) Method of consumption and storage conditions"
+                },
+                {
+                  "id": "supp_3",
+                  "label": "3) ข้อมูลความปลอดภัยของอาหาร (พิษวิทยา การก่อภูมิแพ้ การศึกษาในสัตว์ทดลองและมนุษย์)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "3) Food safety data (toxicological studies, allergenicity studies, preclinical/animal and human studies)"
+                },
+                {
+                  "id": "supp_4",
+                  "label": "4) ปริมาณวิตามินหรือแร่ธาตุ เปรียบเทียบกับบัญชีท้ายประกาศ สธ. (ฉบับที่ 448) พ.ศ. 2566",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "4) Vitamin or mineral content: attach details of the type and quantity of vitamins and minerals, compared against the Schedule attached to the Notification of the Ministry of Public Health (No. 448) B.E. 2566, Re: Types and Maximum Quantities of Vitamins and Minerals in Dietary Supplement Products"
+                },
+                {
+                  "id": "supp_5",
+                  "label": "5) การใช้วัตถุเจือปนอาหาร เปรียบเทียบกับบัญชีหมายเลข 1 และ 2 ท้ายประกาศ สธ. (ฉบับที่ 418) พ.ศ. 2563",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "5) Use of food additives: attach details of the type and proportion of food additives, compared against Schedules No. 1 and No. 2 attached to the Notification of the Ministry of Public Health (No. 418) B.E. 2563, Re: Criteria, Conditions, and Proportions of Food Additives (No. 2)"
+                },
+                {
+                  "id": "supp_6",
+                  "label": "6) มาตรการป้องกันการปนเปื้อนจุลินทรีย์ สารพิษตกค้าง หรือสารพิษอื่น",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "6) Measures to prevent microbial contamination, pesticide/chemical residues, or other toxic substances"
+                },
+                {
+                  "id": "supp_7",
+                  "label": "7) ผู้ผลิตหรือผู้นำเข้าผลิตภัณฑ์เสริมอาหาร",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "7) Specify the manufacturer or importer of the dietary supplement product"
+                }
+              ],
+              "title_en": "Food-Related Research: Dietary Supplements"
+            },
+            {
+              "id": "special_e",
+              "number": "E",
+              "title": "งานวิจัยเกี่ยวกับผลิตภัณฑ์สมุนไพร",
+              "optional": true,
+              "gate": {
+                "id": "special_e_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "herb_1",
+                  "label": "1) ชนิดของผลิตภัณฑ์สมุนไพร (เลือกข้อใดข้อหนึ่ง)",
+                  "type": "radio",
+                  "fill_by": "ai",
+                  "options": [
+                    "ผลิตภัณฑ์สมุนไพรที่เป็นยา เพื่อรักษาโรค",
+                    "ผลิตภัณฑ์สมุนไพรเพื่อสุขภาพ"
+                  ],
+                  "label_en": "1) Specify the type of herbal product (select one)",
+                  "options_en": [
+                    "Herbal medicinal product for disease treatment",
+                    "Herbal product for health/wellness purposes"
+                  ]
+                },
+                {
+                  "id": "herb_2",
+                  "label": "2) ชื่อวิทยาศาสตร์ (ระบุส่วนประกอบสมุนไพรทุกตัว)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "2) Scientific (botanical) name (specify every herbal ingredient)"
+                },
+                {
+                  "id": "herb_3",
+                  "label": "3) สูตรตำรับ แสดงปริมาณในหน่วยร้อยละโดยน้ำหนัก (%w/w)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "3) Formulation: state the quantity as percentage by weight (%w/w)"
+                },
+                {
+                  "id": "herb_4",
+                  "label": "4) ข้อมูลอ้างอิงทางสุขภาพ (เลือกได้หลายข้อ และแนบเอกสารอ้างอิง)",
+                  "type": "checkbox_group",
+                  "fill_by": "ai",
+                  "options": [
+                    "มีการศึกษาประสิทธิภาพในห้องปฏิบัติการ",
+                    "มีการศึกษาประสิทธิภาพในสัตว์ทดลอง",
+                    "มีการศึกษาประสิทธิภาพในมนุษย์",
+                    "มีอยู่ในตำรา หรือบัญชียาหลักแห่งชาติ"
+                  ],
+                  "label_en": "4) Health/efficacy claims, attach supporting references (multiple selections allowed)",
+                  "options_en": [
+                    "In vitro (laboratory) efficacy studies available",
+                    "Preclinical/animal efficacy studies available",
+                    "Human efficacy studies available",
+                    "Listed in a pharmacopoeia or the National List of Essential Medicines"
+                  ]
+                },
+                {
+                  "id": "herb_5",
+                  "label": "5) ข้อมูลของตำรับหรือผลิตภัณฑ์สมุนไพร (ระบุทุกข้อ): กรรมวิธีการเตรียม / การควบคุมคุณภาพและมาตรฐาน / เอกสารทะเบียนผลิตภัณฑ์ (ถ้ามี)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "5) Information on the herbal formulation/product (specify all items): preparation method; quality control and preparation standards; product registration documents (if any)"
+                },
+                {
+                  "id": "herb_6",
+                  "label": "6) ระดับการผลิต (เลือกข้อใดข้อหนึ่ง)",
+                  "type": "radio",
+                  "fill_by": "ai",
+                  "options": [
+                    "ผู้วิจัยผลิตเองในห้องปฏิบัติการ (ไม่ใช่โรงงานที่มีมาตรฐาน)",
+                    "ผลิตโดยโรงงานที่มีมาตรฐาน แต่ยังไม่ได้ขึ้นทะเบียน (ระบุสถานที่ผลิตและมาตรฐาน)",
+                    "ผลิตภัณฑ์สมุนไพรขึ้นทะเบียนแล้วและค้าขายเชิงพาณิชย์ (ระบุเลขทะเบียน)",
+                    "มีชื่อการค้า เลขทะเบียน และสถานที่ผลิต (แนบเอกสารรับรองความปลอดภัยจาก อย.)"
+                  ],
+                  "label_en": "6) Level of production (select one)",
+                  "options_en": [
+                    "Prepared by the researcher in a laboratory (not a certified manufacturing facility)",
+                    "Manufactured by a certified facility but not yet registered (specify the manufacturing site and applicable standard)",
+                    "Herbal product already registered and commercially marketed (specify registration number)",
+                    "Has a trade name, registration number, and manufacturing site (attach the Thai FDA safety certification document)"
+                  ]
+                }
+              ],
+              "title_en": "Research Involving Herbal Products"
+            },
+            {
+              "id": "special_f",
+              "number": "F",
+              "title": "งานวิจัยเกี่ยวกับการพัฒนาเครื่องสำอาง",
+              "optional": true,
+              "gate": {
+                "id": "special_f_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "cos_1",
+                  "label": "1) รูปแบบในการใช้ผลิตภัณฑ์",
+                  "type": "radio",
+                  "fill_by": "ai",
+                  "options": [
+                    "ใช้แล้วไม่ล้างออก (Leave-on)",
+                    "ใช้แล้วล้างออก (Rinse-off)"
+                  ],
+                  "label_en": "1) Specify the mode of product use",
+                  "options_en": [
+                    "Leave-on",
+                    "Rinse-off"
+                  ]
+                },
+                {
+                  "id": "cos_2",
+                  "label": "2) ส่วนประกอบของตำรับและปริมาณในหน่วยร้อยละโดยน้ำหนัก (%w/w)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "2) Formulation ingredients and quantity, expressed as percentage by weight (%w/w)"
+                },
+                {
+                  "id": "cos_3",
+                  "label": "3) ตำรับนี้มีการใช้ส่วนผสมของสารสกัดจากพืชหรือไม่ (ถ้ามี ระบุสายพันธุ์ ชิ้นส่วน กรรมวิธีสกัด หรือแหล่งจัดซื้อ พร้อมแนบ COA)",
+                  "type": "radio",
+                  "fill_by": "ai",
+                  "options": [
+                    "ไม่มี",
+                    "มี"
+                  ],
+                  "label_en": "3) Does this formulation contain a plant extract ingredient?",
+                  "options_en": [
+                    "No",
+                    "Yes — please specify the plant species used, the plant part, the extraction method, or the source of the raw material; if the raw material/plant extract is purchased from a supplier, attach the Certificate of Analysis (COA)"
+                  ]
+                },
+                {
+                  "id": "cos_4",
+                  "label": "4) ข้อมูลความปลอดภัยของสารที่เป็นองค์ประกอบในตำรับ (ตามฐานข้อมูลมาตรฐานที่ อย. ยอมรับ เช่น COSING)",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "4) Safety data for the constituent ingredients of the formulation, with the ingredient list conforming to a standard database recognized by the Thai FDA, such as COSING"
+                },
+                {
+                  "id": "cos_5",
+                  "label": "5) กรรมวิธีการเตรียม",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "5) Preparation method"
+                },
+                {
+                  "id": "cos_6",
+                  "label": "6) การควบคุมคุณภาพและมาตรฐานของการเตรียม",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "6) Quality control and preparation standards"
+                },
+                {
+                  "id": "cos_7",
+                  "label": "7) ชื่อการค้า เลขทะเบียน สถานที่ผลิต และเอกสารรับรองความปลอดภัยจาก อย.",
+                  "type": "textarea",
+                  "fill_by": "ai",
+                  "label_en": "7) Specify the trade name, registration number, manufacturing site, and the Thai FDA safety certification document"
+                }
+              ],
+              "title_en": "Research Involving Cosmetic Product Development"
+            },
+            {
+              "id": "special_g",
+              "number": "G",
+              "title": "งานวิจัยเกี่ยวกับเครื่องมือแพทย์",
+              "optional": true,
+              "gate": {
+                "id": "special_g_applies",
+                "type": "yes_no",
+                "fill_by": "ai",
+                "no_label": "ไม่ใช่ (ตัดส่วนนี้ออก)",
+                "yes_label": "ใช่ (ตอบข้อมูลต่อไปนี้)",
+                "no_label_en": "No (delete/omit this section)",
+                "yes_label_en": "Yes (complete the following information)"
+              },
+              "fields": [
+                {
+                  "id": "devices",
+                  "label": "เครื่องมือแพทย์ที่ใช้ในงานวิจัย (ระบุชื่อ ยี่ห้อ รุ่น ให้ครบถ้วน)",
+                  "type": "table",
+                  "fill_by": "ai",
+                  "columns": [
+                    "ลำดับ",
+                    "ชื่อ",
+                    "ยี่ห้อ",
+                    "รุ่น"
+                  ],
+                  "min_rows": 3,
+                  "label_en": "Medical device(s) used in the research (specify the full name, brand, and model)",
+                  "columns_en": [
+                    "No.",
+                    "Name",
+                    "Brand",
+                    "Model"
+                  ]
+                },
+                {
+                  "id": "device_attachments",
+                  "label": "เอกสารประกอบที่ต้องแนบ (ส่งเป็นไฟล์แยก)",
+                  "type": "checklist",
+                  "fill_by": "user",
+                  "attach_separately": true,
+                  "options": [
+                    "1. รายละเอียดของเครื่องมือแพทย์ (Device Description): รูปเครื่องมือ, ลักษณะทั่วไปและหลักการทำงาน, วัตถุประสงค์การใช้, ข้อบ่งใช้, การเก็บรักษา, อายุการใช้, ข้อห้ามใช้/ข้อจำกัด, คำเตือน, ข้อควรระวัง",
+                    "2. เอกสารข้อมูลทางเทคนิค (Device specification)",
+                    "3. คู่มือการใช้งาน (Operation manual)",
+                    "4. เอกสารคู่มือผู้วิจัย (Investigator's brochure) ที่ระบุระดับความเสี่ยงและวิธีลดความเสี่ยง",
+                    "5. เอกสารผลการวิจัยที่เกี่ยวข้องกับเครื่องมือแพทย์",
+                    "6. หนังสือรับรองของผู้ผลิต (ในประเทศไทย) หรือผู้นำเข้า",
+                    "7. ใบอนุญาตผลิตหรือนำเข้าเครื่องมือแพทย์ (ถ้ามี)",
+                    "8. ใบรับแจ้งรายการละเอียด/หนังสือรับรองการขึ้นทะเบียนจากกองเครื่องมือแพทย์ สำนักงานคณะกรรมการอาหารและยา (ถ้ามี)"
+                  ],
+                  "label_en": "Supporting documents to attach (submit as separate files)",
+                  "options_en": [
+                    "1. Device Description: device image(s); general description and operating principle (device description and features); intended use; indication; storage condition; shelf life; contraindication(s)/limitations; warning(s); precautions",
+                    "2. Device specification",
+                    "3. Operation manual",
+                    "4. Investigator's Brochure, including the risk classification of the device as determined by the manufacturer or investigator, and the measures to mitigate potential risks to research participants",
+                    "5. Documentation of prior research findings related to the medical device",
+                    "6. Certificate from the manufacturer (in Thailand) or importer",
+                    "7. Manufacturing or import license for the medical device (if any)",
+                    "8. Notification receipt/registration certificate from the Medical Device Control Division, Thai FDA (if any)"
+                  ]
+                }
+              ],
+              "title_en": "Research Involving Medical Devices"
+            }
+          ],
+          "title_en": "Study-Specific / Special Categories of Research, including:"
+        },
+        {
+          "id": "outcomes",
+          "number": "12.2",
+          "title": "สรุปการวัดผลการวิจัย (Outcome measurement)",
+          "fields": [
+            {
+              "id": "outcomes",
+              "label": "ตารางการวัดผล",
+              "type": "table",
+              "fill_by": "ai",
+              "columns": [
+                "ตัวแปรที่ต้องการวัด (Outcome / Parameter)",
+                "เครื่องมือที่ใช้วัด (Measurement tools)",
+                "ผู้ประเมินหรือผู้วัดผล (Assessor)"
+              ],
+              "min_rows": 7,
+              "hint": "ระบุตัวแปร เครื่องมือ (เช่น แบบสอบถาม สายวัด เครื่องชั่ง) เพิ่มบรรทัดได้ตามต้องการ",
+              "label_en": "Outcome measurement table",
+              "hint_en": "Specify the variables to be studied and the tools used for measurement (e.g., questionnaire, measuring tape, scale). Add rows as needed.",
+              "columns_en": [
+                "Outcome / Parameter to be Measured",
+                "Measurement Tool(s)",
+                "Assessor"
+              ]
+            }
+          ],
+          "title_en": "Summary of Outcome Measurement"
+        },
+        {
+          "id": "operational_def",
+          "number": "12.3",
+          "title": "คำจำกัดความ (Operational definition)",
+          "fields": [
+            {
+              "id": "operational_definition",
+              "label": "คำจำกัดความที่สำคัญ โดยเฉพาะ outcome ที่จะวัด",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Clearly specify key operational definitions, particularly for the outcomes to be measured, e.g., defining what constitutes “disease cure/resolution.”"
+            }
+          ],
+          "title_en": "Operational Definitions"
+        }
+      ],
+      "title_en": "Research Methodology"
+    },
+    {
+      "id": "statistics",
+      "number": "13",
+      "title": "การวิเคราะห์ทางสถิติ",
+      "fields": [
+        {
+          "id": "statistics",
+          "label": "วิธีการวิเคราะห์ข้อมูลทางสถิติสำหรับแต่ละวัตถุประสงค์และการวัดผล",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "Specify the statistical analysis method(s) for each objective and outcome measure of the study."
+        }
+      ],
+      "title_en": "Statistical Analysis"
+    },
+    {
+      "id": "ethics",
+      "number": "14",
+      "title": "ข้อพิจารณาด้านจริยธรรม",
+      "subsections": [
+        {
+          "id": "consent",
+          "number": "14.1",
+          "title": "กระบวนการขอความยินยอม",
+          "fields": [
+            {
+              "id": "consent_who",
+              "label": "ใครเป็นผู้ให้ข้อมูลและขอความยินยอม",
+              "type": "text",
+              "fill_by": "ai",
+              "label_en": "Who provides the information and obtains consent"
+            },
+            {
+              "id": "consent_how",
+              "label": "ขอความยินยอมอย่างไร",
+              "type": "checkbox_group",
+              "fill_by": "ai",
+              "options": [
+                "ขอความยินยอมโดยการลงลายมือชื่อ (Written Consent)",
+                "ขอความยินยอมโดยการกระทำ (Consent by Action) เช่น ตอบแบบสอบถามโดยไม่ระบุชื่อและข้อมูลเชื่อมโยงบุคคล",
+                "ขอความยินยอมด้วยวาจา (Verbal Consent) โดยไม่ต้องลงลายมือชื่อ",
+                "ขอความยินยอมแบบอิเล็กทรอนิกส์ (e-Consent)",
+                "ขอยกเว้นการขอความยินยอม (Waiver of Consent) เนื่องจาก … (ระบุเหตุผล)"
+              ],
+              "label_en": "How is consent obtained? (mark “/” in [ ] box)",
+              "options_en": [
+                "Written consent (signature)",
+                "Consent by action (e.g., completing an anonymous questionnaire without identifying information)",
+                "Verbal consent (no signature required)",
+                "Electronic consent (e-Consent)",
+                "Waiver of consent, because ... (state the justification) ..."
+              ]
+            },
+            {
+              "id": "consent_when_where",
+              "label": "ขอความยินยอมเมื่อไร ที่ใด (ระบุสถานที่)",
+              "type": "text",
+              "fill_by": "ai",
+              "label_en": "When and where will consent be obtained (specify location)"
+            },
+            {
+              "id": "consent_time",
+              "label": "มีเวลาให้ตัดสินใจนานเท่าใด",
+              "type": "text",
+              "fill_by": "ai",
+              "label_en": "How much time is given for the participant to decide"
+            }
+          ],
+          "title_en": "Informed Consent Process"
+        },
+        {
+          "id": "vulnerable",
+          "number": "14.2",
+          "title": "การศึกษาในกลุ่มอ่อนแอและเปราะบาง (vulnerable subjects)",
+          "fields": [
+            {
+              "id": "vulnerable_has",
+              "label": "ผู้เข้าร่วมวิจัย",
+              "type": "radio",
+              "fill_by": "ai",
+              "options": [
+                "ไม่มีกลุ่มอ่อนแอและเปราะบาง",
+                "มีกลุ่มอ่อนแอและเปราะบาง"
+              ],
+              "label_en": "If applicable, mark “/” in [ ] corresponding to the study participants",
+              "options_en": [
+                "No vulnerable subjects",
+                "Includes vulnerable subjects"
+              ]
+            },
+            {
+              "id": "vulnerable_types",
+              "label": "ประเภทกลุ่มอ่อนแอและเปราะบาง (ถ้ามี)",
+              "type": "checkbox_group",
+              "fill_by": "ai",
+              "options": [
+                "Cognitive / communication: ผู้ขาดความสามารถในการตัดสินใจหรือมีปัญหาในการสื่อสาร เช่น เด็ก ผู้ป่วยโรคสมอง ผู้ป่วยฉุกเฉิน หรือใช้ภาษาท้องถิ่น",
+                "Institutional: ผู้ขาดอิสระในการตัดสินใจเพราะอยู่ภายใต้อำนาจหรือการปกครอง เช่น ทหารเกณฑ์ นักโทษ ผู้อยู่ในสถานสงเคราะห์",
+                "Deferral: ผู้ไม่เท่าเทียมในทางสังคม เช่น ผู้ป่วยของแพทย์ผู้วิจัย นักเรียนของอาจารย์",
+                "Medical: ผู้เจ็บป่วยร้ายแรง เช่น มะเร็งระยะสุดท้าย",
+                "Economic: ผู้ขาดโอกาสในการเข้าถึงการบริการสุขภาพ เช่น คนยากจน",
+                "Social: ผู้ที่ถูกแบ่งแยก กีดกันในสังคม เช่น กลุ่มชาติพันธุ์ คนเร่ร่อน",
+                "อื่นๆ (ระบุ)"
+              ],
+              "label_en": "Types of vulnerable subjects (if applicable)",
+              "options_en": [
+                "Cognitive/communication — individuals lacking decision-making capacity or with communication difficulties, e.g., children, patients with cognitive/neurological impairment, emergency patients, or speakers of a local dialect",
+                "Institutional — individuals lacking free decision-making autonomy due to being under authority or custodial control, e.g., military conscripts, prisoners, residents of institutional care facilities",
+                "Deferral (dependent relationship) — individuals in an unequal social relationship, e.g., patients of the investigator-physician, students of the investigator-instructor",
+                "Medical — individuals with a serious illness, e.g., terminal-stage cancer",
+                "Economic — individuals lacking access to healthcare services, e.g., persons of low socioeconomic status",
+                "Social — individuals who are marginalized or excluded in society, e.g., ethnic minority groups, homeless persons",
+                "Other, specify ..."
+              ]
+            },
+            {
+              "id": "vulnerable_protection",
+              "label": "การปกป้องเพิ่มเติม (Additional protection) สำหรับกลุ่มอ่อนแอและเปราะบาง",
+              "type": "textarea",
+              "fill_by": "ai",
+              "optional": true,
+              "label_en": "*If applicable, specify the additional protection measures for vulnerable research participants"
+            }
+          ],
+          "title_en": "Vulnerable Subjects"
+        },
+        {
+          "id": "risks",
+          "number": "14.3",
+          "title": "ความเสี่ยงและความไม่สะดวกสบายที่อาจเกิดขึ้นจากการเข้าร่วมการวิจัย (Foreseeable Risks and Burdens)",
+          "fields": [
+            {
+              "id": "risk_physical",
+              "label": "ความเสี่ยงทางกาย",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Physical risk"
+            },
+            {
+              "id": "risk_psychological",
+              "label": "ความเสี่ยงทางจิตใจ",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Psychological risk"
+            },
+            {
+              "id": "risk_economic",
+              "label": "ความเสี่ยงทางเศรษฐกิจ",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Economic risk"
+            },
+            {
+              "id": "risk_social",
+              "label": "ความเสี่ยงทางสังคม",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Social risk"
+            },
+            {
+              "id": "risk_other",
+              "label": "ความเสี่ยงอื่น ๆ",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Other risks"
+            },
+            {
+              "id": "inconvenience",
+              "label": "ความไม่สะดวกสบาย",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Burdens/inconveniences"
+            },
+            {
+              "id": "risk_mitigation",
+              "label": "วิธีการลดความเสี่ยงและความไม่สะดวกสบาย",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Risk and burden minimization measures"
+            }
+          ],
+          "title_en": "Foreseeable Risks and Burdens of Participation"
+        },
+        {
+          "id": "participant_benefits",
+          "number": "14.4",
+          "title": "ประโยชน์ที่คาดว่าผู้เข้าร่วมวิจัยจะได้รับจากการเข้าร่วมงานวิจัย",
+          "fields": [
+            {
+              "id": "benefit_direct",
+              "label": "ประโยชน์โดยตรงต่อผู้เข้าร่วมวิจัย",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Direct benefit to participants"
+            },
+            {
+              "id": "benefit_indirect",
+              "label": "ประโยชน์ทางอ้อมต่อผู้เข้าร่วมวิจัย",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Indirect benefit to participants"
+            },
+            {
+              "id": "benefit_others",
+              "label": "ประโยชน์ต่อผู้อื่นหรือการเพิ่มองค์ความรู้",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Benefit to others or contribution to knowledge"
+            }
+          ],
+          "title_en": "Expected Benefits to Research Participants"
+        },
+        {
+          "id": "post_trial",
+          "number": "14.5",
+          "title": "ประโยชน์และการดูแลผู้เข้าร่วมวิจัยภายหลังเสร็จสิ้นการวิจัย (Post-Trial Benefits and Care)",
+          "fields": [
+            {
+              "id": "post_benefits",
+              "label": "ประโยชน์ที่จะได้รับหลังสิ้นสุดกระบวนการวิจัย และ/หรือ วิธีการเพิ่มประโยชน์",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Benefits to be received after study completion and/or measures to enhance benefit"
+            },
+            {
+              "id": "post_care",
+              "label": "การดูแลรักษาหลังสิ้นสุดกระบวนการวิจัย",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Post-trial medical care"
+            }
+          ],
+          "title_en": "Post-Trial Benefits and Care"
+        },
+        {
+          "id": "confidentiality",
+          "number": "14.6",
+          "title": "การรักษาความลับของข้อมูล (Confidentiality of Data)",
+          "fields": [
+            {
+              "id": "data_type",
+              "label": "ชนิดของข้อมูล",
+              "type": "radio",
+              "fill_by": "ai",
+              "options": [
+                "ข้อมูลสามารถระบุตัวตนของผู้เข้าร่วมวิจัยได้ผ่านรหัส (Identifiable Data)",
+                "ข้อมูลไม่สามารถระบุตัวตนของผู้เข้าร่วมวิจัย (Anonymized Data)"
+              ],
+              "label_en": "Type of data (mark “/” in [ ] box)",
+              "options_en": [
+                "Coded/identifiable data (can identify participants via a code)",
+                "Anonymized data (cannot identify participants)"
+              ]
+            },
+            {
+              "id": "data_storage",
+              "label": "รูปแบบการเก็บข้อมูล",
+              "type": "checkbox_group",
+              "fill_by": "ai",
+              "with_detail": true,
+              "options": [
+                "เก็บข้อมูลเป็นไฟล์ Data set เช่น Excel หรือโปรแกรมในคอมพิวเตอร์ (ระบุ)",
+                "เก็บข้อมูลในระบบคลาวด์ เช่น Google Drive (ระบุ)",
+                "แบบเก็บข้อมูลเป็นกระดาษ",
+                "อื่นๆ (ระบุ)"
+              ],
+              "label_en": "Data storage format (mark “/” in [ ] box)",
+              "options_en": [
+                "Electronic dataset (e.g., Excel file or software) stored on a computer — specify ...",
+                "Cloud storage (e.g., Google Drive) — specify ...",
+                "Paper-based data collection form",
+                "Other — specify ..."
+              ]
+            },
+            {
+              "id": "data_protection",
+              "label": "วิธีการรักษาความลับของข้อมูล (เช่น ใช้รหัสผู้เข้าร่วมวิจัย ใช้ password protection หรือเก็บในตู้เอกสารจำกัดผู้เข้าถึง)",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "Method of data confidentiality protection (e.g., use of participant codes, password protection, or storage in a restricted-access filing cabinet)"
+            },
+            {
+              "id": "data_retention_years",
+              "label": "ระยะเวลาในการเก็บรักษาข้อมูล (ปี)",
+              "type": "text",
+              "fill_by": "ai",
+              "label_en": "Data retention period (years)"
+            },
+            {
+              "id": "data_destruction",
+              "label": "จะทำลายข้อมูลของผู้เข้าร่วมงานวิจัยเมื่อใด วิธีการทำลายอย่างไร",
+              "type": "textarea",
+              "fill_by": "ai",
+              "label_en": "When and how will participant data be destroyed (e.g., data will be destroyed 2 years after publication of the research findings, by deleting all participant data from every storage location)"
+            }
+          ],
+          "title_en": "Confidentiality of Data"
+        }
+      ],
+      "title_en": "Ethical Considerations"
+    },
+    {
+      "id": "community",
+      "number": "15",
+      "title": "เพิ่มเติมข้อพิจารณาในเรื่องชุมชน (ในกรณีที่ทำการวิจัยในชุมชน)",
+      "optional": true,
+      "fields": [
+        {
+          "id": "community_consult",
+          "label": "15.1 การปรึกษาหารือกับผู้นำชุมชน ก่อนเริ่มการวิจัย",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "15.1 Consultation with Community Leaders Prior to Study Commencement"
+        },
+        {
+          "id": "community_benefit",
+          "label": "15.2 ประโยชน์ต่อชุมชน ทั้งในระหว่างดำเนินการวิจัยและภายหลังเสร็จสิ้นการวิจัย",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "15.2 Benefits to the Community, During and After the Study"
+        },
+        {
+          "id": "community_impact",
+          "label": "15.3 ผลกระทบที่อาจเกิดขึ้นต่อชุมชนที่ทำการวิจัย",
+          "type": "textarea",
+          "fill_by": "ai",
+          "label_en": "15.3 Potential Impacts on the Community"
+        }
+      ],
+      "title_en": "Additional Community Considerations (for research conducted in a community)"
+    },
+    {
+      "id": "plan",
+      "number": "16",
+      "title": "แผนการดำเนินการวิจัย และการบริหารจัดการ: ตารางสรุปการจัดการเวลาและบุคลากรในการวิจัย",
+      "fields": [
+        {
+          "id": "gantt",
+          "label": "แผนการดำเนินงาน (Gantt chart)",
+          "type": "table",
+          "fill_by": "user",
+          "columns": [
+            "แผนการดำเนินงาน",
+            "ม.ย. 69",
+            "พ.ค. 69",
+            "มิ.ย. 69",
+            "ก.ค. 69",
+            "ส.ค. 69",
+            "ก.ย. 69",
+            "ต.ค. 69",
+            "พ.ย. 69",
+            "ผู้รับผิดชอบ"
+          ],
+          "min_rows": 1,
+          "rows": [
+            "1. เตรียมข้อมูลและยื่นขอรับพิจารณาจริยธรรมการวิจัย",
+            "2. ประกาศรับและคัดกรองผู้เข้าร่วมงานวิจัย",
+            "3. ดำเนินการเก็บข้อมูล",
+            "4. ติดตามผลการวิจัยครั้งที่ 1",
+            "5. ติดตามผลการวิจัยครั้งที่ 2",
+            "6. วิเคราะห์ผลการวิจัย",
+            "7. สรุปผลการวิจัยและแจ้งปิดโครงการวิจัย"
+          ],
+          "hint": "ปรับรายการและช่วงเวลาได้ตามระยะเวลาดำเนินงานจริง ระบุบุคลากรที่เกี่ยวข้องในแต่ละขั้นตอน",
+          "red_columns": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "red_columns_note": "เดือน ม.ย.-พ.ย. 69 คงไว้เป็นข้อความตัวอย่างตามฟอร์ม แสดงเป็นตัวอักษรสีแดงเพื่อให้ผู้ใช้ปรับแก้เอง",
+          "label_en": "Implementation Plan (Gantt chart)",
+          "hint_en": "A Gantt chart or table specifying the timeframe for each study step and the personnel responsible. Items and timeframes may be modified to reflect the actual implementation schedule.",
+          "columns_en": [
+            "Implementation Plan",
+            "Apr 2026",
+            "May 2026",
+            "Jun 2026",
+            "Jul 2026",
+            "Aug 2026",
+            "Sep 2026",
+            "Oct 2026",
+            "Nov 2026",
+            "Responsible Person"
+          ],
+          "rows_en": [
+            "1. Prepare documentation and submit for ethics review",
+            "2. Announce recruitment and screen participants",
+            "3. Conduct data collection",
+            "4. First follow-up assessment",
+            "5. Second follow-up assessment",
+            "6. Analyze study results",
+            "7. Summarize findings and notify study closure"
+          ]
+        }
+      ],
+      "title_en": "Research Implementation and Management Plan: Summary of Timeline and Personnel"
+    },
+    {
+      "id": "budget",
+      "number": "17",
+      "title": "งบประมาณในการวิจัย",
+      "subsections": [
+        {
+          "id": "funding",
+          "number": "17.1",
+          "title": "แหล่งทุนวิจัย (Funding)",
+          "fields": [
+            {
+              "id": "funding",
+              "label": "แหล่งทุนและจำนวนเงิน (บาท)",
+              "type": "table",
+              "fill_by": "user",
+              "columns": [
+                "แหล่งทุน",
+                "ทุนที่ได้รับ (/)",
+                "จำนวนเงิน (บาท)"
+              ],
+              "min_rows": 1,
+              "rows": [
+                "ทุนส่วนตัว",
+                "ทุนจากหน่วยงานของรัฐบาล (ระบุ)",
+                "ทุนจากองค์กรซึ่งไม่แสวงหาผลกำไร (ระบุ)",
+                "ทุนจากบริษัทเอกชน (ระบุ)"
+              ],
+              "label_en": "Funding source and amount (THB)",
+              "columns_en": [
+                "Funding Source",
+                "Received (/)",
+                "Amount (THB)"
+              ],
+              "rows_en": [
+                "Self-funded",
+                "Government agency funding, specify ...",
+                "Funding from a non-profit organization, specify ...",
+                "Funding from a private company, specify ..."
+              ]
+            }
+          ],
+          "title_en": "Funding Source"
+        },
+        {
+          "id": "budget_items",
+          "number": "17.2",
+          "title": "จำแนกรายละเอียดงบประมาณ",
+          "fields": [
+            {
+              "id": "budget_items",
+              "label": "รายละเอียดงบประมาณ",
+              "type": "table",
+              "fill_by": "user",
+              "columns": [
+                "รายละเอียดงบประมาณ",
+                "จำนวนเงิน (บาท)"
+              ],
+              "min_rows": 1,
+              "rows": [
+                "1) ค่าตอบแทนผู้เข้าร่วมการวิจัย",
+                "2) ค่าดูแลรักษาและฟื้นฟูผู้เข้าร่วมการวิจัย กรณีเกิดเหตุการณ์ไม่พึงประสงค์",
+                "3) ค่าใช้จ่ายด้านอุปกรณ์การวิจัย",
+                "4) ค่าเดินทาง / ค่าที่พัก",
+                "5) ค่าเขียนแบบ ออกแบบ และจัดทำต้นแบบ",
+                "6) ค่าครุภัณฑ์",
+                "7) ค่าวิเคราะห์ข้อมูล",
+                "8) อื่น ๆ",
+                "9)"
+              ],
+              "hint": "ปรับแก้รายการได้ตามการดำเนินงานจริง",
+              "label_en": "Budget breakdown (THB)",
+              "hint_en": "Items may be modified as needed to reflect actual implementation.",
+              "columns_en": [
+                "Budget Breakdown",
+                "Amount (THB)"
+              ],
+              "rows_en": [
+                "1) Participant compensation",
+                "2) Cost of medical care and rehabilitation for participants in the event of an adverse event",
+                "3) Research equipment/materials expenses",
+                "4) Travel/accommodation expenses",
+                "5) Drafting, design, and prototyping costs",
+                "6) Durable equipment costs",
+                "7) Data analysis costs",
+                "8) Other",
+                "9)"
+              ]
+            }
+          ],
+          "title_en": "Budget Breakdown"
+        }
+      ],
+      "title_en": "Research Budget"
+    },
+    {
+      "id": "references",
+      "number": "18",
+      "title": "เอกสารอ้างอิง",
+      "fields": [
+        {
+          "id": "references",
+          "label": "เอกสารอ้างอิง (ใช้รูปแบบ Vancouver หรือ APA เท่านั้น)",
+          "type": "bullet_list",
+          "fill_by": "ai",
+          "label_en": "References (cite using the Vancouver or APA style only)"
+        }
+      ],
+      "title_en": "References"
+    },
+    {
+      "id": "appendix",
+      "number": "19",
+      "title": "ภาคผนวก (แยกออกจากเอกสารโครงการวิจัย และแยกเป็นแต่ละเอกสาร)",
+      "fields": [
+        {
+          "id": "appendix",
+          "label": "รายการเอกสารแนบ",
+          "type": "checklist",
+          "fill_by": "user",
+          "attach_separately": true,
+          "options": [
+            "(1) แบบบันทึกข้อมูล (Case Record Form) (ถ้ามี)",
+            "(2) แบบสอบถาม (ถ้ามี)",
+            "(3) เอกสารข้อมูลและขอความยินยอมเข้าร่วมการวิจัย (information sheet and informed consent): AP 03_1 / AP 03_2 (ถ้ามีการเก็บข้อมูลและตัวอย่างชีวภาพไว้ใช้ในอนาคต) / AP 03_3 (ถ้ามีการศึกษาด้านพันธุกรรม) / AP 03_4 (ถ้ามีผู้เข้าร่วมวิจัยเด็กอายุ 7-12 ปี) / AP 03_5 (ถ้ามีการใช้ศพเพื่อการวิจัย) / AP 03_6 (ถ้ามีการรายงานกรณีศึกษา)",
+            "(4) ประวัติผู้วิจัยและผู้วิจัยร่วม ที่ลงนามและวันที่กำกับ",
+            "(5) หลักฐานการอบรมด้านจริยธรรมการวิจัย ที่ลงนามและวันที่กำกับ (ทุกโครงการต้องแนบ 2 ฉบับ: จริยธรรมการวิจัยในมนุษย์ และ ICH GCP ที่ยังไม่หมดอายุจนถึงสิ้นสุดแผนการวิจัย)",
+            "(6) เอกสารเปิดเผยผลประโยชน์ทับซ้อนของผู้วิจัยและผู้วิจัยร่วม (AP 01_2) (รายบุคคล)",
+            "(7) หนังสือรับรองการเป็นอาจารย์ที่ปรึกษาโครงการวิจัยของนักศึกษา ถ้าเป็นงานวิจัยของนักศึกษา (AP 01_3) (รายบุคคล)",
+            "(8) โฆษณา (ถ้ามี) ควรมีข้อมูล: ชื่อโครงการและระบุว่าเป็นการวิจัยหรือการทดลอง (ไม่ใช่การรักษา) / ชื่อผู้วิจัย สถานที่ เบอร์โทรศัพท์ วิธีติดต่อ / วัตถุประสงค์ โรค ภาวะ หรือปัญหาที่จะวิจัย / ประโยชน์ที่คาดว่าจะได้รับ (ไม่มีถ้อยคำอวดอ้างหรือโน้มน้าว) / เกณฑ์การรับเข้าโครงการ / ไม่ควรแสดงจำนวนเงินค่าตอบแทน แต่ระบุได้ว่าได้รับค่าตอบแทนเมื่อมาตามนัด",
+            "(9) อื่นๆ เช่น สมุดไดอารี่ แผ่นพับ บัตรประจำตัวผู้เข้าร่วมการวิจัย เอกสารคำแนะนำผู้เข้าร่วมการวิจัย",
+            "(10) เอกสารแนบสำหรับงานวิจัยเรื่องเฉพาะ (ยา สมุนไพร เครื่องสำอาง อาหาร เครื่องมือแพทย์) ตามที่ระบุในข้อ 12.2"
+          ],
+          "label_en": "List of attached documents",
+          "options_en": [
+            "(1) Case Record Form (CRF) (if applicable)",
+            "(2) Questionnaire (if applicable)",
+            "(3) Information Sheet and Informed Consent Form: AP 03_1/2026; AP 03_2/2026 (if applicable — storage of data and biological specimens for future research); AP 03_3/2026 (if applicable — genetic research); AP 03_4/2026 (if applicable — child participants aged 7–12 years); AP 03_5/2026 (if applicable — use of cadavers for research); AP 03_6/2026 (if applicable — case report)",
+            "(4) Curriculum vitae (CV) of the investigator and co-investigator(s), signed and dated",
+            "(5) Certificate of research ethics training, signed and dated (all research projects must attach two certificates: Human Research Ethics training and Good Clinical Practice (ICH-GCP) training, both valid through the planned end date of the study)",
+            "(6) Conflict of Interest Disclosure Form for the investigator and co-investigator(s) (AP 01_2/2026) (one per individual)",
+            "(7) Certification of Research Advisor status for student research projects, if applicable (AP 01_3/2026) (one per individual)",
+            "(8) Advertisement (if any) should include: study title, clearly stating that it is research/an experimental study (not a treatment); name of the investigator, study site, telephone number/contact information; study objective and the disease/condition/problem being studied; expected benefits (without exaggerated or persuasive/promotional language); eligibility criteria for enrollment; the compensation amount should not be stated, but it may note that compensation is provided upon attending scheduled visits",
+            "(9) Other materials, e.g., participant diary, brochure, participant ID card, participant instruction sheet",
+            "(10) For studies involving specific categories, such as conventional drugs, herbal products, cosmetics, food products, or medical devices, submit the supporting documents specified in Section 12.1.7"
+          ]
+        }
+      ],
+      "title_en": "Appendices (submitted separately from the research protocol, as individual documents)"
+    }
+  ],
+  "name_en": "Research Protocol Proposal Form for Ethical Review (AP 02/2026)",
+  "languages_available": [
+    "th",
+    "en"
+  ],
+  "title_th_form": "แบบเสนอโครงการวิจัยเพื่อพิจารณา",
+  "title_en_form": "Research Protocol Proposal Form for Ethical Review"
+}

@@ -1,0 +1,117 @@
+/* ---------- หน้าจอควบคุม (UI) ---------- */
+          .topbar 
+          {
+            background:#0f172a; 
+            color:#fff; 
+            padding:12px 24px; 
+            font-size:22px; 
+          }
+          .panel 
+          { 
+            max-width:980px; 
+            margin:20px auto; 
+            background:#fff; 
+            border:1px solid var(--line); 
+            border-radius:10px; 
+            padding:20px 24px; 
+          }
+          .panel h2 
+          { 
+            margin:0 0 4px; 
+            font-size:22px; 
+          }
+          .muted 
+          { 
+            color:#475569; 
+            font-size:16px; 
+            margin:0 0 12px; 
+          }
+          .langs 
+          { 
+            display:flex; 
+            gap:12px; 
+            flex-wrap:wrap; 
+            margin:8px 0 16px; 
+          }
+          .lang 
+          { 
+            flex:1 1 260px; 
+            display:flex; 
+            gap:10px; 
+            align-items:flex-start; 
+            padding:12px 14px;
+            border:2px solid var(--line); 
+            border-radius:10px; 
+            cursor:pointer; 
+          }
+          .lang:has(input:checked) 
+          { 
+            border-color:var(--accent); 
+            background:#eff6ff; 
+          }
+          .lang b 
+          { 
+            display:block; 
+            font-size:20px; 
+          }
+          .lang small 
+          { 
+            color:#475569; 
+            font-size:15px; 
+          }
+          .btn 
+          { 
+            font:inherit; 
+            font-size:18px; 
+            padding:9px 18px; 
+            border-radius:8px; 
+            border:1px solid var(--accent);
+            background:var(--accent);  
+            color:#fff; 
+            cursor:pointer; 
+          }
+          .btn:disabled 
+          { 
+            opacity:.55; 
+            cursor:wait; 
+          }
+          .btn.ghost 
+          { 
+            background:#fff; 
+            color:var(--accent); 
+          }
+          .status 
+          { 
+            margin-top:10px; 
+            font-size:16px; 
+            color:#334155; 
+            min-height:22px; 
+          }
+          .notice 
+          { 
+            margin-top:12px; 
+            padding:8px 12px; 
+            background:#fffbeb; 
+            border:1px solid #fcd34d; 
+            border-radius:8px; 
+            font-size:15px; 
+          }
+
+          .toolbar 
+          { 
+            display:flex; 
+            gap:10px; 
+            align-items:center; 
+            flex-wrap:wrap; 
+            margin:6px 0 10px; 
+          }
+  .toolbar select { font:inherit; font-size:16px; padding:5px 8px; }
+  .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  .tab { font:inherit; font-size:17px; padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#fff; cursor:pointer; }
+  .tab[aria-selected="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .desc { font-size:16px; color:#334155; margin:4px 0 12px; }
+
+  .modal { position:fixed; inset:0; background:rgba(15,23,42,.55); display:flex; align-items:center; justify-content:center; z-index:50; }
+  .modal-box { background:#fff; border-radius:10px; padding:20px 24px; max-width:520px; width:92%; }
+  .modal-box h3 { margin:0 0 8px; color:var(--red); }
+  .modal-box p { margin:0 0 14px; font-size:17px; white-space:pre-wrap; }

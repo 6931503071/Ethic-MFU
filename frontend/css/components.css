@@ -1,0 +1,185 @@
+/* ---------- หน้ากระดาษ A4 ---------- */
+
+  #variants 
+  { 
+    transform-origin:top center; 
+  }
+  .variant 
+  { 
+    display:none; 
+  }
+  .variant.active, .variant.measuring 
+  { 
+    display:block; 
+  }
+  .sheet 
+  { 
+    --gap:1.5mm; 
+    --sec-gap:5mm;
+    position:relative; 
+    width:210mm; 
+    height:297mm; 
+    margin:0 auto 14px; 
+    background:#fff;
+    padding:25.4mm 24.9mm 20mm 24.9mm; 
+    display:flex; 
+    flex-direction:column;
+    box-shadow:0 2px 8px rgba(0,0,0,.25); 
+    color:#000;
+    font-family:'TH Sarabun New','Sarabun','Noto Sans Thai',Tahoma,sans-serif; 
+    font-size:16pt; 
+    line-height:1.18; 
+  }
+  .sheet.sp-tight 
+  { 
+    --gap:0.8mm; 
+    --sec-gap:3mm; 
+  }
+  .sheet.sp-airy  
+  { 
+    --gap:3mm;   
+    --sec-gap:8mm; 
+  }
+  .hdr 
+  { 
+    position:absolute; 
+    top:9.9mm; 
+    left:24.9mm; 
+    right:24.9mm; 
+    display:flex; 
+    justify-content:space-between; 
+    font-size:14pt; 
+  }
+  .ftr 
+  { 
+    position:absolute; 
+    bottom:8.9mm; 
+    left:24.9mm; 
+    right:24.9mm; 
+    text-align:center; 
+    font-size:14pt; 
+  }
+  .body 
+  { 
+    flex:1 1 auto; 
+    min-height:0; 
+    overflow:hidden; 
+  }
+  .body > * 
+  { 
+    margin:0 0 var(--gap); 
+  }
+  .body > :first-child 
+  { 
+    margin-top:0; 
+  }
+
+  .doc-title 
+  { 
+    font-size:18pt; 
+    font-weight:bold; 
+    text-align:center; 
+    margin-bottom:4mm !important; 
+  }
+  .sec-h 
+  { 
+    font-size:18pt; 
+    font-weight:bold; 
+    margin-top:var(--sec-gap) !important; 
+  }
+  .sub-h 
+  { 
+    font-size:16pt; 
+    font-weight:bold; 
+    margin-top:calc(var(--sec-gap) * .6) !important; 
+  }
+  .lbl-line 
+  { 
+    font-weight:bold; 
+  }
+  .lbl-line.instr 
+  { 
+    font-weight:normal; 
+  }
+  .hint 
+  { 
+    font-size:14pt; 
+    color:#555; 
+    font-style:italic; 
+  }
+  .para 
+  { 
+    white-space:pre-wrap; 
+  }
+  .item 
+  { 
+    display:flex; gap:2mm; }
+  .item .mk 
+  { 
+    flex:0 0 8mm; 
+  }
+  .item .tx 
+  { 
+    flex:1; 
+  }
+  .opt 
+  { 
+    display:flex; 
+    align-items:flex-start; 
+    padding-left:3mm; 
+  }
+  .opt .tx 
+  { 
+    flex:1; 
+  }
+  .cb 
+  { 
+    display:inline-block; 
+    flex:0 0 3.6mm; 
+    width:3.6mm; 
+    height:3.6mm; 
+    border:1px solid #000; 
+    margin:1.6mm 2mm 0 0;
+        text-align:center; line-height:3.2mm; font-size:11pt; font-family:Arial,sans-serif; }
+  .cb.on::before { content:'\2713'; }
+
+  /* สีแดง: ช่องที่ต้องกรอกเอง / ข้อความกำกวม */
+  .ph { color:var(--red); background:var(--redbg); border-bottom:1px dashed var(--red); }
+  .flag { color:var(--red); text-decoration:underline wavy var(--red); cursor:help; }
+  td.blank { background:var(--redbg); }
+  th.redcol { color:var(--red); }
+
+  .dt { width:100%; border-collapse:collapse; font-size:14pt; }
+  .dt th, .dt td { border:1px solid #000; padding:1mm 1.5mm; vertical-align:top; text-align:left; }
+  .dt th { background:#f3f4f6; }
+  .gantt { table-layout:fixed; font-size:13pt; }
+  .gantt th { font-size:11pt; text-align:center; padding:1mm 0.5mm; }
+  .gantt th:first-child { width:31%; text-align:left; padding-left:1.5mm; }
+  .gantt th:last-child { width:15%; }
+
+  .boxrow { display:flex; border:1px solid #000; }
+  .body > .boxrow { margin:0 0 -1px 0; }
+  .boxrow .lbl { flex:0 0 36%; padding:1.2mm 2mm; border-right:1px solid #000; font-weight:bold; }
+  .boxrow .val { flex:1; padding:1.2mm 2mm; min-width:0; }
+  .boxrow.cont { border-top:0; }
+  .boxrow.cont .lbl { border-right:1px solid #000; }
+  .boxrow.full { display:block; }
+  .boxrow.full .lbl { border-right:0; font-weight:normal; }
+  .boxrow.full .val { padding-top:0; }
+
+  .summary { border:1.5px solid #000; padding:3mm 4mm; }
+  .sum-h { font-weight:bold; font-size:18pt; margin-bottom:2mm; }
+  .sum-row { display:flex; gap:3mm; margin-bottom:1mm; }
+  .sum-row b { flex:0 0 36mm; }
+  .sum-row span { flex:1; }
+
+  @page { size:A4; margin:0; }
+  @media print {
+    body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .topbar, .panel, .toolbar, .tabs, .desc, #error-modal { display:none !important; }
+    #result { display:block !important; margin:0; padding:0; border:0; }
+    #variants { zoom:1 !important; transform:none !important; }
+    .variant { display:none !important; }
+    .variant.active { display:block !important; }
+    .sheet { box-shadow:none; margin:0; break-after:page; }
+  }
