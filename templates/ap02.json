@@ -3,7 +3,8 @@
   "form_code": "AP 02/2026",
   "name": "แบบเสนอโครงการวิจัยเพื่อพิจารณา (AP 02/2026)",
   "submit_to": "https://submission-ec.mfu.ac.th",
-  "language": [
+  "language": 
+  [
     "th",
     "en"
   ],
