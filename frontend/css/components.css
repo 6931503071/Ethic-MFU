@@ -65,11 +65,11 @@
     min-height:0; 
     overflow:hidden; 
   }
-  .body > * 
+  .body  * 
   { 
     margin:0 0 var(--gap); 
   }
-  .body > :first-child 
+  .body  :first-child 
   { 
     margin-top:0; 
   }
@@ -112,7 +112,7 @@
     white-space:pre-wrap; 
   }
   .item 
-  { 
+  {     
     display:flex; 
     gap:2mm; 
   }
@@ -150,42 +150,142 @@
    }
 
   /* สีแดง: ช่องที่ต้องกรอกเอง / ข้อความกำกวม */
-  .ph { color:var(--red); background:var(--redbg); border-bottom:1px dashed var(--red); }
-  .flag { color:var(--red); text-decoration:underline wavy var(--red); cursor:help; }
-  td.blank { background:var(--redbg); }
-  th.redcol { color:var(--red); }
+  .ph 
+  { 
+    color:var(--red); background:var(--redbg); border-bottom:1px dashed var(--red); 
+  }
+  .flag 
+  { 
+    color:var(--red); text-decoration:underline wavy var(--red); cursor:help; 
+  }
+  td.blank 
+  { 
+    background:var(--redbg); 
+  }
+  th.redcol 
+  { 
+    color:var(--red); 
+  }
 
-  .dt { width:100%; border-collapse:collapse; font-size:14pt; }
-  .dt th, .dt td { border:1px solid #000; padding:1mm 1.5mm; vertical-align:top; text-align:left; }
-  .dt th { background:#f3f4f6; }
-  .gantt { table-layout:fixed; font-size:13pt; }
-  .gantt th { font-size:11pt; text-align:center; padding:1mm 0.5mm; }
-  .gantt th:first-child { width:31%; text-align:left; padding-left:1.5mm; }
-  .gantt th:last-child { width:15%; }
+  .dt 
+  { 
+    width:100%; border-collapse:collapse; font-size:14pt; 
+  }
+  .dt th, .dt td 
+  { 
+    border:1px solid #000; padding:1mm 1.5mm; vertical-align:top; text-align:left; 
+  }
+  .dt th 
+  { 
+    background:#f3f4f6; 
+  }
+  .gantt 
+   { 
+    table-layout:fixed; font-size:13pt;
+   }
+  .gantt th 
+  { 
+    font-size:11pt; text-align:center; padding:1mm 0.5mm; 
+  }
+  .gantt th:first-child 
+  { 
+    width:31%; text-align:left; padding-left:1.5mm;
+  }
+  .gantt th:last-child 
+  { 
+    width:15%;
+  }
 
-  .boxrow { display:flex; border:1px solid #000; }
-  .body > .boxrow { margin:0 0 -1px 0; }
-  .boxrow .lbl { flex:0 0 36%; padding:1.2mm 2mm; border-right:1px solid #000; font-weight:bold; }
-  .boxrow .val { flex:1; padding:1.2mm 2mm; min-width:0; }
-  .boxrow.cont { border-top:0; }
-  .boxrow.cont .lbl { border-right:1px solid #000; }
-  .boxrow.full { display:block; }
-  .boxrow.full .lbl { border-right:0; font-weight:normal; }
-  .boxrow.full .val { padding-top:0; }
+  .boxrow 
+  { 
+    display:flex; border:1px solid #000; 
+  }
+  .body .boxrow 
+  { 
+    margin:0 0 -1px 0;
+  }
+  .boxrow .lbl 
+  { 
+    flex:0 0 36%; padding:1.2mm 2mm; border-right:1px solid #000; font-weight:bold;
+  }
+  .boxrow .val 
+  { 
+    flex:1; padding:1.2mm 2mm; min-width:0;
+  }
+  .boxrow.cont 
+  { 
+    border-top:0;
+  }
+  .boxrow.cont .lbl 
+  { 
+    border-right:1px solid #000; 
+  }
+  .boxrow.full
+  { 
+    display:block; 
+  }
+  .boxrow.full .lbl 
+  { 
+    border-right:0; font-weight:normal; 
+  }
+  .boxrow.full .val 
+  { 
+    padding-top:0;
+  }
 
-  .summary { border:1.5px solid #000; padding:3mm 4mm; }
-  .sum-h { font-weight:bold; font-size:18pt; margin-bottom:2mm; }
-  .sum-row { display:flex; gap:3mm; margin-bottom:1mm; }
-  .sum-row b { flex:0 0 36mm; }
-  .sum-row span { flex:1; }
+  .summary 
+  {
+     border:1.5px solid #000; padding:3mm 4mm; 
+  }
+  .sum-h 
+  { 
+    font-weight:bold; font-size:18pt; margin-bottom:2mm; 
+  }
+  .sum-row 
+  { 
+    display:flex; gap:3mm; margin-bottom:1mm;
+  }
+  .sum-row b 
+  { 
+    flex:0 0 36mm; 
+  }
+  .sum-row span
+ { 
+    flex:1; 
+  }
 
-  @page { size:A4; margin:0; }
-  @media print {
-    body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    .topbar, .panel, .toolbar, .tabs, .desc, #error-modal { display:none !important; }
-    #result { display:block !important; margin:0; padding:0; border:0; }
-    #variants { zoom:1 !important; transform:none !important; }
-    .variant { display:none !important; }
-    .variant.active { display:block !important; }
-    .sheet { box-shadow:none; margin:0; break-after:page; }
+  @page 
+  { 
+    size:A4; margin:0;
+  }
+  @media print 
+  {
+    body 
+    { 
+      background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; 
+    }
+    .topbar, .panel, .toolbar, .tabs, .desc, #error-modal 
+    { 
+      display:none !important; 
+    }
+    #result 
+    { 
+      display:block !important; margin:0; padding:0; border:0; 
+    }
+    #variants 
+    { 
+      zoom:1 !important; transform:none !important; 
+    }
+    .variant
+    { 
+      display:none !important;
+    }
+    .variant.active 
+    { 
+      display:block !important; 
+    }
+    .sheet 
+    { 
+      box-shadow:none; margin:0; break-after:page; 
+    }
   }
