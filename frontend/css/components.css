@@ -65,11 +65,11 @@
     min-height:0; 
     overflow:hidden; 
   }
-  .body  * 
+  .body > * 
   { 
     margin:0 0 var(--gap); 
   }
-  .body  :first-child 
+  .body > :first-child 
   { 
     margin-top:0; 
   }
@@ -200,7 +200,7 @@
   { 
     display:flex; border:1px solid #000; 
   }
-  .body .boxrow 
+  .body > .boxrow 
   { 
     margin:0 0 -1px 0;
   }
@@ -270,22 +270,25 @@
     }
     #result 
     { 
-      display:block !important; margin:0; padding:0; border:0; 
+      display:block !important; 
+      margin:0; padding:0; border:0; 
     }
     #variants 
     { 
       zoom:1 !important; transform:none !important; 
     }
     .variant
-    { 
+     { 
       display:none !important;
-    }
+     }
     .variant.active 
     { 
       display:block !important; 
     }
     .sheet 
     { 
-      box-shadow:none; margin:0; break-after:page; 
+      box-shadow:none; 
+      margin:0; 
+      break-after:page; 
     }
   }
