@@ -142,21 +142,28 @@
     height:3.6mm; 
     border:1px solid #000; 
     margin:1.6mm 2mm 0 0;
-        text-align:center; line-height:3.2mm; font-size:11pt; font-family:Arial,sans-serif; 
+    text-align:center; 
+    line-height:3.2mm; 
+    font-size:11pt; 
+    font-family:Arial,sans-serif; 
   }
   .cb.on::before
-   { 
+  { 
     content:'\2713';
-   }
+  }
 
   /* สีแดง: ช่องที่ต้องกรอกเอง / ข้อความกำกวม */
   .ph 
   { 
-    color:var(--red); background:var(--redbg); border-bottom:1px dashed var(--red); 
+    color:var(--red); 
+    background:var(--redbg); 
+    border-bottom:1px dashed var(--red); 
   }
   .flag 
   { 
-    color:var(--red); text-decoration:underline wavy var(--red); cursor:help; 
+    color:var(--red); 
+    text-decoration:underline wavy var(--red); 
+    cursor:help; 
   }
   td.blank 
   { 
@@ -169,27 +176,37 @@
 
   .dt 
   { 
-    width:100%; border-collapse:collapse; font-size:14pt; 
+    width:100%; 
+    border-collapse:collapse; 
+    font-size:14pt; 
   }
   .dt th, .dt td 
   { 
-    border:1px solid #000; padding:1mm 1.5mm; vertical-align:top; text-align:left; 
+    border:1px solid #000; 
+    padding:1mm 1.5mm; 
+    vertical-align:top; 
+    text-align:left; 
   }
   .dt th 
   { 
     background:#f3f4f6; 
   }
   .gantt 
-   { 
-    table-layout:fixed; font-size:13pt;
-   }
+  { 
+    table-layout:fixed; 
+    font-size:13pt;
+  }
   .gantt th 
   { 
-    font-size:11pt; text-align:center; padding:1mm 0.5mm; 
+    font-size:11pt; 
+    text-align:center; 
+    padding:1mm 0.5mm; 
   }
   .gantt th:first-child 
   { 
-    width:31%; text-align:left; padding-left:1.5mm;
+    width:31%; 
+    text-align:left; 
+    padding-left:1.5mm;
   }
   .gantt th:last-child 
   { 
@@ -198,7 +215,8 @@
 
   .boxrow 
   { 
-    display:flex; border:1px solid #000; 
+    display:flex; 
+    border:1px solid #000; 
   }
   .body > .boxrow 
   { 
@@ -206,11 +224,16 @@
   }
   .boxrow .lbl 
   { 
-    flex:0 0 36%; padding:1.2mm 2mm; border-right:1px solid #000; font-weight:bold;
+    flex:0 0 36%; 
+    padding:1.2mm 2mm; 
+    border-right:1px solid #000; 
+    font-weight:bold;
   }
   .boxrow .val 
   { 
-    flex:1; padding:1.2mm 2mm; min-width:0;
+    flex:1; 
+    padding:1.2mm 2mm; 
+    min-width:0;
   }
   .boxrow.cont 
   { 
@@ -226,7 +249,8 @@
   }
   .boxrow.full .lbl 
   { 
-    border-right:0; font-weight:normal; 
+    border-right:0; 
+    font-weight:normal; 
   }
   .boxrow.full .val 
   { 
@@ -235,34 +259,41 @@
 
   .summary 
   {
-     border:1.5px solid #000; padding:3mm 4mm; 
+    border:1.5px solid #000; 
+    padding:3mm 4mm; 
   }
   .sum-h 
   { 
-    font-weight:bold; font-size:18pt; margin-bottom:2mm; 
+    font-weight:bold; 
+    font-size:18pt; 
+    margin-bottom:2mm; 
   }
   .sum-row 
   { 
-    display:flex; gap:3mm; margin-bottom:1mm;
+    display:flex; 
+    gap:3mm; margin-bottom:1mm;
   }
   .sum-row b 
   { 
     flex:0 0 36mm; 
   }
   .sum-row span
- { 
+  { 
     flex:1; 
   }
 
   @page 
   { 
-    size:A4; margin:0;
+    size:A4; 
+    margin:0;
   }
   @media print 
   {
     body 
     { 
-      background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; 
+      background:#fff; 
+      -webkit-print-color-adjust:exact; 
+      print-color-adjust:exact; 
     }
     .topbar, .panel, .toolbar, .tabs, .desc, #error-modal 
     { 
@@ -271,16 +302,19 @@
     #result 
     { 
       display:block !important; 
-      margin:0; padding:0; border:0; 
+      margin:0; 
+      padding:0; 
+      border:0; 
     }
     #variants 
     { 
-      zoom:1 !important; transform:none !important; 
+      zoom:1 !important;
+      transform:none !important; 
     }
     .variant
-     { 
+    { 
       display:none !important;
-     }
+    }
     .variant.active 
     { 
       display:block !important; 

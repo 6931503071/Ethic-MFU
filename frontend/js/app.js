@@ -4,7 +4,7 @@
   // ----------------------------------------------------------------
   // ตั้งค่า
   // ----------------------------------------------------------------
-  var TEMPLATE_URL = '../templates/ap02.json';   // เปิดผ่าน Live Server ที่โฟลเดอร์ Ethic MFU
+  var TEMPLATE_URL = '../templates/ap02.json';   // เปิดผ่าน Live Server
   var template = null;
   var lang = 'th';
   var activeVariant = 0;
