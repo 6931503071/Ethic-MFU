@@ -295,7 +295,7 @@
       -webkit-print-color-adjust:exact; 
       print-color-adjust:exact; 
     }
-    .topbar, .panel, .toolbar, .tabs, .desc, #error-modal 
+    .topbar, .panel, .step-block, .progress-panel, .toolbar, .tabs, .desc, #error-modal 
     { 
       display:none !important; 
     }
@@ -324,5 +324,9 @@
       box-shadow:none; 
       margin:0; 
       break-after:page; 
+    }
+    .sheet:last-child 
+    { 
+      break-after:auto; 
     }
   }

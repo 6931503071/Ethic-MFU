@@ -19,8 +19,9 @@
 
   <div class="upload-box" id="uploadBox">
     <input type="file" id="fileInput" accept=".pdf,.docx" />
-    <p class="upload-note">(ระบบลากและวางไฟล์ กับการตรวจชนิดไฟล์ จะเพิ่มในขั้นตอนถัดไป)</p>
+      <p class="upload-note">ลากไฟล์ PDF หรือ DOCX มาวางที่นี่ หรือกดปุ่มเลือกไฟล์ (ไม่เกิน 10 MB)</p>
   </div>
+    <div class="file-error" id="fileError" role="alert" hidden></div>
 
   <div class="file-info" id="fileInfo" hidden>
     <span id="fileName"></span>
