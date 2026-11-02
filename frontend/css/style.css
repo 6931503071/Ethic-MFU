@@ -100,6 +100,7 @@ body
 { 
   display: none; 
 }
+<<<<<<< HEAD
 .file-error 
 {
   margin-top: 12px;
@@ -109,6 +110,8 @@ body
   border-radius: 8px;
   color: var(--red);
 }
+=======
+>>>>>>> 27ad5acb0265a1ca3d7213dd6dfc504c6ea7e1e0
 
 /* ===== ช่องข้อความเพิ่มเติม ===== */
 .step-block textarea 
@@ -224,6 +227,7 @@ body
   background: #dc2626; 
   border-color: #dc2626;
 }
+<<<<<<< HEAD
 @keyframes pulse 
 { 
   50% 
@@ -238,6 +242,9 @@ body
   font-weight: 400;
   opacity: .75;
 }
+=======
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(29, 78, 216, .15); } }
+>>>>>>> 27ad5acb0265a1ca3d7213dd6dfc504c6ea7e1e0
 
 /* ===== กล่องแจ้ง error ตามช่วง ===== */
 .error-box 
