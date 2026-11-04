@@ -11,7 +11,7 @@ class Settings(BaseSettings):
 
     # การอัปโหลดไฟล์
     max_upload_mb: int = 10 #บอกว่า รองรับไฟล์ขนาดสูงสุด 10 MB
-    allowed_extensions: list[str] = [".pdf", ".docx", ".txt"] #อ่านแค่ไฟล์ประเภท PDF, DOCX, TXT จากที่นี่ที่เดียว
+    allowed_extensions: list[str] = [".pdf", ".docx"] #อ่านแค่ไฟล์ประเภท PDF, DOCX, TXT จากที่นี่ที่เดียว
 
     # ไฟล์ชั่วคราว (ต้องลบหลังประมวลผลเสร็จ)
     upload_dir: Path = BASE_DIR / "tmp_uploads" #รองรับความเป็นส่วนตัว ไฟล์ชั่วคราวจะถูกเก็บไว้ในโฟลเดอร์ tmp_uploads
@@ -37,4 +37,4 @@ class Settings(BaseSettings):
         return self.max_upload_mb * 1024 * 1024
 
 
-settings = Settings()
+settings = Settings()#ตัวแปร settings จะเก็บค่าต่าง ๆ ที่อ่านจากไฟล์ .env และค่าดีฟอลต์ที่กำหนดไว้ในคลาส Settings
