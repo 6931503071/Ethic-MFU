@@ -2,9 +2,7 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# โฟลเดอร์ backend/ (ขึ้นไป 2 ชั้นจากไฟล์นี้)
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = Path(__file__).resolve().parent.parent #อ้างอิงตำแหน่งโฟลเดอร์ backend/
 
 class Settings(BaseSettings):
     # ข้อมูลทั่วไปของแอป
@@ -12,11 +10,11 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
 
     # การอัปโหลดไฟล์
-    max_upload_mb: int = 10
-    allowed_extensions: list[str] = [".pdf", ".docx", ".txt"]
+    max_upload_mb: int = 10 #บอกว่า รองรับไฟล์ขนาดสูงสุด 10 MB
+    allowed_extensions: list[str] = [".pdf", ".docx", ".txt"] #อ่านแค่ไฟล์ประเภท PDF, DOCX, TXT จากที่นี่ที่เดียว
 
     # ไฟล์ชั่วคราว (ต้องลบหลังประมวลผลเสร็จ)
-    upload_dir: Path = BASE_DIR / "tmp_uploads"
+    upload_dir: Path = BASE_DIR / "tmp_uploads" #รองรับความเป็นส่วนตัว ไฟล์ชั่วคราวจะถูกเก็บไว้ในโฟลเดอร์ tmp_uploads
     file_retention_minutes: int = 30
 
     # หน้าเว็บที่อนุญาตให้เรียก API (Live Server ของ VS Code ใช้พอร์ต 5500)
