@@ -1,3 +1,13 @@
+
+@font-face {
+  font-family: 'TH Sarabun New';
+  src: local('TH Sarabun New'), local('THSarabunNew');
+}
+
+body, .document-page, * {
+  font-family: 'TH Sarabun New', 'THSarabunNew', sans-serif !important;
+}
+
 /* ---------- หน้ากระดาษ A4 ---------- */
 
   #variants 
@@ -330,3 +340,12 @@
       break-after:auto; 
     }
   }
+
+
+/* ===== โหมดแก้ไขในหน้าเอกสาร ===== */
+.sheet .body[contenteditable="true"]:focus, .sheet .hdr .ph:focus { outline: none; }
+.ph.filled { color: #000; background: transparent; border-bottom: 0; }
+.ph:focus { outline: 2px solid var(--accent); }
+@media screen { .sheet.over { outline: 3px solid #d00000; } }
+@media print { .ph.filled { border: 0; } }
+

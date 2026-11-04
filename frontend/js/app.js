@@ -424,12 +424,110 @@
   // ----------------------------------------------------------------
   // โหลด template, แจ้งข้อผิดพลาด, ควบคุมหน้าจอ
   // ----------------------------------------------------------------
-  function showError(msg) {
+
+  // ----------------------------------------------------------------
+  // แก้ไขข้อความในหน้าเอกสารได้โดยตรง (contenteditable)
+  // - ช่องสีแดง (.ph) คลิกแล้วเลือกข้อความทั้งช่อง พิมพ์ทับได้ พิมพ์เสร็จจะเปลี่ยนเป็นสีดำ
+  // - ถ้าลบจนว่าง จะคืนข้อความเดิมของช่อง
+  // - วางข้อความแบบ plain text เท่านั้น
+  // - ถ้าแก้แล้วเนื้อหาเกินหน้า A4 จะขึ้นกรอบเตือน (ยังไม่เลื่อนหน้าให้อัตโนมัติ)
+  // ----------------------------------------------------------------
+  function enableEditing(container) {
+    Array.prototype.forEach.call(container.querySelectorAll('.sheet'), function (sheet) {
+      var body = sheet.querySelector('.body');
+      body.setAttribute('contenteditable', 'true');
+      body.setAttribute('spellcheck', 'false');
+      Array.prototype.forEach.call(sheet.querySelectorAll('.hdr .ph'), function (h) {
+        h.setAttribute('contenteditable', 'true');
+      });
+      Array.prototype.forEach.call(sheet.querySelectorAll('.cb'), function (c) {
+        c.setAttribute('contenteditable', 'false');
+      });
+    });
+
+    // โฟกัสอยู่ที่ .body ไม่ใช่ตัวช่อง จึงใช้ click + selectionchange ติดตามช่องสีแดงที่กำลังแก้
+    var current = null;
+
+    function finish(t) {
+      var txt = t.textContent.trim();
+      if (!txt) {
+        if (t.dataset.orig !== undefined) { t.textContent = t.dataset.orig; }
+        t.classList.remove('filled');
+      } else if (t.dataset.orig !== undefined && txt !== t.dataset.orig) {
+        t.classList.add('filled');
+      }
+    }
+
+    container.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('.ph') : null;
+      if (!t || t.classList.contains('filled')) { return; }
+      if (t.dataset.orig === undefined) { t.dataset.orig = t.textContent; }
+      current = t;
+      var r = document.createRange();
+      r.selectNodeContents(t);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+    });
+
+    // ลบทั้งช่อง: เบราว์เซอร์จะลบ span ทิ้ง จึงดักไว้แล้วคืนข้อความเดิมของช่องแทน
+    container.addEventListener('beforeinput', function (e) {
+      if (!current || e.inputType.indexOf('delete') !== 0) { return; }
+      var sel = window.getSelection();
+      if (sel.toString() === current.textContent && current.textContent.length) {
+        e.preventDefault();
+        current.textContent = current.dataset.orig;
+        current.classList.remove('filled');
+        var r = document.createRange();
+        r.selectNodeContents(current);
+        sel.removeAllRanges();
+        sel.addRange(r);
+      }
+    });
+
+    document.addEventListener('selectionchange', function () {
+      if (!current) { return; }
+      var sel = window.getSelection();
+      var inside = sel.anchorNode && current.contains(sel.anchorNode);
+      if (!inside) { finish(current); current = null; }
+    });
+
+    container.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      document.execCommand('insertText', false, text);
+    });
+
+    container.addEventListener('input', function (e) {
+      var sheet = e.target.closest ? e.target.closest('.sheet') : null;
+      if (!sheet) { return; }
+      var td = e.target.closest ? e.target.closest('td.blank') : null;
+      if (td && td.textContent.trim()) { td.classList.remove('blank'); }
+      sheet.classList.toggle('over', overflows(sheet.querySelector('.body')));
+      var n = document.querySelectorAll('.sheet.over').length;
+      $('status').textContent = n
+        ? 'คำเตือน: มี ' + n + ' หน้าที่เนื้อหาเกินกรอบ A4 หลังแก้ไข (ส่วนท้ายอาจถูกตัดตอนพิมพ์)'
+        : 'แก้ไขเอกสารแล้ว (การแก้ไขของแต่ละแบบแยกจากกัน)';
+    });
+  }
+
+  // ตรวจว่าเครื่องนี้มีฟอนต์ TH Sarabun New หรือไม่ (วัดความกว้างข้อความไทยเทียบกับ monospace)
+  function hasThSarabun() {
+    var c = document.createElement('canvas').getContext('2d');
+    var t = 'ทดสอบภาษาไทย';
+    c.font = '16px monospace';
+    var a = c.measureText(t).width;
+    c.font = "16px 'TH Sarabun New', monospace";
+    return a !== c.measureText(t).width;
+  }
+  function showError(msg) 
+  {
     $('err-msg').textContent = msg;
     $('error-modal').hidden = false;
   }
 
-  function loadTemplate() {
+  function loadTemplate() 
+  {
     if (location.protocol === 'file:') {
       return Promise.reject(new Error('ไม่สามารถเปิดไฟล์ตรงๆ ได้ กรุณาเปิดผ่าน Live Server (กด Go Live) เพราะเบราว์เซอร์บล็อกการอ่านไฟล์ JSON'));
     }
@@ -495,8 +593,8 @@
         await nextFrame();
         var res = paginate(buildBlocks(v.opts), c, v.opts.cls);
         c.classList.remove('measuring');
+        enableEditing(c);
         totalOversize += res.oversize;
-
         var tab = el('button', 'tab', v.name + ' (' + res.pages + ' หน้า)');
         tab.type = 'button';
         tab.setAttribute('role', 'tab');
@@ -508,6 +606,9 @@
       var langName = lang === 'en' ? 'ภาษาอังกฤษ' : 'ภาษาไทย';
       $('status').textContent = 'สร้างเอกสาร' + langName + 'ครบ 4 แบบแล้ว เลือกดูได้จากแท็บด้านล่าง'
         + (totalOversize ? ' (พบ ' + totalOversize + ' ส่วนที่ยาวเกิน 1 หน้า อาจถูกตัดท้าย)' : '');
+      if (!hasThSarabun()) {
+        $('status').textContent += ' | เครื่องนี้ไม่มีฟอนต์ TH Sarabun New ตัวอย่างจึงใช้ฟอนต์สำรอง จำนวนหน้าและการตัดบรรทัดอาจไม่ตรงกับไฟล์จริง กรุณาติดตั้งฟอนต์ก่อนพิมพ์/บันทึก PDF';
+      }
       $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (err) {
       $('status').textContent = 'สร้างเอกสารไม่สำเร็จ';

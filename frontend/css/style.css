@@ -261,4 +261,9 @@ body
   border: 0;
   border-radius: 8px;
   cursor: pointer;
+
 }
+
+/* ใช้ฟอนต์ที่ติดตั้งในเครื่องก่อน (ยังไม่ได้แนบไฟล์ฟอนต์ในโปรเจกต์) */
+@font-face { font-family: 'TH Sarabun New'; src: local('TH Sarabun New'), local('THSarabunNew'); }
+
