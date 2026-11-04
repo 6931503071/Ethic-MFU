@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeneratedDocument",
+  "description": "โครงสร้างเอกสารหนึ่งแบบ (หนึ่ง variant) ที่ใช้ร่วมกันระหว่างพรีวิว ตัวแก้ไข และตัวส่งออก DOCX/PDF",
+  "type": "object",
+  "required": ["doc_type", "variant", "blocks"],
+  "properties": {
+    "doc_type": {
+      "type": "string",
+      "description": "รหัสประเภทเอกสาร ตรงกับ id ในไฟล์ template เช่น ap02_research_proposal"
+    },
+    "variant": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "description": "หมายเลขแบบตัวอย่าง 1-4"
+    },
+    "blocks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/block" }
+    }
+  },
+  "definitions": {
+    "block": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": ["heading", "paragraph", "list", "table", "page_break"]
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "ใช้กับ heading"
+        },
+        "runs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/run" },
+          "description": "ใช้กับ heading และ paragraph"
+        },
+        "ordered": {
+          "type": "boolean",
+          "description": "ใช้กับ list: true = ลำดับเลข, false = สัญลักษณ์"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/run" }
+          },
+          "description": "ใช้กับ list: แต่ละรายการคือชุดของ runs"
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/run" }
+            }
+          },
+          "description": "ใช้กับ table: rows > cells > runs"
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "description": "ข้อความหนึ่งช่วงในย่อหน้า มี 3 ชนิด: ข้อความปกติ, ช่องที่ผู้ใช้ต้องกรอกเอง, ข้อความที่ถูกทำเครื่องหมาย",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "bold": { "type": "boolean" },
+        "italic": { "type": "boolean" },
+        "placeholder": {
+          "type": "string",
+          "description": "รหัสช่องที่ผู้ใช้ต้องกรอกเอง (แสดงสีแดง) เช่น researcher_name"
+        },
+        "label": {
+          "type": "string",
+          "description": "ชื่อช่องที่แสดงให้ผู้ใช้เห็น ใช้คู่กับ placeholder"
+        },
+        "flag": {
+          "enum": ["typo", "ambiguous", "incomplete"],
+          "description": "ชนิดของข้อความที่ต้องตรวจ (แสดงสีแดง)"
+        },
+        "note": {
+          "type": "string",
+          "description": "คำอธิบายว่าต้องแก้อะไร ใช้คู่กับ flag"
+        },
+        "suggestion": {
+          "type": "string",
+          "description": "ข้อความที่แนะนำให้แทน (ถ้ามี) ใช้คู่กับ flag"
+        }
+      }
+    }
+  }
+}
