@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ethic-MFU</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+  </head>
+<body>
+
+<div class="topbar">Ethic-MFU &middot; AP.02</div>
+
+<!-- อัปโหลดไฟล์ -->
+<section class="step-block" id="uploadSection">
+  <h2>อัปโหลดไฟล์ต้นฉบับ</h2>
+  <p class="hint">รองรับไฟล์ PDF และ DOCX ระบบจะอ่านไฟล์นี้เป็นหลักเพื่อนำไปสร้างเอกสาร</p>
+
+  <div class="upload-box" id="uploadBox">
+    <input type="file" id="fileInput" accept=".pdf,.docx" />
+      <p class="upload-note">ลากไฟล์ PDF หรือ DOCX มาวางที่นี่ หรือกดปุ่มเลือกไฟล์ (ไม่เกิน 10 MB)</p>
+  </div>
+    <div class="file-error" id="fileError" role="alert" hidden></div>
+
+  <div class="file-info" id="fileInfo" hidden>
+    <span id="fileName"></span>
+    <span id="fileSize"></span>
+  </div>
+</section>
+
+<!-- แถบแสดงความคืบหน้า แยกเป็นช่วงของกระบวนการ -->
+<section class="progress-panel" id="progressPanel" hidden aria-live="polite">
+  <h2>สถานะการประมวลผล</h2>
+  <ol class="stages" id="stageList">
+    <li data-stage = "validate">ตรวจสอบชนิดและขนาดไฟล์</li>
+    <li data-stage = "read">อ่านเนื้อหาจากไฟล์</li>
+    <li data-stage = "analyze">วิเคราะห์เนื้อหาและจัดโครงสร้าง</li>
+    <li data-stage = "language">ตรวจคำผิดและปรับภาษาให้เป็นทางการ</li>
+    <li data-stage = "layout">จัดหน้า A4 และสร้างเอกสาร 4 แบบ</li>
+  </ol>
+
+  <div class = "error-box" id = "errorBox" role = "alert" hidden>
+    <strong id = "errorStage"></strong>
+    <p id = "errorMessage"></p>
+    <button type = "button" id = "retryBtn">ลองใหม่อีกครั้ง</button>
+  </div>
+</section>
+
+<!-- ข้อความเพิ่มเติม -->
+<section class="step-block" id="notesSection">
+  <h2>รายละเอียดเพิ่มเติมสำหรับเอกสาร</h2>
+  <p class="hint">เช่น หน่วยงานที่ยื่น ลักษณะงานวิจัย หรือสิ่งที่ต้องการให้ปรับเป็นพิเศษ (ไม่บังคับ)</p>
+  <textarea id="extraNotes" rows="5" maxlength="2000"
+    placeholder="พิมพ์รายละเอียดเพิ่มเติมที่นี่..."></textarea>
+  <div class="char-count"><span id="notesCount">0</span> / 2000</div>
+</section>
+
+<main class="panel" id="controls">
+  <h2>เลือกภาษาของเอกสาร</h2>
+  <p class="muted">เอกสารที่สร้างทั้ง 4 แบบจะเป็นภาษาที่เลือกเท่านั้น ไม่ปนกัน</p>
+  <div class="langs" role="radiogroup" aria-label="เลือกภาษาของเอกสาร">
+    <label class="lang">
+      <input type="radio" name="lang" value="th" checked>
+      <span><b>ภาษาไทย</b><small>แบบเสนอโครงการวิจัยเพื่อพิจารณา</small></span>
+    </label>
+    <label class="lang">
+      <input type="radio" name="lang" value="en">
+      <span><b>English</b><small>Research Protocol Proposal Form for Ethical Review</small></span>
+    </label>
+  </div>
+
+  <h2>ยืนยันเพื่อสร้างเอกสาร</h2>
+  <p class="muted"
+      id="pick-summary">ภาษาที่เลือก: ภาษาไทย &rarr; จะได้เอกสารภาษาไทย 4 แบบ
+  </p>
+  
+  <button class = "btn" 
+    id="btn-generate" 
+    type="button">ยืนยันและสร้างเอกสาร 4 แบบ
+  </button>
+
+  <div class = "status" id = "status" role = "status" aria-live = "polite"></div>
+  <div class = "notice">ข้อมูลในเอกสารตอนนี้เป็น<b>ข้อมูลตัวอย่างจำลอง</b> ยังไม่ได้อ่านจากไฟล์ที่อัปโหลดหรือผ่าน AI ส่วนที่เป็นสีแดงคือช่องที่ผู้ใช้ต้องกรอกเอง หรือข้อความที่ต้องแก้ไข</div>
+</main>
+
+<section class="panel" id="result" hidden>
+  <div class="toolbar">
+    <label>ซูม
+      <select id="zoom">
+        <option value = "60">60%</option>
+        <option value = "80">80%</option>
+        <option value = "100" selected>100%</option>
+        <option value = "120">120%</option>
+      </select>
+    </label>
+    <button class = "btn ghost" id = "btn-print" type = "button">พิมพ์ / บันทึกเป็น PDF (ชั่วคราว)</button>
+  </div>
+  <div class = "tabs" id = "tabs" role = "tablist" aria-label = "เลือกแบบเอกสาร"></div>
+  <div class = "desc" id = "desc"></div>
+  <div id = "variants"></div>
+</section>
+
+<div class = "modal" id="error-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="err-title">
+  <div class = "modal-box">
+    <h3 id = "err-title">เกิดข้อผิดพลาด</h3>
+    <p id = "err-msg"></p>
+    <button class = "btn" id = "err-close" type = "button">ปิด</button>
+  </div>
+</div>
+
+<script src = "js/progress.js" defer></script>
+<script src = "js/upload.js" defer></script>
+<script src = "js/app.js" defer></script>
+</body>
+</html>
+
