@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+<<<<<<< HEAD
 
 app = FastAPI(  #ตัวแอป backend ดึงมาจาก config
     title=settings.app_name,
@@ -32,6 +33,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+=======
+>>>>>>> 650c35d7644a73bc011ad2be04162ae39a0d5a51
 from app.routers import documents          # ← เพิ่ม
 
 app = FastAPI(
@@ -48,4 +51,20 @@ app.add_middleware(
 
 app.include_router(documents.router)       # ← เพิ่ม: บอก FastAPI ว่ามี endpoint ชุด /api/documents/*
 
+<<<<<<< HEAD
 # ... ส่วน /api/health ของเดิมคงไว้เหมือนเดิม
+=======
+# ... ส่วน /api/health ของเดิมคงไว้เหมือนเดิม
+
+
+@app.get("/api/health") #endpoint ทดสอบ
+def health_check():
+    """ใช้ตรวจว่า backend ทำงานอยู่ และดูกติกาอัปโหลดปัจจุบัน"""
+    return {
+        "status": "ok",
+        "app": settings.app_name,
+        "version": settings.app_version,
+        "max_upload_mb": settings.max_upload_mb,
+        "allowed_extensions": settings.allowed_extensions,
+    }
+>>>>>>> 650c35d7644a73bc011ad2be04162ae39a0d5a51
