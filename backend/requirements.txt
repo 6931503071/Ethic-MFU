@@ -1,0 +1,11 @@
+fastapi>=0.115 #backend หลัก ใช้สร้าง API
+uvicorn[standard]>=0.30 #เซิร์ฟเวอร์ที่รันแอป FastAPI
+python-multipart>=0.0.9 #FastAPI รับไฟล์ที่อัปโหลดจากหน้าเว็บได้ ถ้าไม่มีตัวนี้ endpoint อัปโหลดจะทำงานไม่ได้
+pydantic-settings>=2.4 #อ่านค่าตั้งต้น เช่น ขนาดไฟล์สูงสุด 10 MB และรายการนามสกุลที่รับ จะได้ไม่ต้องฝังตัวเลขกระจายอยู่ในโค้ด
+python-docx>=1.1
+pdfplumber>=0.11
+pymupdf>=1.24
+httpx>=0.27
+pytest>=8.0
+pythainlp>=5.4
+anthropic>=2.7
