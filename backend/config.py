@@ -38,18 +38,15 @@ class Settings(BaseSettings):
     # กุญแจ AI: ห้ามใส่ในโค้ด ให้ใส่ในไฟล์ .env เท่านั้น
     ai_api_key: str = ""
     ai_model: str = "openai/gpt-oss-120b"       # ชื่อโมเดล เปลี่ยนได้ใน .env (AI_MODEL=...)
-    ai_api_key: str = ""
     ai_mode: str = ""
     ai_provider: str = "anthropic"            # "anthropic" หรือ "openai_compat" (เช่น Groq) ตั้งใน .env: AI_PROVIDER=...
     ai_base_url: str = ""                     # ใช้กับ openai_compat เท่านั้น เช่น https://api.groq.com/openai/v1                         # "mock" = โหมดทดสอบ | ว่าง = ใช้ AI จริงถ้ามี key (ตั้งใน .env: AI_MODE=mock)
     ai_timeout_seconds: float = 120.0         # รอ AI นานสุดต่อ 1 ครั้งที่เรียก เกินแล้วแจ้ง AI_TIMEOUT
     ai_max_input_chars: int = 60000           # ข้อความสูงสุดที่ส่งให้ AI ต่อครั้ง (เกิน = แจ้งผู้ใช้)
-    ai_max_output_tokens: int = 16000
+    ai_max_output_tokens: int = 8000
     ai_chunk_chars: int = 100000              # ไฟล์ยาว: แบ่งให้ AI หาส่วนที่เกี่ยวข้องทีละก้อนขนาดนี้
     ai_max_chunks: int = 12                   # เกินนี้แจ้งว่าไฟล์ยาวเกินไป
     ai_locate_workers: int = 3                # เรียก AI หาส่วนที่เกี่ยวข้องพร้อมกันกี่ก้อน
-    ai_timeout_seconds: int = 60
-    ai_max_output_tokens: int = 4096
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",

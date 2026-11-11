@@ -1,20 +1,16 @@
-from fastapi import APIRouter, HTTPException, Path
-from app.field_matcher import FieldMatcher
-from app.form_fields import load_template
-from app.models import ExtractedDocument
+import logging
+from pathlib import Path
+from typing import Any, Dict, List, Literal
+
+from fastapi import APIRouter, HTTPException
 from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel
-from typing import List, Any, Dict
-from pathlib import Path
-import logging
 
 from config import settings
 from app.ai.client import AIClient, AIError, AnthropicClient, OpenAICompatClient
 from app.ai.fill import fill_form_from_blocks
 from app.ai.pipeline import draft_form_from_blocks
 from app.form_fields import load_template
-from app.field_matcher import FieldMatcher
-from app.models import ExtractedDocument, Block
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/analysis", tags=["Analysis"])
@@ -65,67 +61,60 @@ def get_ai_client() -> AIClient:
     )
 
 
-class FillRequest:
-    """Schema สำหรับ request"""
-    pass
+# เทมเพลตเต็ม (111 ช่อง) ตัวเดียวกับที่หน้าเว็บใช้ (templates/ap02.json) ห้ามใช้ backend/templates/ ซึ่งเป็นตัวย่อ 12 ช่อง
+BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
+TEMPLATE_FILES = {"ap02_research_proposal": BACKEND_DIR / "ap02.json"}
+
+
+class FillRequest(BaseModel):
+    filename: str = ""
+    blocks: List[Dict[str, Any]]
+    mode: Literal["draft", "extract"] = "draft"      # draft = AI สรุป/เรียบเรียง, extract = คัดลอกตรงต้นฉบับ
+    template_id: str = "ap02_research_proposal"
+    language: Literal["th", "en"] = "th"
 
 
 @router.post("/fill")
-async def fill_form(request_data: dict):
-    """
-    รับ blocks + template_id
-    จับคู่กับช่องในแบบฟอร์ม
-    คืน FilledForm
-    """
+async def fill_form(req: FillRequest):
+    """ให้ AI อ่านข้อความจากไฟล์แล้วเติมช่องของแบบฟอร์ม
+    คืน {mode, form, accepted, rejected, redaction_summary, stats} (หน้าเว็บอ่าน form.values)"""
+    if not req.blocks:
+        raise HTTPException(status_code=400, detail="ต้องส่ง blocks")
+
+    template_path = TEMPLATE_FILES.get(req.template_id)
+    if template_path is None:
+        raise HTTPException(status_code=422, detail=f"ไม่รู้จักเทมเพลต {req.template_id}")
     try:
-        # ดึง blocks และ template_id จาก request
-        blocks = request_data.get("blocks", [])
-        template_id = request_data.get("template_id", "ap02_research_proposal")
-        
-        if not blocks:
-            raise HTTPException(status_code=400, detail="ต้องส่ง blocks")
-        
-        # ✅ แปลง blocks → ExtractedDocument
-        doc_blocks = [
-            Block(
-                index=b.get("index", 0),
-                text=b.get("text", ""),
-                kind=b.get("kind", "text"),
-                page=b.get("page", 1)
+        template = load_template(template_path)
+    except Exception:
+        logger.exception("โหลดเทมเพลตล้มเหลว")
+        raise HTTPException(status_code=500, detail="โหลดเทมเพลตล้มเหลว")
+
+    try:
+        client = get_ai_client()
+        fn = draft_form_from_blocks if req.mode == "draft" else fill_form_from_blocks
+        kwargs: Dict[str, Any] = {"language": req.language, "max_input_chars": settings.ai_max_input_chars}
+        if req.mode == "draft":
+            kwargs.update(
+                chunk_chars=settings.ai_chunk_chars,
+                max_chunks=settings.ai_max_chunks,
+                locate_workers=settings.ai_locate_workers,
             )
-            for b in blocks
-        ]
-        
-        temp_doc = ExtractedDocument(
-            file_type="pdf",
-            page_count=0,
-            warnings=[],
-            blocks=doc_blocks
-        )
-        
-        # ✅ โหลดเทมเพลต (แปลง Path เป็น str)
-        template_dir = Path(__file__).parent.parent.parent / "templates"
-        template_path = str(template_dir / f"{template_id}.json")
-        
-        try:
-            template = load_template(template_path)
-        except Exception as e:
-            logger.error(f"โหลดเทมเพลตล้มเหลว: {e}")
-            raise HTTPException(status_code=500, detail=f"โหลดเทมเพลต {template_id} ล้มเหลว: {str(e)}")
-        
-        # ✅ จับคู่ช่อง (รัน thread pool เพื่อไม่บล็อก)
-        try:
-            matcher = FieldMatcher(temp_doc, template)
-            filled_form = await run_in_threadpool(matcher.match_all_fields)
-        except Exception as e:
-            logger.error(f"จับคู่ช่องล้มเหลว: {e}", exc_info=True)
-            raise HTTPException(status_code=500, detail=f"จับคู่ช่องล้มเหลว: {str(e)}")
-        
-        # ✅ คืนผลลัพธ์
-        return filled_form.to_dict()
-    
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"API ล้มเหลว: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"เกิดข้อผิดพลาด: {str(e)}")
+        result = await run_in_threadpool(fn, template, req.blocks, client, **kwargs)
+    except AIError as e:
+        logger.warning("AI ล้มเหลว: %s", e.code)
+        raise HTTPException(status_code=e.status_code, detail=e.to_dict())
+    except Exception:
+        logger.exception("AI ล้มเหลวแบบไม่คาดคิด")
+        raise HTTPException(status_code=500, detail="เกิดข้อผิดพลาดภายในระบบ AI")
+
+    return {
+        "mode": req.mode,
+        "form": result.form.to_dict(),
+        "accepted": [{"field_id": a.field_id, "source_blocks": list(a.source_blocks)} for a in result.accepted],
+        "rejected": [
+            {"field_id": r.field_id, "code": r.code, "message": r.message} for r in result.rejected
+        ],
+        "redaction_summary": result.redaction_summary,
+        "stats": getattr(result, "stats", {}),
+    }
