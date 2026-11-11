@@ -100,5 +100,6 @@ def test_fill_endpoint_with_fake_client(monkeypatch):
     r = TestClient(app).post("/api/analysis/fill", json={"filename": "x.pdf", "blocks": BLOCKS, "mode": "extract"})
     assert r.status_code == 200
     body = r.json()
+    print(body)
     assert body["form"]["values"]["title_th"]["status"] == "found"
     assert "081" not in json.dumps(body["redaction_summary"])

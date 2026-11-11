@@ -9,7 +9,7 @@ from pathlib import Path
 import logging
 
 from config import settings
-from app.ai.client import AIClient, AIError, AnthropicClient
+from app.ai.client import AIClient, AIError, AnthropicClient, OpenAICompatClient
 from app.ai.fill import fill_form_from_blocks
 from app.ai.pipeline import draft_form_from_blocks
 from app.form_fields import load_template
@@ -52,6 +52,13 @@ async def check_ethics(payload: AnalysisRequest):
 
 def get_ai_client() -> AIClient:
     """แยกเป็นฟังก์ชันเพื่อให้ทดสอบสลับเป็นตัวปลอมได้ (กุญแจอ่านจาก .env บนเซิร์ฟเวอร์เท่านั้น)"""
+    if settings.ai_provider == "openai_compat":
+        if not settings.ai_base_url:
+            raise AIError("AI_NOT_CONFIGURED", "ยังไม่ได้ตั้งค่า AI_BASE_URL ที่เซิร์ฟเวอร์", 503)
+        return OpenAICompatClient(
+            settings.ai_api_key, settings.ai_model, settings.ai_base_url,
+            timeout=settings.ai_timeout_seconds, max_tokens=settings.ai_max_output_tokens,
+        )
     return AnthropicClient(
         settings.ai_api_key, settings.ai_model,
         timeout=settings.ai_timeout_seconds, max_tokens=settings.ai_max_output_tokens,

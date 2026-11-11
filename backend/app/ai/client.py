@@ -4,7 +4,7 @@
 - AIClient: สัญญากลางที่ส่วนอื่นใช้ (complete(system, user) -> ข้อความตอบกลับ)
 - AnthropicClient: ตัวจริง เรียก https://api.anthropic.com/v1/messages ผ่าน httpx
 - AIError: ข้อผิดพลาดที่แปลงเป็นรหัส + ข้อความภาษาไทยให้ผู้ใช้แล้ว
-  (ไม่ใส่กุญแจ ไม่ใส่เนื้อหาเอกสาร ไม่ใส่ response ดิบของผู้ให้บริการ)
+(ไม่ใส่กุญแจ ไม่ใส่เนื้อหาเอกสาร ไม่ใส่ response ดิบของผู้ให้บริการ)
 
 หมายเหตุความเป็นส่วนตัว: ฟังก์ชันที่เรียก client ต้องส่งเฉพาะข้อความที่ผ่าน Redactor แล้ว
 ไฟล์นี้ไม่บันทึกเนื้อหา prompt หรือคำตอบลง log
@@ -92,6 +92,76 @@ class AnthropicClient:
             data = resp.json()
             text = "".join(b.get("text", "") for b in data["content"] if b.get("type") == "text")
         except (ValueError, KeyError, TypeError, AttributeError):
+            raise AIError("AI_BAD_RESPONSE", "อ่านคำตอบจาก AI ไม่ได้", 502) from None
+        if not text.strip():
+            raise AIError("AI_BAD_RESPONSE", "AI ไม่ได้ตอบข้อความกลับมา", 502)
+        return text
+
+    # ---------- ผู้ให้บริการที่ใช้รูปแบบเดียวกับ OpenAI (เช่น Groq) ----------
+
+def _raise_for_status(resp: httpx.Response) -> None:
+    """แปลงรหัสสถานะของผู้ให้บริการเป็น AIError (ไม่ใส่เนื้อหา response ดิบ)"""
+    if resp.status_code in (401, 403):
+        raise AIError("AI_AUTH", "กุญแจ AI ไม่ถูกต้องหรือไม่มีสิทธิ์ใช้งาน (แจ้งผู้ดูแลระบบ)", 502)
+    if resp.status_code == 429:
+        raise AIError("AI_RATE_LIMIT", "ใช้งาน AI ถี่เกินกำหนด กรุณารอสักครู่แล้วลองใหม่", 429)
+    if resp.status_code >= 500:
+        raise AIError("AI_UNAVAILABLE", "บริการ AI ขัดข้องชั่วคราว กรุณาลองใหม่ภายหลัง", 502)
+    if resp.status_code != 200:
+        logger.error("AI ตอบรหัส %s", resp.status_code)      # ไม่ log เนื้อหา
+        raise AIError("AI_BAD_REQUEST", "บริการ AI ปฏิเสธคำขอ", 502)
+
+
+class OpenAICompatClient:
+    """เรียก {base_url}/chat/completions ด้วยรูปแบบเดียวกับ OpenAI (ใช้กับ Groq ได้)"""
+
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        base_url: str,
+        timeout: float = 60.0,
+        max_tokens: int = 8000,
+        transport: httpx.BaseTransport | None = None,
+    ) -> None:
+        self._api_key = api_key
+        self._model = model
+        self._url = base_url.rstrip("/") + "/chat/completions"
+        self._timeout = timeout
+        self._max_tokens = max_tokens
+        self._transport = transport
+
+    def __repr__(self) -> str:                  # ไม่ให้กุญแจหลุดไปกับ repr/log
+        return f"<OpenAICompatClient model={self._model}>"
+
+    def complete(self, system: str, user: str) -> str:
+        if not self._api_key:
+            raise AIError("AI_NOT_CONFIGURED", "ยังไม่ได้ตั้งค่ากุญแจ AI ที่เซิร์ฟเวอร์", 503)
+        body = {
+            "model": self._model,
+            "max_tokens": self._max_tokens,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ],
+        }
+        headers = {
+            "Authorization": f"Bearer {self._api_key}",
+            "Content-Type": "application/json",
+        }
+        try:
+            with httpx.Client(timeout=self._timeout, transport=self._transport) as http:
+                resp = http.post(self._url, json=body, headers=headers)
+        except httpx.TimeoutException:
+            raise AIError("AI_TIMEOUT", "AI ตอบช้าเกินกำหนด กรุณาลองใหม่อีกครั้ง", 504) from None
+        except httpx.HTTPError:
+            raise AIError("AI_UNREACHABLE", "เชื่อมต่อบริการ AI ไม่ได้ กรุณาตรวจอินเทอร์เน็ตแล้วลองใหม่", 502) from None
+
+        _raise_for_status(resp)
+
+        try:
+            text = resp.json()["choices"][0]["message"]["content"] or ""
+        except (ValueError, KeyError, IndexError, TypeError, AttributeError):
             raise AIError("AI_BAD_RESPONSE", "อ่านคำตอบจาก AI ไม่ได้", 502) from None
         if not text.strip():
             raise AIError("AI_BAD_RESPONSE", "AI ไม่ได้ตอบข้อความกลับมา", 502)
