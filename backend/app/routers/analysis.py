@@ -1,14 +1,22 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Path
+from app.field_matcher import FieldMatcher
+from app.form_fields import load_template
+from app.models import ExtractedDocument
 from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel
 from typing import List, Any, Dict
+from pathlib import Path
+import logging
 
 from config import settings
 from app.ai.client import AIClient, AIError, AnthropicClient
 from app.ai.fill import fill_form_from_blocks
 from app.ai.pipeline import draft_form_from_blocks
 from app.form_fields import load_template
+from app.field_matcher import FieldMatcher
+from app.models import ExtractedDocument, Block
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/analysis", tags=["Analysis"])
 
 # กำหนด Schema รับข้อมูลที่ได้จาก PDF
@@ -41,8 +49,6 @@ async def check_ethics(payload: AnalysisRequest):
 
 
 # ---------- ขั้น 6: ให้ AI เติมฟอร์มจากข้อความที่อ่านแล้ว ----------
-_TEMPLATE_PATH = settings.upload_dir.parent / "ap02.json"   # backend/ap02.json
-
 
 def get_ai_client() -> AIClient:
     """แยกเป็นฟังก์ชันเพื่อให้ทดสอบสลับเป็นตัวปลอมได้ (กุญแจอ่านจาก .env บนเซิร์ฟเวอร์เท่านั้น)"""
@@ -52,36 +58,67 @@ def get_ai_client() -> AIClient:
     )
 
 
-class FillRequest(AnalysisRequest):
-    mode: str = "draft"    # "draft" = AI วิเคราะห์แล้วสรุป/เรียบเรียงเป็นร่าง | "extract" = คัดลอกตรงตัวเท่านั้น
+class FillRequest:
+    """Schema สำหรับ request"""
+    pass
 
 
 @router.post("/fill")
-async def fill_form(payload: FillRequest):
-    if payload.mode not in ("draft", "extract"):
-        raise HTTPException(status_code=422, detail={"code": "BAD_MODE", "message": "mode ต้องเป็น draft หรือ extract"})
-    template = load_template(_TEMPLATE_PATH)
+async def fill_form(request_data: dict):
+    """
+    รับ blocks + template_id
+    จับคู่กับช่องในแบบฟอร์ม
+    คืน FilledForm
+    """
     try:
-        if payload.mode == "draft":
-            result = await run_in_threadpool(
-                draft_form_from_blocks, template, payload.blocks, get_ai_client(),
-                max_input_chars=settings.ai_max_input_chars, chunk_chars=settings.ai_chunk_chars,
-                max_chunks=settings.ai_max_chunks, locate_workers=settings.ai_locate_workers,
+        # ดึง blocks และ template_id จาก request
+        blocks = request_data.get("blocks", [])
+        template_id = request_data.get("template_id", "ap02_research_proposal")
+        
+        if not blocks:
+            raise HTTPException(status_code=400, detail="ต้องส่ง blocks")
+        
+        # ✅ แปลง blocks → ExtractedDocument
+        doc_blocks = [
+            Block(
+                index=b.get("index", 0),
+                text=b.get("text", ""),
+                kind=b.get("kind", "text"),
+                page=b.get("page", 1)
             )
-            stats = result.stats
-        else:
-            result = await run_in_threadpool(
-                fill_form_from_blocks, template, payload.blocks, get_ai_client(),
-                max_input_chars=settings.ai_max_input_chars,
-            )
-            stats = {}
-    except AIError as e:
-        raise HTTPException(status_code=e.status_code, detail=e.to_dict())
-    return {
-        "mode": payload.mode,
-        "form": result.form.to_dict(),
-        "progress": result.form.progress(),
-        "rejected": [{"field_id": r.field_id, "code": r.code, "message": r.message} for r in result.rejected],
-        "redaction_summary": result.redaction_summary,
-        "stats": stats,
-    }
+            for b in blocks
+        ]
+        
+        temp_doc = ExtractedDocument(
+            file_type="pdf",
+            page_count=0,
+            warnings=[],
+            blocks=doc_blocks
+        )
+        
+        # ✅ โหลดเทมเพลต (แปลง Path เป็น str)
+        template_dir = Path(__file__).parent.parent.parent / "templates"
+        template_path = str(template_dir / f"{template_id}.json")
+        
+        try:
+            template = load_template(template_path)
+        except Exception as e:
+            logger.error(f"โหลดเทมเพลตล้มเหลว: {e}")
+            raise HTTPException(status_code=500, detail=f"โหลดเทมเพลต {template_id} ล้มเหลว: {str(e)}")
+        
+        # ✅ จับคู่ช่อง (รัน thread pool เพื่อไม่บล็อก)
+        try:
+            matcher = FieldMatcher(temp_doc, template)
+            filled_form = await run_in_threadpool(matcher.match_all_fields)
+        except Exception as e:
+            logger.error(f"จับคู่ช่องล้มเหลว: {e}", exc_info=True)
+            raise HTTPException(status_code=500, detail=f"จับคู่ช่องล้มเหลว: {str(e)}")
+        
+        # ✅ คืนผลลัพธ์
+        return filled_form.to_dict()
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"API ล้มเหลว: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"เกิดข้อผิดพลาด: {str(e)}")

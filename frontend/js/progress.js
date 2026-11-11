@@ -20,14 +20,14 @@
   var STAGE_CONFIG = 
   {
     validate: { enabled: true  },
-    read:     { enabled: false },
-    analyze:  { enabled: false },
+    read:     { enabled: true  },
+    analyze:  { enabled: true },
     language: { enabled: true },
     layout:   { enabled: true }
   };
 
   var NOT_READY_TEXT = 'ยังไม่เปิดใช้งาน';
-  var VALID_STATES = ['pending', 'active', 'done', 'error'];
+  var VALID_STATES = ['pending', 'active', 'done', 'warning', 'error'];
 
   // ---------- องค์ประกอบในหน้า ----------
   var panel        = document.getElementById('progressPanel');

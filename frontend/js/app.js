@@ -4,10 +4,16 @@
   // ----------------------------------------------------------------
   // ตั้งค่า
   // ----------------------------------------------------------------
-  var TEMPLATE_URL = '../templates/ap02.json';   // เปิดผ่าน Live Server
+  // หา path ของ templates โดยอัตโนมัติตาม URL ปัจจุบัน
+  // ตัวอย่าง: /frontend/index.html → /templates/ap02.json
+  //           /Ethic-MFU/frontend/index.html → /Ethic-MFU/templates/ap02.json
+  var _m = location.pathname.match(/^(.*?)\/frontend\//);
+  var TEMPLATE_URL = (_m ? _m[1] : '') + '/templates/ap02.json';
   var template = null;
   var lang = 'th';
   var activeVariant = 0;
+  var g_document_blocks = null;  // เก็บบล็อก
+  var g_filled_form = null;      // เก็บผลลัพธ์ API
 
   // ----------------------------------------------------------------
   // ข้อความที่ระบบสร้างเอง แยกตามภาษา
@@ -515,7 +521,7 @@
 
   function showError(msg) {
     $('err-msg').textContent = msg;
-    $('errorBox').hidden = false;
+    $('errorModal').hidden = false;
   }
 
   function loadTemplate() {
@@ -616,6 +622,7 @@
     if (window.EthicSuspects) { window.EthicSuspects.clear(); }   // ล้างผลของไฟล์ครั้งก่อนก่อนวิเคราะห์ใหม่
     
     var P = window.EthicProgress;
+    var currentStage = '';   // จำว่ากำลังทำขั้นไหน เพื่อให้ catch ทำสีแดงถูกขั้น
 
     try {
       lang = selectedLang();
@@ -628,6 +635,7 @@
 
       // ขั้นตอนที่ 2: อ่านเนื้อหาจาก Backend
       if (P) { P.setStage('read', 'active', 'กำลังเชื่อมต่อเซิร์ฟเวอร์อ่านไฟล์...'); }
+      currentStage = 'read';
       var result = await analyzeDocument(file);
       window.lastResult = result;
 
@@ -635,6 +643,7 @@
         P.setStage('read', 'done', 'อ่านได้ ' + (result.blocks ? result.blocks.length : 0) + ' ส่วน');
         P.setStage('analyze', 'active', 'กำลังจัดโครงสร้าง...');
       }
+      currentStage = 'analyze';
 
       // ขั้นตอนที่ 3: สกัดข้อมูลด้วย EthicExtractor
       var found = {};
@@ -665,10 +674,12 @@
 
       if (window.EthicSuspects) { window.EthicSuspects.render(suspects, result.blocks); }
 
+      
+      currentStage = 'layout';
       await renderVariants(P, true);
 
     } catch (err) {
-      if (P) { P.setStage('layout', 'error', 'เกิดข้อผิดพลาดในการสร้างเอกสาร'); }
+      if (P && currentStage) { P.setStage(currentStage, 'error', 'ไม่สำเร็จ'); }
       $('status').textContent = 'สร้างเอกสารไม่สำเร็จ';
       showError(err && err.message ? err.message : String(err));
     } finally {
@@ -753,7 +764,7 @@
   $('btn-ai-fill').addEventListener('click', aiFill);
   $('zoom').addEventListener('change', applyZoom);
   $('btn-print').addEventListener('click', function () { window.print(); });
-  $('err-close').addEventListener('click', function () { $('errorBox').hidden = true; });
+  $('err-close').addEventListener('click', function () { $('errorModal').hidden = true; });
 
   updatePickSummary();
 })();

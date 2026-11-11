@@ -28,6 +28,13 @@ class ReadWarning:
 
 
 @dataclass
+class Block:
+    index: int
+    text: str
+    kind: str = "text"
+    page: int = 1
+
+@dataclass
 class ExtractedDocument:
     """ผลลัพธ์รวมของการอ่าน 1 ไฟล์"""
 

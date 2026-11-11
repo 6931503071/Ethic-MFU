@@ -17,10 +17,22 @@ class Settings(BaseSettings):
     upload_dir: Path = BASE_DIR / "tmp_uploads" #รองรับความเป็นส่วนตัว ไฟล์ชั่วคราวจะถูกเก็บไว้ในโฟลเดอร์ tmp_uploads
     file_retention_minutes: int = 30
 
-    # หน้าเว็บที่อนุญาตให้เรียก API (Live Server ของ VS Code ใช้พอร์ต 5500)
+    # หน้าเว็บที่อนุญาตให้เรียก API
+    # Live Server ของ VS Code ใช้พอร์ต 5500 เป็นค่าเริ่มต้น
+    # แต่อาจใช้ 5501, 5502 ถ้าพอร์ตถูกใช้อยู่แล้ว
     cors_origins: list[str] = [
         "http://127.0.0.1:5500",
-        "http://localhost:5500",
+    "http://localhost:5500",
+    "http://127.0.0.1:5501",
+    "http://localhost:5501",
+    "http://127.0.0.1:5502",
+    "http://localhost:5502",
+    "http://127.0.0.1:8080",
+    "http://localhost:8080",   
+    "http://127.0.0.1:8000",   
+    "http://localhost:8000",   
+    "http://127.0.0.1",
+    "http://localhost",
     ]
 
     # กุญแจ AI: ห้ามใส่ในโค้ด ให้ใส่ในไฟล์ .env เท่านั้น
