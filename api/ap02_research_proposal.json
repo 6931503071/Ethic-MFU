@@ -1,0 +1,487 @@
+{
+  "id": "ap02_research_proposal",
+  "form_code": "AP 02/2026",
+  "name": "แบบเสนอโครงการวิจัยเพื่อพิจารณา (AP 02/2026)",
+  "name_en": "Research Proposal Form",
+  "submit_to": "https://submission-ec.mfu.ac.th",
+  "languages_available": ["th", "en"],
+  "format": {
+    "page_size": "A4",
+    "page_mm": {"width": 210, "height": 297},
+    "margins_mm": {"top": 25.4, "bottom": 20, "left": 24.9, "right": 24.9},
+    "header_footer_distance_mm": {"header": 9.9, "footer": 8.9},
+    "font_family": "TH Sarabun New",
+    "body_size_pt": 16,
+    "heading_size_pt": 18,
+    "page_numbers": true
+  },
+  "header": {
+    "left": "Version…... Date…………………………",
+    "right": "AP 02/2026",
+    "fields": [
+      {
+        "id": "form_version",
+        "label": "Version",
+        "fill_by": "user"
+      },
+      {
+        "id": "form_date",
+        "label": "Date",
+        "fill_by": "user"
+      }
+    ]
+  },
+  "footer": {
+    "text": "หน้า {PAGE} จาก {NUMPAGES}",
+    "text_en": "Page {PAGE} from {NUMPAGES}"
+  },
+  "rules": {
+    "highlight_color": "red",
+    "check_thai_spelling": true
+  },
+  "sections": [
+    {
+      "id": "title",
+      "number": "1",
+      "title": "ชื่อโครงการวิจัย (Title)",
+      "title_en": "Research Project Title",
+      "fields": [
+        {
+          "id": "title_th",
+          "label": "(ชื่อภาษาไทย)",
+          "label_en": "(Thai Title)",
+          "type": "text",
+          "fill_by": "ai"
+        },
+        {
+          "id": "title_en",
+          "label": "(ชื่อภาษาอังกฤษ)",
+          "label_en": "(English Title)",
+          "type": "text",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "field_of_study",
+      "number": "2",
+      "title": "สาขาวิชาที่ทำการวิจัย",
+      "title_en": "Field of Research",
+      "fields": [
+        {
+          "id": "field_of_study",
+          "label": "สาขาวิชา",
+          "label_en": "Field of Research",
+          "hint": "เช่น แพทยศาสตร์ ทันตแพทยศาสตร์ สาธารณสุขศาสตร์ เป็นต้น",
+          "hint_en": "e.g., Medicine, Dentistry, Public Health, etc.",
+          "type": "text",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "team",
+      "number": "3",
+      "title": "ผู้วิจัย ผู้วิจัยร่วม และที่ปรึกษา",
+      "title_en": "Investigators, Co-Investigators, and Research Advisor",
+      "subsections": [
+        {
+          "id": "pi",
+          "number": "3.1",
+          "title": "ผู้วิจัยหลัก หรือ หัวหน้าโครงการวิจัย (Principal Investigator)",
+          "title_en": "Principal Investigator (PI)",
+          "fields": [
+            {
+              "id": "pi_name",
+              "label": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+              "label_en": "Academic Title-Name-Surname",
+              "type": "text",
+              "fill_by": "user"
+            },
+            {
+              "id": "pi_affiliation",
+              "label": "สาขาวิชาและหน่วยงาน",
+              "label_en": "Department/Affiliation",
+              "type": "text",
+              "fill_by": "user"
+            },
+            {
+              "id": "pi_address",
+              "label": "ที่อยู่ (ที่ทำงาน)",
+              "label_en": "Address (Workplace)",
+              "type": "text",
+              "fill_by": "user"
+            },
+            {
+              "id": "pi_phone",
+              "label": "เบอร์โทรศัพท์",
+              "label_en": "Telephone Number",
+              "type": "text",
+              "fill_by": "user"
+            },
+            {
+              "id": "pi_email",
+              "label": "อีเมล",
+              "label_en": "Email",
+              "type": "text",
+              "fill_by": "user"
+            }
+          ]
+        },
+        {
+          "id": "co_investigators",
+          "number": "3.2",
+          "title": "ผู้วิจัยร่วม (Co-Investigators)",
+          "title_en": "Co-Investigator(s)",
+          "fields": [
+            {
+              "id": "co_investigators",
+              "label": "ผู้วิจัยร่วม",
+              "label_en": "Co-Investigator(s)",
+              "type": "table",
+              "fill_by": "user",
+              "columns": ["ลำดับ", "ชื่อ-สกุล", "หน่วยงาน", "เบอร์โทร/อีเมล"],
+              "columns_en": ["No.", "Name-Surname", "Affiliation", "Phone/Email"],
+              "min_rows": 1
+            }
+          ]
+        },
+        {
+          "id": "advisors",
+          "number": "3.3",
+          "title": "ที่ปรึกษาโครงการวิจัย (Research Advisor)",
+          "title_en": "Research Advisor(s)",
+          "fields": [
+            {
+              "id": "advisors",
+              "label": "ที่ปรึกษา",
+              "label_en": "Research Advisor(s)",
+              "type": "table",
+              "fill_by": "user",
+              "columns": ["ลำดับ", "ชื่อ-สกุล", "หน่วยงาน", "เบอร์โทร/อีเมล"],
+              "columns_en": ["No.", "Name-Surname", "Affiliation", "Phone/Email"],
+              "min_rows": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline",
+      "number": "4",
+      "title": "ช่วงเวลาที่ทำการวิจัย",
+      "title_en": "Study Period",
+      "fields": [
+        {
+          "id": "start_month_year",
+          "label": "เดือน/ปี ที่จะเริ่มเก็บข้อมูล",
+          "label_en": "Month/Year data collection is expected to begin",
+          "type": "text",
+          "fill_by": "user"
+        },
+        {
+          "id": "duration_months",
+          "label": "ระยะเวลาที่จะเก็บข้อมูล (... เดือน)",
+          "label_en": "Duration of data collection (... months)",
+          "type": "text",
+          "fill_by": "user"
+        },
+        {
+          "id": "end_month_year",
+          "label": "เดือน/ปี ที่คาดว่าจะสิ้นสุดการวิจัย",
+          "label_en": "Month/Year the study is expected to end",
+          "type": "text",
+          "fill_by": "user"
+        }
+      ]
+    },
+    {
+      "id": "location",
+      "number": "5",
+      "title": "สถานที่ทำการวิจัย",
+      "title_en": "Study Location",
+      "fields": [
+        {
+          "id": "location",
+          "label": "สถานที่ (ห้อง ตึก อาคาร)",
+          "label_en": "Location (Room, Building)",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 3
+        }
+      ]
+    },
+    {
+      "id": "significance",
+      "number": "6",
+      "title": "ความสำคัญของปัญหาที่จะทำการวิจัย",
+      "title_en": "Significance of the Problem",
+      "fields": [
+        {
+          "id": "problem_significance",
+          "label": "สรุปความสำคัญและขนาดของปัญหา",
+          "label_en": "Summary of problem significance and scope",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 5
+        }
+      ]
+    },
+    {
+      "id": "objectives",
+      "number": "7",
+      "title": "วัตถุประสงค์ของการวิจัย",
+      "title_en": "Research Objectives",
+      "fields": [
+        {
+          "id": "primary_objective",
+          "label": "วัตถุประสงค์หลัก",
+          "label_en": "Primary Objective",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 2
+        },
+        {
+          "id": "secondary_objectives",
+          "label": "วัตถุประสงค์รอง",
+          "label_en": "Secondary Objectives",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 2,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "benefits",
+      "number": "8",
+      "title": "ประโยชน์ที่จะได้จากการวิจัย",
+      "title_en": "Benefits of the Study",
+      "fields": [
+        {
+          "id": "benefits",
+          "label": "อธิบายประโยชน์",
+          "label_en": "Describe benefits",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 3
+        }
+      ]
+    },
+    {
+      "id": "literature",
+      "number": "9",
+      "title": "การรวบรวมรายงานที่เกี่ยวข้องกับการวิจัย",
+      "title_en": "Literature Review",
+      "fields": [
+        {
+          "id": "literature_review",
+          "label": "สรุปรายงานที่เกี่ยวข้อง",
+          "label_en": "Summary of relevant literature",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 5
+        }
+      ]
+    },
+    {
+      "id": "study_design",
+      "number": "10",
+      "title": "รูปแบบการวิจัย",
+      "title_en": "Study Design",
+      "fields": [
+        {
+          "id": "study_design",
+          "label": "ระบุรูปแบบ study design",
+          "label_en": "Specify study design",
+          "type": "text",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "population",
+      "number": "11",
+      "title": "ลักษณะตัวอย่างหรือประชากรที่ทำการศึกษา",
+      "title_en": "Study Population",
+      "subsections": [
+        {
+          "id": "target_population",
+          "number": "11.1",
+          "title": "ประชากรเป้าหมาย",
+          "title_en": "Target Population",
+          "fields": [
+            {
+              "id": "target_population",
+              "label": "อธิบายรายละเอียด",
+              "label_en": "Describe in detail",
+              "type": "textarea",
+              "fill_by": "ai",
+              "min_rows": 3
+            }
+          ]
+        },
+        {
+          "id": "sample_size",
+          "number": "11.2",
+          "title": "ขนาดตัวอย่าง",
+          "title_en": "Sample Size",
+          "fields": [
+            {
+              "id": "sample_size",
+              "label": "จำนวนและสูตรการคำนวณ",
+              "label_en": "Number and calculation formula",
+              "type": "text",
+              "fill_by": "user"
+            }
+          ]
+        },
+        {
+          "id": "inclusion_criteria",
+          "number": "11.3",
+          "title": "เกณฑ์การคัดเข้าร่วมการวิจัย",
+          "title_en": "Inclusion Criteria",
+          "fields": [
+            {
+              "id": "inclusion_criteria",
+              "label": "เกณฑ์การคัดเข้า",
+              "label_en": "Inclusion Criteria",
+              "type": "textarea",
+              "fill_by": "ai",
+              "min_rows": 2
+            }
+          ]
+        },
+        {
+          "id": "exclusion_criteria",
+          "number": "11.4",
+          "title": "เกณฑ์การคัดออกจากการวิจัย",
+          "title_en": "Exclusion Criteria",
+          "fields": [
+            {
+              "id": "exclusion_criteria",
+              "label": "เกณฑ์การคัดออก",
+              "label_en": "Exclusion Criteria",
+              "type": "textarea",
+              "fill_by": "ai",
+              "min_rows": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methodology",
+      "number": "12",
+      "title": "ระเบียบวิธีวิจัย",
+      "title_en": "Research Methodology",
+      "fields": [
+        {
+          "id": "methodology",
+          "label": "อธิบายวิธีการวิจัยโดยละเอียด",
+          "label_en": "Describe research methodology in detail",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 5
+        }
+      ]
+    },
+    {
+      "id": "data_analysis",
+      "number": "13",
+      "title": "การวิเคราะห์ทางสถิติ",
+      "title_en": "Statistical Analysis",
+      "fields": [
+        {
+          "id": "data_analysis",
+          "label": "วิธีการวิเคราะห์ข้อมูล",
+          "label_en": "Data analysis methods",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 3
+        }
+      ]
+    },
+    {
+      "id": "ethics",
+      "number": "14",
+      "title": "ข้อพิจารณาด้านจริยธรรม",
+      "title_en": "Ethical Considerations",
+      "fields": [
+        {
+          "id": "informed_consent",
+          "label": "กระบวนการขอความยินยอม",
+          "label_en": "Informed Consent Process",
+          "type": "textarea",
+          "fill_by": "user",
+          "min_rows": 3
+        },
+        {
+          "id": "risks",
+          "label": "ความเสี่ยงที่อาจเกิดขึ้น",
+          "label_en": "Potential Risks",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 2
+        },
+        {
+          "id": "benefits_to_participants",
+          "label": "ประโยชน์ต่อผู้เข้าร่วมวิจัย",
+          "label_en": "Benefits to Participants",
+          "type": "textarea",
+          "fill_by": "ai",
+          "min_rows": 2
+        },
+        {
+          "id": "confidentiality",
+          "label": "การรักษาความลับของข้อมูล",
+          "label_en": "Confidentiality Protection",
+          "type": "textarea",
+          "fill_by": "user",
+          "min_rows": 2
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "number": "15",
+      "title": "งบประมาณในการวิจัย",
+      "title_en": "Research Budget",
+      "fields": [
+        {
+          "id": "budget_items",
+          "label": "รายการค่าใช้จ่าย",
+          "label_en": "Budget Items",
+          "type": "table",
+          "fill_by": "user",
+          "columns": ["รายการ", "จำนวน", "หน่วยละ", "รวม"],
+          "columns_en": ["Item", "Qty", "Unit Price", "Total"],
+          "min_rows": 3
+        },
+        {
+          "id": "total_budget",
+          "label": "งบประมาณทั้งสิ้น",
+          "label_en": "Total Budget",
+          "type": "text",
+          "fill_by": "user"
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "number": "16",
+      "title": "เอกสารอ้างอิง",
+      "title_en": "References",
+      "fields": [
+        {
+          "id": "references",
+          "label": "ระบุตามรูปแบบ Vancouver หรือ APA",
+          "label_en": "List in Vancouver or APA format",
+          "type": "textarea",
+          "fill_by": "user",
+          "min_rows": 10
+        }
+      ]
+    }
+  ]
+}

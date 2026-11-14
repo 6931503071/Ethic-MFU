@@ -1,135 +1,785 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ethic-MFU</title>
-    <link rel="stylesheet" href="css/fonts.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Document Generator — EC-MFU</title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css">
-  </head>
+    <style>
+        /* ── Thai Font Import ── */
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Sarabun', 'TH Sarabun New', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            font-family: 'Sarabun', 'TH Sarabun New', Arial, sans-serif;
+        }
+        .upload-box {
+            border: 2px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 32px;
+            text-align: center;
+            background: #f8faff;
+            transition: border-color .2s, background .2s;
+            cursor: pointer;
+        }
+        .upload-box.drag-over {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+        .upload-box .choose-btn {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 22px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .upload-box .choose-btn:hover { background: #2563eb; }
+        .file-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #d1fae5;
+            border: 1px solid #6ee7b7;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin-top: 14px;
+            font-size: 14px;
+            color: #065f46;
+        }
+
+        /* ── Status steps ── */
+        .status-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin: 24px 0;
+        }
+        .status-section h2 { font-size: 17px; margin-bottom: 18px; color: #1f2937; }
+        .step-list { display: flex; flex-direction: column; gap: 12px; }
+        .step-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 15px;
+            color: #374151;
+        }
+        .step-icon {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-icon.idle        { background: #f3f4f6; color: #9ca3af; border: 2px solid #e5e7eb; }
+        .step-icon.running     { background: #eff6ff; color: #3b82f6; border: 2px solid #93c5fd; }
+        .step-icon.done        { background: #d1fae5; color: #059669; border: 2px solid #6ee7b7; }
+        .step-icon.error       { background: #fee2e2; color: #dc2626; border: 2px solid #fca5a5; }
+        .step-label { flex: 1; }
+        .step-status-text { font-size: 13px; color: #6b7280; }
+        .step-status-text.running { color: #3b82f6; }
+        .step-status-text.done    { color: #059669; }
+        .step-status-text.error   { color: #dc2626; }
+
+        /* spinner */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner-sm {
+            width: 14px; height: 14px;
+            border: 2px solid #bfdbfe;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            display: inline-block;
+        }
+
+        /* ── Error / retry ── */
+        .error-box {
+            background: #fff5f5;
+            border: 1px solid #fca5a5;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 10px;
+            display: none;
+        }
+        .retry-btn {
+            background: #dc2626; color: #fff;
+            border: none; border-radius: 6px;
+            padding: 10px 22px; font-size: 14px;
+            cursor: pointer; margin-top: 12px;
+        }
+        .retry-btn:hover { background: #b91c1c; }
+
+        /* ── Additional notes ── */
+        .notes-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin: 24px 0;
+        }
+        .notes-section h2 { font-size: 17px; margin-bottom: 6px; color: #1f2937; }
+        .notes-hint { font-size: 13px; color: #6b7280; margin-bottom: 12px; }
+        .notes-section textarea {
+            width: 100%; border: 1px solid #e5e7eb;
+            border-radius: 8px; padding: 12px;
+            font-size: 14px; resize: vertical;
+            font-family: inherit; color: #374151;
+        }
+        .notes-section textarea:focus { outline: none; border-color: #3b82f6; }
+
+        /* ── Generate button ── */
+        .generate-btn {
+            display: block; width: 100%;
+            background: #3b82f6; color: #fff;
+            border: none; border-radius: 8px;
+            padding: 14px; font-size: 16px;
+            font-weight: 600; cursor: pointer;
+            margin: 10px 0;
+            transition: background .2s;
+        }
+        .generate-btn:hover:not(:disabled) { background: #2563eb; }
+        .generate-btn:disabled { background: #93c5fd; cursor: not-allowed; }
+
+        /* ── Results ── */
+        .results-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin: 24px 0;
+            display: none;
+        }
+        .results-section h2 { font-size: 17px; margin-bottom: 16px; }
+        .analysis-card {
+            background: #f8faff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .missing-box {
+            background: #fffbeb; border: 1px solid #fcd34d;
+            border-radius: 8px; padding: 12px 16px;
+            margin-top: 10px; font-size: 14px;
+        }
+        .error-list {
+            background: #fff5f5; border: 1px solid #fca5a5;
+            border-radius: 8px; padding: 12px 16px;
+            margin-top: 10px; font-size: 14px;
+        }
+        .proto-tabs {
+            display: flex; gap: 8px; flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .proto-tab {
+            padding: 8px 18px; border-radius: 6px;
+            border: 1px solid #e5e7eb; background: #f9fafb;
+            cursor: pointer; font-size: 14px; color: #374151;
+        }
+        .proto-tab.active {
+            background: #3b82f6; color: #fff;
+            border-color: #3b82f6;
+        }
+        .proto-content { display: none; }
+        .proto-content.active { display: block; }
+        .proto-box {
+            background: #f8faff; border: 1px solid #e5e7eb;
+            border-radius: 8px; padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px; line-height: 1.7;
+            white-space: pre-wrap; word-break: break-word;
+            max-height: 400px; overflow-y: auto;
+        }
+        .sections-list { margin-top: 10px; font-size: 13px; color: #6b7280; }
+        .export-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .export-btn {
+            padding: 10px 22px; border-radius: 6px;
+            border: 1px solid #e5e7eb; background: #fff;
+            cursor: pointer; font-size: 14px;
+            transition: background .15s;
+        }
+        .export-btn:hover { background: #f3f4f6; }
+
+        /* ── Template preview (docx-preview) ── */
+        #templatePreview {
+            overflow: auto;
+            background: #e5e7eb;
+            padding: 12px;
+            border-radius: 8px;
+            max-height: 80vh;
+        }
+
+        /* ── Field Badge Styling ── */
+        .field-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .field-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* ── Layout ── */
+        .page-wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px; }
+        .upload-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-bottom: 24px;
+        }
+        .upload-section h2 { font-size: 17px; margin-bottom: 6px; }
+        .upload-hint { font-size: 13px; color: #6b7280; margin-bottom: 16px; }
+
+        .config-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; }
+        .config-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 160px; }
+        .config-group label { font-size: 13px; color: #374151; font-weight: 500; }
+        .config-group select {
+            border: 1px solid #e5e7eb; border-radius: 6px;
+            padding: 8px 10px; font-size: 14px;
+            background: #fff; color: #1f2937;
+        }
+        .config-group select:focus { outline: none; border-color: #3b82f6; }
+
+        h1.title {
+            font-size: 22px; color: #1e3a8a;
+            text-align: center; margin-bottom: 4px;
+        }
+        p.subtitle {
+            text-align: center; color: #6b7280;
+            font-size: 14px; margin-bottom: 28px;
+        }
+    </style>
+</head>
 <body>
+<div class="page-wrap">
 
-<div class="topbar">Ethic-MFU &middot; AP.02</div>
+    <h1 class="title">📄 AI Document Generator</h1>
+    <p class="subtitle">วิเคราะห์และสร้างเอกสารวิจัยด้วย AI — EC-MFU</p>
 
-<!-- อัปโหลดไฟล์ -->
-<section class="step-block" id="uploadSection">
-  <h2>อัปโหลดไฟล์ต้นฉบับ</h2>
-  <p class="hint">รองรับไฟล์ PDF และ DOCX ระบบจะอ่านไฟล์นี้เป็นหลักเพื่อนำไปสร้างเอกสาร</p>
+    <!-- ── UPLOAD ── -->
+    <section class="upload-section">
+        <h2>อัปโหลดไฟล์ต้นฉบับ</h2>
+        <p class="upload-hint">รองรับไฟล์ PDF และ DOCX ระบบจะอ่านไฟล์นี้เป็นหลักเพื่อนำไปสร้างเอกสาร (ถ้าเลือกหมวดหมู่ที่เป็นแม่แบบฟอร์ม ไม่ต้องอัปโหลดไฟล์)</p>
 
-  <div class="upload-box" id="uploadBox">
-    <input type="file" id="fileInput" accept=".pdf,.docx" />
-      <p class="upload-note">ลากไฟล์ PDF หรือ DOCX มาวางที่นี่ หรือกดปุ่มเลือกไฟล์ (ไม่เกิน 10 MB)</p>
-  </div>
-    <div class="file-error" id="fileError" role="alert" hidden></div>
+        <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+        <div class="upload-box" id="uploadBox">
+            <button class="choose-btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
+            <span id="chosenName" style="font-size:14px;color:#6b7280;">ยังไม่ได้เลือกไฟล์</span>
+            <p style="font-size:13px;color:#9ca3af;margin-top:10px;">ลากไฟล์ PDF หรือ DOCX มาวางที่นี่ หรือกดปุ่มเลือกไฟล์ (ไม่เกิน 10 MB)</p>
+        </div>
 
-  <div class="file-info" id="fileInfo" hidden>
-    <span id="fileName"></span>
-    <span id="fileSize"></span>
-  </div>
-</section>
+        <div id="fileBadge" class="file-badge" style="display:none;">
+            <span>📄</span>
+            <span id="badgeName"></span>
+            <span id="badgeSize" style="color:#6b7280;"></span>
+        </div>
 
-<!-- แถบแสดงความคืบหน้า แยกเป็นช่วงของกระบวนการ -->
-<section class="progress-panel" id="progressPanel" hidden aria-live="polite">
-  <h2>สถานะการประมวลผล</h2>
-  <ol class="stages" id="stageList">
-    <li data-stage = "validate">ตรวจสอบชนิดและขนาดไฟล์</li>
-    <li data-stage = "read">อ่านเนื้อหาจากไฟล์</li>
-    <li data-stage = "analyze">วิเคราะห์เนื้อหาและจัดโครงสร้าง</li>
-    <li data-stage = "language">ตรวจคำผิดและปรับภาษาให้เป็นทางการ</li>
-    <li data-stage = "layout">จัดหน้า A4 และสร้างเอกสาร 4 แบบ</li>
-  </ol>
+        <div class="config-row">
+            <div class="config-group">
+                <label for="docCategory">หมวดหมู่เอกสาร</label>
+                <select id="docCategory">
+                    <option value="">— เลือกหมวดหมู่ —</option>
+                    <optgroup label="แม่แบบฟอร์ม (พรีวิวทันที ไม่ต้องอัปโหลดไฟล์)">
+                        <option value="ap02_th">AP 02/2026 แบบเสนอโครงการวิจัย (ไทย)</option>
+                        <option value="ap02_en">AP 02/2026 Research Protocol (English)</option>
+                        <option value="memo_th">บันทึกข้อความ</option>
+                        <option value="letter_th">หนังสือภายนอก</option>
+                    </optgroup>
+                    <optgroup label="วิเคราะห์จากไฟล์ที่อัปโหลด (AI)">
+                        <option value="ethics_submission">Ethics Submission</option>
+                        <option value="general">General Document</option>
+                        <option value="administrative">Administrative Document</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="config-group">
+                <label for="outputLanguage">ภาษาผลลัพธ์</label>
+                <select id="outputLanguage">
+                    <option value="en">English</option>
+                    <option value="th">ไทย</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+        </div>
+    </section>
 
-  <div class = "error-box" id = "errorBox" role = "alert" hidden>
-    <strong id = "errorStage"></strong>
-    <p id = "errorMessage"></p>
-    <button type = "button" id = "retryBtn">ลองใหม่อีกครั้ง</button>
-  </div>
-</section>
+    <!-- ── STATUS STEPS ── -->
+    <section class="status-section">
+        <h2>สถานะการประมวลผล</h2>
+        <div class="step-list" id="stepList">
+            <!-- steps injected by JS -->
+        </div>
+        <div class="error-box" id="errorBox">
+            <strong style="color:#dc2626;">❌ เกิดข้อผิดพลาด</strong>
+            <p id="errorMsg" style="margin-top:6px;font-size:14px;white-space:pre-wrap;"></p>
+            <button class="retry-btn" onclick="resetAll()">ลองใหม่อีกครั้ง</button>
+        </div>
+    </section>
 
-<!-- รายการจุดสงสัยที่พบในไฟล์ต้นฉบับ (ผลจาก /api/documents/analyze) -->
-<section class="step-block suspect-panel" id="suspectPanel" hidden aria-live="polite">
-  <h2>จุดที่ควรตรวจในไฟล์ต้นฉบับ</h2>
-  <p class="hint" id="suspectSummary"></p>
-  <p class="hint">ตรวจจากข้อความในไฟล์ที่อัปโหลดตามกฎตายตัว (ยังไม่ใช่ AI) อาจพลาดหรือเตือนเกินจริงได้ ผู้ใช้เป็นผู้ตัดสินใจเองว่าจะแก้หรือไม่</p>
-  <label class="suspect-filter" id="suspectFilter" hidden>
-    <input type="checkbox" id="suspectOnlyRed"> แสดงเฉพาะรายการสีแดง (ควรแก้)
-  </label>
-  <ol class="suspect-list" id="suspectList"></ol>
-</section>
+    <!-- ── NOTES ── -->
+    <section class="notes-section">
+        <h2>รายละเอียดเพิ่มเติมสำหรับเอกสาร</h2>
+        <p class="notes-hint">เช่น หน่วยงานที่ยื่น ลักษณะงานวิจัย หรือสิ่งที่ต้องการให้ปรับเป็นพิเศษ (ไม่บังคับ)</p>
+        <textarea id="additionalNotes" rows="3" placeholder="พิมพ์รายละเอียดเพิ่มเติมที่นี่..."></textarea>
+    </section>
 
-<!-- ข้อความเพิ่มเติม -->
-<section class="step-block" id="notesSection">
-  <h2>รายละเอียดเพิ่มเติมสำหรับเอกสาร</h2>
-  <p class="hint">เช่น หน่วยงานที่ยื่น ลักษณะงานวิจัย หรือสิ่งที่ต้องการให้ปรับเป็นพิเศษ (ไม่บังคับ)</p>
-  <textarea id="extraNotes" rows="5" maxlength="2000"
-    placeholder="พิมพ์รายละเอียดเพิ่มเติมที่นี่..."></textarea>
-  <div class="char-count"><span id="notesCount">0</span> / 2000</div>
-</section>
+    <button class="generate-btn" id="generateBtn" onclick="generate()">🚀 สร้างเอกสาร</button>
 
-<main class="panel" id="controls">
-  <h2>เลือกภาษาของเอกสาร</h2>
-  <p class="muted">เอกสารที่สร้างทั้ง 4 แบบจะเป็นภาษาที่เลือกเท่านั้น ไม่ปนกัน</p>
-  <div class="langs" role="radiogroup" aria-label="เลือกภาษาของเอกสาร">
-    <label class="lang">
-      <input type="radio" name="lang" value="th" checked>
-      <span><b>ภาษาไทย</b><small>แบบเสนอโครงการวิจัยเพื่อพิจารณา</small></span>
-    </label>
-    <label class="lang">
-      <input type="radio" name="lang" value="en">
-      <span><b>English</b><small>Research Protocol Proposal Form for Ethical Review</small></span>
-    </label>
-  </div>
+    <!-- ── TEMPLATE PREVIEW (fixed templates) ── -->
+    <section class="results-section" id="templatePreviewSection">
+        <h2 id="templatePreviewTitle">พรีวิวแม่แบบ</h2>
+        <p class="notes-hint" style="margin-bottom:10px;">คลิกที่ช่องสีแดงในเอกสารเพื่อกรอกข้อมูล · หัวข้อและป้ายชื่อของฟอร์มแก้ไม่ได้</p>
+        <div id="templatePreview"></div>
+        <div class="export-row">
+            <button class="export-btn" onclick="downloadCurrentTemplate()">📥 ดาวน์โหลดแม่แบบเปล่า (DOCX ต้นฉบับ)</button>
+        </div>
+        <p class="notes-hint" style="margin-top:8px;">หมายเหตุ: ข้อความที่กรอกในพรีวิวยังไม่ถูกบันทึกลงไฟล์ที่ดาวน์โหลด (ขั้นตอนถัดไป)</p>
+    </section>
 
-  <h2>ยืนยันเพื่อสร้างเอกสาร</h2>
-  <p class="muted"
-      id="pick-summary">ภาษาที่เลือก: ภาษาไทย &rarr; จะได้เอกสารภาษาไทย 4 แบบ
-  </p>
-  
-  <button class = "btn" 
-    id="btn-generate" 
-    type="button">ยืนยันและสร้างเอกสาร 4 แบบ
-  </button>
+    <!-- ── RESULTS (AI analysis flow) ── -->
+    <section class="results-section" id="resultsSection">
+        <h2>📊 ผลลัพธ์</h2>
 
-  <div class = "status" id = "status" role = "status" aria-live = "polite"></div>
-  <div class = "notice">ระบบจะเติมช่องที่<b>อ่านพบในไฟล์ที่อัปโหลด</b>โดยจับคู่หัวข้อตามฟอร์ม AP 02 ถ้าไฟล์ไม่ได้เรียงตามฟอร์ม กดปุ่ม <b>"ให้ AI ช่วยกรอกช่องจากไฟล์"</b> (ไม่บังคับ และจะส่งข้อความไปยังบริการ AI ภายนอกหลังคุณยืนยันเท่านั้น) AI จะอ่านและร่างข้อความลงช่องที่เกี่ยวข้อง โดย<b>ช่องที่ AI ร่างเป็นสีเหลือง</b>ต้องตรวจทานเอง ช่องที่ไม่พบข้อมูลหรือเป็นข้อมูลส่วนตัว วันที่ และตัวเลขเงิน จะเป็น<b>สีแดง</b>ให้ผู้ใช้กรอกเอง ระบบไม่ให้ AI กรอกข้อมูลส่วนตัวให้ (การตรวจคำผิดยังเป็นกฎตายตัว ยังไม่ใช่ AI)</div>
-</main>
+        <div id="analysisContent"></div>
 
-<section class="panel" id="result" hidden>
-  <div class="toolbar">
-    <label>ซูม
-      <select id="zoom">
-        <option value = "60">60%</option>
-        <option value = "80">80%</option>
-        <option value = "100" selected>100%</option>
-        <option value = "120">120%</option>
-      </select>
-    </label>
-    <button class = "btn" id = "btn-ai-fill" type = "button">ให้ AI ช่วยกรอกช่องจากไฟล์</button>
-    <button class = "btn ghost" id = "btn-print" type = "button">พิมพ์ / บันทึกเป็น PDF (ชั่วคราว)</button>
-  </div>
-  <div class = "tabs" id = "tabs" role = "tablist" aria-label = "เลือกแบบเอกสาร"></div>
-  <div class = "desc" id = "desc"></div>
-  <div id = "variants"></div>
-</section>
+        <!-- ── FIELD STATUS ── -->
+        <div id="fieldStatusSection" style="background:#f8faff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:16px 0;display:none;">
+            <h3 style="font-size:16px;margin:0 0 12px;color:#1f2937;">🎯 Field Status (Click to Jump)</h3>
 
-<div class = "modal" id="errorModal" hidden role="alertdialog" aria-modal="true" aria-labelledby="err-title">
-  <div class = "modal-box">
-    <h3 id = "err-title">เกิดข้อผิดพลาด</h3>
-    <p id = "err-msg"></p>
-    <button class = "btn" id = "err-close" type = "button">ปิด</button>
-  </div>
+            <div id="requiredFieldsList" style="display:none;margin-bottom:16px;">
+                <h4 style="font-size:14px;color:#dc2626;margin:0 0 8px;">🔴 Required Fields (Missing)</h4>
+                <div id="requiredFieldsContainer" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+            </div>
+
+            <div id="ambiguousFieldsList" style="display:none;margin-bottom:16px;">
+                <h4 style="font-size:14px;color:#d97706;margin:0 0 8px;">🟠 Ambiguous Fields (Review Needed)</h4>
+                <div id="ambiguousFieldsContainer" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+            </div>
+
+            <div id="optionalFieldsList" style="display:none;">
+                <h4 style="font-size:14px;color:#6b7280;margin:0 0 8px;">⚪ Optional Fields</h4>
+                <div id="optionalFieldsContainer" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+            </div>
+        </div>
+
+        <h3 style="font-size:16px;margin:20px 0 12px;">เอกสารที่สร้างขึ้น (4 รูปแบบ)</h3>
+        <div class="proto-tabs" id="protoTabs"></div>
+        <div id="protoContents"></div>
+
+        <div class="export-row">
+            <button class="export-btn" onclick="exportToDocx()">📥 ดาวน์โหลด DOCX</button>
+            <button class="export-btn" onclick="exportToPdf()">📥 ดาวน์โหลด PDF</button>
+        </div>
+    </section>
+
 </div>
 
-<script src="js/api.js" defer></script>
-<script src="js/progress.js" defer></script>
-<script src="js/upload.js" defer></script>
-<script src="js/extractor.js" defer></script>
-<script src="js/analyzer.js" defer></script>
-<script src="js/suspects.js" defer></script>
-<script src="js/app.js" defer></script>
+<!-- ลำดับสำคัญ: jszip ก่อน docx-preview · แต่ละไฟล์โหลดครั้งเดียวเท่านั้น -->
+<script src="lib/jszip.min.js"></script>
+<script src="lib/docx-preview.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/preview_editor.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/a4_preview.js"></script>
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let uploadedFile   = null;
+let generatedData  = null;
+let activeProto    = 0;
+
+// Step definitions
+const STEPS = [
+    { id: 'validate', label: 'ตรวจสอบชนิดและขนาดไฟล์' },
+    { id: 'read',     label: 'อ่านเนื้อหาจากไฟล์' },
+    { id: 'analyze',  label: 'วิเคราะห์เนื้อหาและจัดโครงสร้าง' },
+    { id: 'check',    label: 'ตรวจจัดคำผิดและปรับภาษาให้เป็นทางการ' },
+    { id: 'build',    label: 'จัดหน้า A4 และสร้างเอกสาร 4 แบบ' },
+];
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    renderSteps();
+    initUpload();
+    checkAPIHealth().then(ok => {
+        if (!ok) console.warn('⚠️ Backend ไม่ตอบสนอง — ตรวจสอบว่า standalone_server.py กำลังรัน');
+    });
+});
+
+// ═══════════════════════════════════════════
+// RENDER STEPS
+// ═══════════════════════════════════════════
+function renderSteps(states) {
+    const list = document.getElementById('stepList');
+    list.innerHTML = STEPS.map((s, i) => {
+        const st = states ? states[i] : 'idle';
+        const iconContent = st === 'done'    ? '✓'
+            : st === 'error'   ? '!'
+            : st === 'running' ? '<span class="spinner-sm"></span>'
+            : (i + 1).toString();
+        const statusText  = st === 'running' ? '<span class="step-status-text running">กำลังดำเนินการ...</span>'
+            : st === 'done'    ? '<span class="step-status-text done">ผ่าน</span>'
+            : st === 'error'   ? '<span class="step-status-text error">เกิดข้อผิดพลาด</span>'
+            : '';
+        return `<div class="step-row">
+                    <div class="step-icon ${st}">${iconContent}</div>
+                    <span class="step-label">${s.label}</span>
+                    ${statusText}
+                </div>`;
+    }).join('');
+}
+
+// ═══════════════════════════════════════════
+// UPLOAD
+// ═══════════════════════════════════════════
+function initUpload() {
+    const box   = document.getElementById('uploadBox');
+    const input = document.getElementById('fileInput');
+
+    ['dragenter','dragover','dragleave','drop'].forEach(e =>
+        box.addEventListener(e, ev => { ev.preventDefault(); ev.stopPropagation(); }));
+
+    box.addEventListener('dragenter', () => box.classList.add('drag-over'));
+    box.addEventListener('dragleave', () => box.classList.remove('drag-over'));
+    box.addEventListener('drop', ev => {
+        box.classList.remove('drag-over');
+        const f = ev.dataTransfer.files[0];
+        if (f) handleFile(f);
+    });
+
+    input.addEventListener('change', ev => {
+        if (ev.target.files[0]) handleFile(ev.target.files[0]);
+    });
+}
+
+function handleFile(file) {
+    const validTypes = [
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain'
+    ];
+    if (!validTypes.includes(file.type)) {
+        showError('ไฟล์ไม่รองรับ — ใช้ PDF, DOCX หรือ TXT', null);
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        showError('ไฟล์ใหญ่เกินไป (สูงสุด 10 MB)', null);
+        return;
+    }
+    uploadedFile = file;
+    document.getElementById('chosenName').textContent = file.name;
+
+    const badge = document.getElementById('fileBadge');
+    document.getElementById('badgeName').textContent = file.name;
+    document.getElementById('badgeSize').textContent = (file.size / (1024*1024)).toFixed(1) + ' MB';
+    badge.style.display = 'inline-flex';
+
+    hideError();
+    renderSteps(); // reset steps
+}
+
+// ═══════════════════════════════════════════
+// GENERATE  ← main flow
+// ═══════════════════════════════════════════
+async function generate() {
+
+    // 1) ต้องเลือกหมวดหมู่ก่อนเสมอ
+    const category = document.getElementById('docCategory').value;
+    if (!category) { showError('โปรดเลือกหมวดหมู่เอกสาร', null); return; }
+
+    // 2) หมวดที่มีแม่แบบฝังไว้ → พรีวิวแม่แบบทันที (ไม่ต้องอัปโหลดไฟล์)
+    const tpl = getSelectedTemplate();
+    if (tpl) {
+        hideError();
+        document.getElementById('resultsSection').style.display = 'none';
+        document.getElementById('generateBtn').disabled = true;
+        try {
+            await previewTemplate(tpl);
+        } catch (err) {
+            showError(err.message, null);
+        } finally {
+            document.getElementById('generateBtn').disabled = false;
+        }
+        return;
+    }
+
+    // 3) หมวดอื่น → วิเคราะห์ด้วย AI (ต้องอัปโหลดไฟล์)
+    if (!uploadedFile) { showError('โปรดเลือกเอกสารก่อน', null); return; }
+
+    const language = document.getElementById('outputLanguage').value;
+    const notes    = document.getElementById('additionalNotes').value;
+
+    // reset UI
+    hideError();
+    document.getElementById('generateBtn').disabled = true;
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('templatePreviewSection').style.display = 'none';
+
+    const st = ['idle','idle','idle','idle','idle'];
+
+    try {
+        // Step 1 — validate (client side already done)
+        st[0] = 'running'; renderSteps(st);
+        await delay(300);
+        st[0] = 'done';    renderSteps(st);
+
+        // Step 2 — read (backend parses file)
+        st[1] = 'running'; renderSteps(st);
+
+        // Step 3 — analyze
+        st[2] = 'running'; renderSteps(st);
+
+        // Step 4 — language check
+        st[3] = 'running'; renderSteps(st);
+
+        // Step 5 — build prototypes
+        st[4] = 'running'; renderSteps(st);
+
+        // ─── actual API call ───
+        const response = await analyzeDocument(uploadedFile, category, language, notes);
+
+        // all done
+        st[1] = st[2] = st[3] = st[4] = 'done';
+        renderSteps(st);
+
+        generatedData = response;
+        displayResults(response);
+
+    } catch (err) {
+        // mark current running step as error
+        const runIdx = st.lastIndexOf('running');
+        if (runIdx >= 0) st[runIdx] = 'error';
+        renderSteps(st);
+        showError(err.message, null);
+    } finally {
+        document.getElementById('generateBtn').disabled = false;
+    }
+}
+
+// ═══════════════════════════════════════════
+// DISPLAY RESULTS
+// ═══════════════════════════════════════════
+function displayResults(data) {
+    const sec = document.getElementById('resultsSection');
+    sec.style.display = 'block';
+
+    // analysis card
+    const a   = data.analysis || {};
+    const ac  = document.getElementById('analysisContent');
+    let html  = `<div class="analysis-card">
+        <strong>📌 ชนิดเอกสาร:</strong> ${esc(a.document_type || '—')}<br>
+        <strong>🌐 ภาษา:</strong> ${esc(a.language || '—')}<br>
+        <strong>📝 วัตถุประสงค์:</strong> ${esc(a.purpose || '—')}<br>
+        <strong>✓ สถานะ:</strong> ${esc(a.status || 'Complete')}
+        ${a.word_count ? `<br><strong>📊 จำนวนคำ:</strong> ${a.word_count} คำ` : ''}
+    </div>`;
+
+    if (a.errors && a.errors.length) {
+        html += `<div class="error-list"><strong style="color:#dc2626;">⚠️ ข้อผิดพลาด/ข้อเตือน:</strong><ul style="margin:8px 0 0 18px;">
+            ${a.errors.map(e => `<li>${esc(e)}</li>`).join('')}</ul></div>`;
+    }
+    if (a.missing_fields && a.missing_fields.length) {
+        html += `<div class="missing-box"><strong style="color:#d97706;">📋 ข้อมูลที่ต้องกรอก:</strong><ul style="margin:8px 0 0 18px;">
+            ${a.missing_fields.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div>`;
+    }
+    ac.innerHTML = html;
+
+    // ── Field Status with Color Coding ──
+    try {
+        displayFieldStatus(data);
+    } catch (e) {
+        console.warn("Warning: displayFieldStatus error:", e);
+    }
+
+    // ── A4 Template Preview ──
+    try {
+        addA4PreviewToResults(data);
+    } catch (e) {
+        console.error("Error: addA4PreviewToResults failed:", e);
+    }
+
+    // prototypes
+    const protos  = data.prototypes || [];
+    const tabsEl  = document.getElementById('protoTabs');
+    const contsEl = document.getElementById('protoContents');
+    tabsEl.innerHTML  = '';
+    contsEl.innerHTML = '';
+
+    protos.forEach((p, i) => {
+        // tab button
+        const btn = document.createElement('button');
+        btn.className  = 'proto-tab' + (i === 0 ? ' active' : '');
+        btn.textContent = p.name || `รูปแบบ ${i+1}`;
+        btn.onclick = () => switchProto(i);
+        tabsEl.appendChild(btn);
+
+        // content
+        const div = document.createElement('div');
+        div.className = 'proto-content' + (i === 0 ? ' active' : '');
+        div.innerHTML = `
+            <p style="font-size:14px;color:#6b7280;margin-bottom:10px;">${esc(p.description || '')}</p>
+            <div class="proto-box">${esc(p.content || 'ไม่มีเนื้อหา')}</div>
+            ${p.highlighted_sections && p.highlighted_sections.length
+                ? `<p class="sections-list">📌 ส่วนสำคัญ: ${p.highlighted_sections.map(s => esc(s)).join(', ')}</p>`
+                : ''}`;
+        contsEl.appendChild(div);
+    });
+
+    activeProto = 0;
+    sec.scrollIntoView({ behavior: 'smooth' });
+}
+
+function displayFieldStatus(data) {
+    const fieldMeta = data.analysis?.field_metadata || [];
+    if (fieldMeta.length === 0) return;
+
+    const required = fieldMeta.filter(f => f.severity === 'required');
+    const ambiguous = fieldMeta.filter(f => f.severity === 'ambiguous');
+    const optional = fieldMeta.filter(f => f.severity === 'optional');
+
+    const sec = document.getElementById('fieldStatusSection');
+    const reqList = document.getElementById('requiredFieldsList');
+    const ambList = document.getElementById('ambiguousFieldsList');
+    const optList = document.getElementById('optionalFieldsList');
+
+    // Required Fields (RED)
+    if (required.length > 0) {
+        reqList.style.display = 'block';
+        const container = document.getElementById('requiredFieldsContainer');
+        container.innerHTML = required.map(f => `
+            <button class="field-badge" onclick="jumpToField('${f.id}')" style="background:#fee2e2;border:1px solid #fca5a5;color:#dc2626;">
+                🔴 ${f.label} <span style="font-size:12px;color:#991b1b;">(p.${f.page})</span>
+            </button>
+        `).join('');
+    } else {
+        reqList.style.display = 'none';
+    }
+
+    // Ambiguous Fields (YELLOW/ORANGE)
+    if (ambiguous.length > 0) {
+        ambList.style.display = 'block';
+        const container = document.getElementById('ambiguousFieldsContainer');
+        container.innerHTML = ambiguous.map(f => `
+            <button class="field-badge" onclick="jumpToField('${f.id}')" style="background:#fef3c7;border:1px solid #fcd34d;color:#d97706;">
+                🟠 ${f.label} <span style="font-size:12px;">(${f.confidence}%)</span>
+            </button>
+        `).join('');
+    } else {
+        ambList.style.display = 'none';
+    }
+
+    // Optional Fields
+    if (optional.length > 0) {
+        optList.style.display = 'block';
+        const container = document.getElementById('optionalFieldsContainer');
+        container.innerHTML = optional.map(f => `
+            <button class="field-badge" style="background:#f3f4f6;border:1px solid #e5e7eb;color:#6b7280;cursor:default;">
+                ⚪ ${f.label}
+            </button>
+        `).join('');
+    } else {
+        optList.style.display = 'none';
+    }
+
+    // Show section if any fields exist
+    if (required.length > 0 || ambiguous.length > 0 || optional.length > 0) {
+        sec.style.display = 'block';
+    }
+}
+
+function jumpToField(fieldId) {
+    // Scroll to field in the active prototype content
+    const protoContent = document.querySelector('.proto-content.active');
+    if (!protoContent) return;
+
+    const text = protoContent.textContent;
+    // Find mention of this field and scroll parent proto-box
+    const protoBox = protoContent.querySelector('.proto-box');
+    if (protoBox && text.includes(fieldId)) {
+        protoBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Highlight with pulse effect
+        protoBox.style.transition = 'background-color 0.3s';
+        protoBox.style.backgroundColor = '#fef3c7';
+        setTimeout(() => { protoBox.style.backgroundColor = '#f8faff'; }, 1000);
+    }
+}
+
+function switchProto(i) {
+    activeProto = i;
+    document.querySelectorAll('.proto-tab').forEach((b, idx) =>
+        b.classList.toggle('active', idx === i));
+    document.querySelectorAll('.proto-content').forEach((c, idx) =>
+        c.classList.toggle('active', idx === i));
+}
+
+// ═══════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════
+async function exportToDocx() {
+    if (!generatedData) { showError('ไม่มีข้อมูลที่จะส่งออก', null); return; }
+    try {
+        const blob = await exportDocx(generatedData);
+        downloadFile(blob, 'document.docx');
+    } catch (e) { showError('ส่งออก DOCX ไม่สำเร็จ: ' + e.message, null); }
+}
+async function exportToPdf() {
+    if (!generatedData) { showError('ไม่มีข้อมูลที่จะส่งออก', null); return; }
+    try {
+        const blob = await exportPdf(generatedData);
+        downloadFile(blob, 'document.pdf');
+    } catch (e) { showError('ส่งออก PDF ไม่สำเร็จ: ' + e.message, null); }
+}
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function showError(msg, _unused) {
+    const box = document.getElementById('errorBox');
+    document.getElementById('errorMsg').textContent = msg;
+    box.style.display = 'block';
+}
+function hideError() {
+    document.getElementById('errorBox').style.display = 'none';
+}
+function resetAll() {
+    uploadedFile  = null;
+    generatedData = null;
+    document.getElementById('fileInput').value = '';
+    document.getElementById('chosenName').textContent = 'ยังไม่ได้เลือกไฟล์';
+    document.getElementById('fileBadge').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('templatePreviewSection').style.display = 'none';
+    renderSteps();
+    hideError();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+function esc(str) {
+    return String(str)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
 </body>
 </html>
-

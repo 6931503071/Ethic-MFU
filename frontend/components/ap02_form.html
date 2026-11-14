@@ -1,0 +1,642 @@
+<!--
+AP 02/2026 Research Protocol Proposal Form Component
+Embedded form viewer and editor for research protocol proposals
+-->
+
+<style>
+    /* ──────────────────────────────────────────────────────────────── */
+    /* AP02 FORM STYLES */
+    /* ──────────────────────────────────────────────────────────────── */
+
+    .ap02-form-container {
+        max-width: 900px;
+        margin: 24px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.08);
+        overflow: hidden;
+    }
+
+    .ap02-form-header {
+        background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+        color: white;
+        padding: 32px 28px;
+        text-align: center;
+    }
+
+    .ap02-form-header h1 {
+        font-size: 24px;
+        margin: 0 0 8px;
+        font-weight: 600;
+    }
+
+    .ap02-form-header p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    .ap02-form-body {
+        padding: 24px 28px;
+    }
+
+    /* ── Form Navigation ── */
+    .ap02-section-nav {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 16px;
+        overflow-x: auto;
+    }
+
+    .ap02-nav-btn {
+        padding: 10px 16px;
+        border: none;
+        background: #f3f4f6;
+        color: #374151;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.2s;
+    }
+
+    .ap02-nav-btn:hover {
+        background: #e5e7eb;
+    }
+
+    .ap02-nav-btn.active {
+        background: #3b82f6;
+        color: #fff;
+    }
+
+    /* ── Section Display ── */
+    .ap02-section {
+        display: none;
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    .ap02-section.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .ap02-section-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #3b82f6;
+    }
+
+    .ap02-section-number {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+    /* ── Field Groups ── */
+    .ap02-field-group {
+        margin-bottom: 24px;
+    }
+
+    .ap02-field-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: #1f2937;
+        margin-bottom: 8px;
+    }
+
+    .ap02-field-label.required::after {
+        content: " *";
+        color: #dc2626;
+        font-weight: 700;
+    }
+
+    .ap02-field-hint {
+        font-size: 12px;
+        color: #6b7280;
+        margin-bottom: 6px;
+        font-style: italic;
+    }
+
+    /* ── Input Fields ── */
+    .ap02-input,
+    .ap02-select,
+    .ap02-textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        color: #1f2937;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        background: #fff;
+    }
+
+    .ap02-input:focus,
+    .ap02-select:focus,
+    .ap02-textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .ap02-input.error,
+    .ap02-select.error,
+    .ap02-textarea.error {
+        border-color: #dc2626;
+    }
+
+    .ap02-textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    /* ── Field Status Icons ── */
+    .ap02-field-status {
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 12px;
+    }
+
+    .ap02-field-status.empty {
+        color: #ef4444;
+    }
+
+    .ap02-field-status.filled {
+        color: #10b981;
+    }
+
+    .ap02-field-status.warning {
+        color: #f59e0b;
+    }
+
+    /* ── Array Fields (Multiple Entries) ── */
+    .ap02-array-entries {
+        margin-top: 12px;
+        padding: 16px;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .ap02-array-entry {
+        background: #fff;
+        padding: 16px;
+        margin-bottom: 12px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        position: relative;
+    }
+
+    .ap02-array-entry:last-child {
+        margin-bottom: 0;
+    }
+
+    .ap02-array-entry-number {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 2px 8px;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .ap02-array-remove-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: #fee2e2;
+        color: #dc2626;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 10px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background 0.2s;
+    }
+
+    .ap02-array-remove-btn:hover {
+        background: #fca5a5;
+    }
+
+    .ap02-array-add-btn {
+        background: #d1fae5;
+        color: #059669;
+        border: 1px solid #6ee7b7;
+        border-radius: 6px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.2s;
+    }
+
+    .ap02-array-add-btn:hover {
+        background: #a7f3d0;
+    }
+
+    /* ── Form Actions ── */
+    .ap02-form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #e5e7eb;
+        justify-content: space-between;
+    }
+
+    .ap02-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .ap02-btn-primary {
+        background: #3b82f6;
+        color: #fff;
+    }
+
+    .ap02-btn-primary:hover:not(:disabled) {
+        background: #2563eb;
+    }
+
+    .ap02-btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+        border: 1px solid #e5e7eb;
+    }
+
+    .ap02-btn-secondary:hover:not(:disabled) {
+        background: #e5e7eb;
+    }
+
+    .ap02-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* ── Completion Progress ── */
+    .ap02-progress-bar {
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 16px 0;
+    }
+
+    .ap02-progress-fill {
+        height: 100%;
+        background: #10b981;
+        transition: width 0.3s ease;
+    }
+
+    .ap02-progress-text {
+        font-size: 12px;
+        color: #6b7280;
+        text-align: right;
+    }
+
+    /* ── Validation Messages ── */
+    .ap02-error-message {
+        color: #dc2626;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .ap02-success-message {
+        color: #059669;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .ap02-warning-message {
+        color: #d97706;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    /* ── Summary View ── */
+    .ap02-summary-card {
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .ap02-summary-card.complete {
+        background: #f0fdf4;
+        border-color: #86efac;
+    }
+
+    .ap02-summary-card.incomplete {
+        background: #fef2f2;
+        border-color: #fecaca;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+        .ap02-form-container {
+            margin: 12px;
+        }
+
+        .ap02-form-body {
+            padding: 16px;
+        }
+
+        .ap02-section-nav {
+            flex-direction: row;
+        }
+
+        .ap02-nav-btn {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        .ap02-form-actions {
+            flex-direction: column;
+        }
+
+        .ap02-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- HTML Template -->
+<div class="ap02-form-container">
+    <!-- Header -->
+    <div class="ap02-form-header">
+        <h1>📋 Research Protocol Proposal Form</h1>
+        <p>AP 02/2026 — Ethical Review</p>
+    </div>
+
+    <!-- Body -->
+    <div class="ap02-form-body">
+        <!-- Progress -->
+        <div id="ap02FormProgress" style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 14px; font-weight: 600; color: #1f2937;">Form Completion</span>
+                <span id="ap02ProgressPercent" style="font-size: 14px; color: #3b82f6; font-weight: 600;">0%</span>
+            </div>
+            <div class="ap02-progress-bar">
+                <div class="ap02-progress-fill" id="ap02ProgressFill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="ap02-section-nav" id="ap02SectionNav"></div>
+
+        <!-- Sections Container -->
+        <div id="ap02SectionsContainer"></div>
+
+        <!-- Form Actions -->
+        <div class="ap02-form-actions">
+            <button class="ap02-btn ap02-btn-secondary" onclick="ap02FormReset()">Reset Form</button>
+            <button class="ap02-btn ap02-btn-secondary" onclick="ap02FormSave()">Save Draft</button>
+            <button class="ap02-btn ap02-btn-primary" onclick="ap02FormSubmit()">Submit Form</button>
+        </div>
+    </div>
+</div>
+
+<!-- Form Data Store (Hidden) -->
+<script id="ap02FormData" type="application/json">
+{
+  "formVersion": "AP 02/2026",
+  "sections": {}
+}
+</script>
+
+<script>
+    /* ═════════════════════════════════════════════════════════════════════ */
+    /* AP 02 FORM CONTROLLER */
+    /* ═════════════════════════════════════════════════════════════════════ */
+
+    let AP02_FORM_SCHEMA = null;
+    let AP02_FORM_DATA = {};
+    let AP02_CURRENT_SECTION = 0;
+
+    // Initialize form
+    async function initializeAP02Form(language = 'en') {
+        console.log('🔄 Initializing AP02 Form...');
+
+        try {
+            // Fetch form schema
+            const response = await fetch(`/api/form/schema/${language}`);
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                AP02_FORM_SCHEMA = result.data;
+
+                // Initialize form data
+                const emptyFormResponse = await fetch('/api/form/empty-form');
+                const emptyFormResult = await emptyFormResponse.json();
+                AP02_FORM_DATA = emptyFormResult.data || {};
+
+                // Render form
+                renderAP02Form();
+                updateFormProgress();
+
+                console.log('✅ AP02 Form initialized successfully');
+            }
+        } catch (error) {
+            console.error('❌ Error initializing AP02 form:', error);
+        }
+    }
+
+    // Render the complete form
+    function renderAP02Form() {
+        const schema = AP02_FORM_SCHEMA;
+        const navContainer = document.getElementById('ap02SectionNav');
+        const sectionsContainer = document.getElementById('ap02SectionsContainer');
+
+        navContainer.innerHTML = '';
+        sectionsContainer.innerHTML = '';
+
+        // Create navigation buttons and sections
+        schema.sections.forEach((section, index) => {
+            // Navigation button
+            const navBtn = document.createElement('button');
+            navBtn.className = `ap02-nav-btn ${index === 0 ? 'active' : ''}`;
+            navBtn.textContent = section.title;
+            navBtn.onclick = () => switchAP02Section(index);
+            navContainer.appendChild(navBtn);
+
+            // Section div
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = `ap02-section ${index === 0 ? 'active' : ''}`;
+            sectionDiv.id = `ap02-section-${index}`;
+
+            // Section title with number
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'ap02-section-title';
+            titleDiv.innerHTML = `<span class="ap02-section-number">Section ${index + 1}</span>${section.title}`;
+            sectionDiv.appendChild(titleDiv);
+
+            // Fields
+            const fieldsContainer = document.createElement('div');
+            section.fields.forEach(field => {
+                fieldsContainer.appendChild(renderAP02Field(field));
+            });
+            sectionDiv.appendChild(fieldsContainer);
+
+            sectionsContainer.appendChild(sectionDiv);
+        });
+    }
+
+    // Render individual field
+    function renderAP02Field(field) {
+        const fieldDiv = document.createElement('div');
+        fieldDiv.className = 'ap02-field-group';
+        fieldDiv.id = `field-${field.id}`;
+
+        // Label
+        const label = document.createElement('label');
+        label.className = `ap02-field-label ${field.required ? 'required' : ''}`;
+        label.innerHTML = field.label;
+        fieldDiv.appendChild(label);
+
+        // Input based on type
+        let input;
+        const fieldValue = AP02_FORM_DATA[field.id] || '';
+
+        switch (field.type) {
+            case 'textarea':
+                input = document.createElement('textarea');
+                input.className = 'ap02-textarea';
+                input.value = fieldValue;
+                break;
+
+            case 'select':
+                input = document.createElement('select');
+                input.className = 'ap02-select';
+                input.innerHTML = '<option value="">— Select —</option>';
+                if (field.options) {
+                    field.options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt.value;
+                        option.textContent = opt.label;
+                        input.appendChild(option);
+                    });
+                }
+                input.value = fieldValue;
+                break;
+
+            case 'number':
+                input = document.createElement('input');
+                input.className = 'ap02-input';
+                input.type = 'number';
+                input.value = fieldValue;
+                break;
+
+            case 'date':
+                input = document.createElement('input');
+                input.className = 'ap02-input';
+                input.type = 'date';
+                input.value = fieldValue;
+                break;
+
+            case 'email':
+                input = document.createElement('input');
+                input.className = 'ap02-input';
+                input.type = 'email';
+                input.value = fieldValue;
+                break;
+
+            default:
+                input = document.createElement('input');
+                input.className = 'ap02-input';
+                input.type = 'text';
+                input.value = fieldValue;
+        }
+
+        input.id = `input-${field.id}`;
+        input.required = field.required;
+        input.onchange = () => {
+            AP02_FORM_DATA[field.id] = input.value;
+            updateFormProgress();
+        };
+        input.oninput = () => {
+            AP02_FORM_DATA[field.id] = input.value;
+        };
+
+        fieldDiv.appendChild(input);
+        return fieldDiv;
+    }
+
+    // Switch between sections
+    function switchAP02Section(index) {
+        // Update nav buttons
+        document.querySelectorAll('.ap02-nav-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === index);
+        });
+
+        // Update sections
+        document.querySelectorAll('.ap02-section').forEach((sec, i) => {
+            sec.classList.toggle('active', i === index);
+        });
+
+        AP02_CURRENT_SECTION = index;
+    }
+
+    // Update form progress
+    function updateFormProgress() {
+        const allFields = AP02_FORM_SCHEMA.sections.flatMap(s => s.fields);
+        const requiredFields = allFields.filter(f => f.required);
+        const filledRequired = requiredFields.filter(f => AP02_FORM_DATA[f.id]);
+
+        const percentage = requiredFields.length > 0
+            ? Math.round((filledRequired.length / requiredFields.length) * 100)
+            : 0;
+
+        document.getElementById('ap02ProgressPercent').textContent = percentage + '%';
+        document.getElementById('ap02ProgressFill').style.width = percentage + '%';
+    }
+
+    // Form actions
+    function ap02FormReset() {
+        if (confirm('Are you sure you want to reset the form?')) {
+            AP02_FORM_DATA = {};
+            renderAP02Form();
+            updateFormProgress();
+        }
+    }
+
+    function ap02FormSave() {
+        localStorage.setItem('ap02FormDraft', JSON.stringify(AP02_FORM_DATA));
+        alert('✅ Form saved as draft');
+    }
+
+    async function ap02FormSubmit() {
+        console.log('📤 Submitting form...', AP02_FORM_DATA);
+        // Implement submission logic
+        alert('✅ Form submitted successfully!');
+    }
+
+    // Auto-load form on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeAP02Form('en');
+    });
+</script>

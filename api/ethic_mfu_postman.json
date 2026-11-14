@@ -1,0 +1,44 @@
+{
+  "info": {
+    "_postman_id": "ethic-mfu-api-test",
+    "name": "Ethic-MFU API Testing",
+    "description": "ทดสอบ API /api/analysis/fill สำหรับ Ethic-MFU",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test Fill Form API",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"blocks\": [\n    {\n      \"index\": 0,\n      \"text\": \"ชื่อโครงการวิจัย (Title)\",\n      \"kind\": \"heading\",\n      \"page\": 1\n    },\n    {\n      \"index\": 1,\n      \"text\": \"การศึกษาเปรียบเทียบประสิทธิผลของวิธีการรักษาโรคเบาหวาน\",\n      \"kind\": \"text\",\n      \"page\": 1\n    },\n    {\n      \"index\": 2,\n      \"text\": \"ชื่อภาษาอังกฤษ\",\n      \"kind\": \"heading\",\n      \"page\": 1\n    },\n    {\n      \"index\": 3,\n      \"text\": \"Comparative Effectiveness of Diabetes Treatment Methods\",\n      \"kind\": \"text\",\n      \"page\": 1\n    },\n    {\n      \"index\": 4,\n      \"text\": \"สาขาวิชาที่ทำการวิจัย\",\n      \"kind\": \"heading\",\n      \"page\": 2\n    },\n    {\n      \"index\": 5,\n      \"text\": \"แพทยศาสตร์ (สาขาโรคในระบบ)\",\n      \"kind\": \"text\",\n      \"page\": 2\n    },\n    {\n      \"index\": 6,\n      \"text\": \"สถานที่ทำการวิจัย\",\n      \"kind\": \"heading\",\n      \"page\": 3\n    },\n    {\n      \"index\": 7,\n      \"text\": \"โรงพยาบาลรามาธิบดี ห้อง 301 ตึก A\",\n      \"kind\": \"text\",\n      \"page\": 3\n    },\n    {\n      \"index\": 8,\n      \"text\": \"วัตถุประสงค์ของการวิจัย\",\n      \"kind\": \"heading\",\n      \"page\": 4\n    },\n    {\n      \"index\": 9,\n      \"text\": \"เพื่อเปรียบเทียบประสิทธิผลของวิธีการรักษาแบบต่าง ๆ ในผู้ป่วยโรคเบาหวาน\",\n      \"kind\": \"text\",\n      \"page\": 4\n    }\n  ],\n  \"template_id\": \"ap02_research_proposal\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8050/api/analysis/fill",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8050",
+          "path": [
+            "api",
+            "analysis",
+            "fill"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

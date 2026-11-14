@@ -78,15 +78,7 @@ class AnthropicClient:
         except httpx.HTTPError:
             raise AIError("AI_UNREACHABLE", "เชื่อมต่อบริการ AI ไม่ได้ กรุณาตรวจอินเทอร์เน็ตแล้วลองใหม่", 502) from None
 
-        if resp.status_code in (401, 403):
-            raise AIError("AI_AUTH", "กุญแจ AI ไม่ถูกต้องหรือไม่มีสิทธิ์ใช้งาน (แจ้งผู้ดูแลระบบ)", 502)
-        if resp.status_code == 429:
-            raise AIError("AI_RATE_LIMIT", "ใช้งาน AI ถี่เกินกำหนด กรุณารอสักครู่แล้วลองใหม่", 429)
-        if resp.status_code >= 500:
-            raise AIError("AI_UNAVAILABLE", "บริการ AI ขัดข้องชั่วคราว กรุณาลองใหม่ภายหลัง", 502)
-        if resp.status_code != 200:
-            logger.error("AI ตอบรหัส %s", resp.status_code)      # ไม่ log เนื้อหา
-            raise AIError("AI_BAD_REQUEST", "บริการ AI ปฏิเสธคำขอ", 502)
+        _raise_for_status(resp)
 
         try:
             data = resp.json()
@@ -99,11 +91,32 @@ class AnthropicClient:
 
     # ---------- ผู้ให้บริการที่ใช้รูปแบบเดียวกับ OpenAI (เช่น Groq) ----------
 
+def _provider_message(resp: httpx.Response) -> str:
+    """ดึงเฉพาะ "ข้อความ error" ที่ผู้ให้บริการแจ้งกลับมา (เช่น Limit 8000, Requested 12345)
+    ใช้ log เฉพาะรหัส 413/429 ซึ่งเป็นข้อความเรื่องขีดจำกัด ไม่ใช่เนื้อหาเอกสารของเรา"""
+    try:
+        err = resp.json().get("error")
+        msg = err.get("message") if isinstance(err, dict) else err
+        return str(msg)[:300] if msg else ""
+    except Exception:
+        return ""
+
+
 def _raise_for_status(resp: httpx.Response) -> None:
-    """แปลงรหัสสถานะของผู้ให้บริการเป็น AIError (ไม่ใส่เนื้อหา response ดิบ)"""
+    """แปลงรหัสสถานะของผู้ให้บริการเป็น AIError (ไม่ใส่เนื้อหา response ดิบให้ผู้ใช้)"""
     if resp.status_code in (401, 403):
         raise AIError("AI_AUTH", "กุญแจ AI ไม่ถูกต้องหรือไม่มีสิทธิ์ใช้งาน (แจ้งผู้ดูแลระบบ)", 502)
+    if resp.status_code == 413:
+        logger.warning("AI ตอบ 413: %s", _provider_message(resp))
+        raise AIError(
+            "AI_TOO_LARGE",
+            "ข้อความที่ส่งให้ AI ใหญ่เกินขีดจำกัดของผู้ให้บริการ "
+            "(มักเป็นขีดจำกัดโทเคนต่อนาทีของแพ็กเกจหรือโมเดลที่ใช้) "
+            "ลองลดขนาดข้อความที่ส่งต่อครั้ง หรือเปลี่ยนโมเดล/แพ็กเกจ",
+            413,
+        )
     if resp.status_code == 429:
+        logger.warning("AI ตอบ 429: %s", _provider_message(resp))
         raise AIError("AI_RATE_LIMIT", "ใช้งาน AI ถี่เกินกำหนด กรุณารอสักครู่แล้วลองใหม่", 429)
     if resp.status_code >= 500:
         raise AIError("AI_UNAVAILABLE", "บริการ AI ขัดข้องชั่วคราว กรุณาลองใหม่ภายหลัง", 502)

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP 02/2026 Form Demo — EC-MFU</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 32px;
+        }
+
+        .demo-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .demo-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .demo-controls {
+            max-width: 900px;
+            margin: 0 auto 24px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .control-btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .control-btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .control-btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .control-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .control-btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .control-btn-success:hover {
+            background: #059669;
+        }
+
+        .control-select {
+            padding: 10px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        #formIframe {
+            max-width: 900px;
+            margin: 0 auto;
+            display: block;
+            width: 100%;
+            min-height: 800px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            background: white;
+        }
+
+        .api-status {
+            max-width: 900px;
+            margin: 24px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-dot.offline {
+            background: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 24px;
+            }
+
+            .control-row {
+                flex-direction: column;
+            }
+
+            .control-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>📋 AP 02/2026 Form Demo</h1>
+        <p>Interactive Research Protocol Proposal Form</p>
+    </div>
+
+    <div class="api-status" id="apiStatus">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Checking API connection...</span>
+    </div>
+
+    <div class="demo-controls">
+        <div class="control-row">
+            <select class="control-select" id="languageSelect" onchange="switchLanguage()">
+                <option value="en">English</option>
+                <option value="th">ไทย (Thai)</option>
+            </select>
+
+            <button class="control-btn control-btn-primary" onclick="loadForm()">
+                🔄 Reload Form
+            </button>
+
+            <button class="control-btn control-btn-success" onclick="testAPI()">
+                🧪 Test API
+            </button>
+
+            <button class="control-btn control-btn-secondary" onclick="exportFormData()">
+                📥 Export Data
+            </button>
+
+            <button class="control-btn control-btn-secondary" onclick="viewDocs()">
+                📚 Documentation
+            </button>
+        </div>
+    </div>
+
+    <!-- Inline the form component directly -->
+    <div id="formContainer"></div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // DEMO CONTROLLER
+        // ═══════════════════════════════════════════════════════════════
+
+        const API_BASE = 'http://localhost:8050';
+        let currentLanguage = 'en';
+
+        // Check API status on load
+        async function checkAPIStatus() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+
+                if (data.status === 'healthy') {
+                    statusDot.classList.remove('offline');
+                    statusText.textContent = `API Connected — ${data.message}`;
+                    return true;
+                } else {
+                    throw new Error('API unhealthy');
+                }
+            } catch (error) {
+                statusDot.classList.add('offline');
+                statusText.textContent = '⚠️ API Offline — Please start the backend server';
+                return false;
+            }
+        }
+
+        // Load the form component
+        async function loadForm() {
+            console.log('🔄 Loading AP02 form component...');
+
+            try {
+                const response = await fetch('/components/ap02_form.html');
+                const html = await response.text();
+
+                document.getElementById('formContainer').innerHTML = html;
+
+                // Initialize form with current language
+                if (typeof initializeAP02Form === 'function') {
+                    await initializeAP02Form(currentLanguage);
+                }
+
+                console.log('✅ Form loaded successfully');
+            } catch (error) {
+                console.error('❌ Error loading form:', error);
+                document.getElementById('formContainer').innerHTML =
+                    '<div style="background: #fee2e2; color: #dc2626; padding: 20px; border-radius: 8px; max-width: 900px; margin: 0 auto;">' +
+                    '<strong>Error loading form:</strong> ' + error.message +
+                    '</div>';
+            }
+        }
+
+        // Switch language
+        function switchLanguage() {
+            const select = document.getElementById('languageSelect');
+            currentLanguage = select.value;
+            loadForm();
+        }
+
+        // Test API endpoints
+        async function testAPI() {
+            console.log('🧪 Testing API endpoints...');
+
+            const tests = [
+                { name: 'Health Check', url: '/health' },
+                { name: 'Form Schema', url: `/api/form/schema/${currentLanguage}` },
+                { name: 'Required Fields', url: `/api/form/fields/required?language=${currentLanguage}` },
+                { name: 'Form Sections', url: `/api/form/sections?language=${currentLanguage}` },
+                { name: 'Empty Form', url: '/api/form/empty-form' }
+            ];
+
+            const results = [];
+            for (const test of tests) {
+                try {
+                    const response = await fetch(`${API_BASE}${test.url}`);
+                    const data = await response.json();
+                    results.push(`✅ ${test.name}: OK`);
+                    console.log(`✅ ${test.name}:`, data);
+                } catch (error) {
+                    results.push(`❌ ${test.name}: ${error.message}`);
+                    console.error(`❌ ${test.name}:`, error);
+                }
+            }
+
+            alert('API Test Results:\n\n' + results.join('\n'));
+        }
+
+        // Export form data
+        function exportFormData() {
+            if (typeof AP02_FORM_DATA === 'undefined') {
+                alert('⚠️ Form not loaded yet');
+                return;
+            }
+
+            const dataStr = JSON.stringify(AP02_FORM_DATA, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ap02_form_data_${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+            console.log('📥 Form data exported:', AP02_FORM_DATA);
+        }
+
+        // View documentation
+        function viewDocs() {
+            const docsPath = '../AP02_FORM_INTEGRATION_GUIDE.md';
+            window.open(docsPath, '_blank');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 Initializing AP02 Form Demo...');
+
+            // Check API status
+            const apiOk = await checkAPIStatus();
+
+            if (apiOk) {
+                // Load form
+                await loadForm();
+            } else {
+                document.getElementById('formContainer').innerHTML =
+                    '<div style="background: #fef3c7; color: #d97706; padding: 20px; border-radius: 8px; max-width: 900px; margin: 0 auto;">' +
+                    '<strong>⚠️ Backend Server Not Running</strong><br><br>' +
+                    'Please start the backend server first:<br>' +
+                    '<code style="background: white; padding: 4px 8px; border-radius: 4px;">cd backend && python app/main.py</code>' +
+                    '</div>';
+            }
+        });
+    </script>
+</body>
+</html>
