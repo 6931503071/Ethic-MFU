@@ -1,0 +1,186 @@
+{
+  "id": "ap02_research_proposal",
+  "form_code": "AP 02/2026",
+  "name": "แบบเสนอโครงการวิจัยเพื่อพิจารณา (AP 02/2026)",
+  "name_en": "Research Proposal Form",
+  "languages_available": ["th", "en"],
+  "format": {
+    "page_size": "A4",
+    "page_mm": {"width": 210, "height": 297},
+    "margins_mm": {"top": 25.4, "bottom": 20, "left": 24.9, "right": 24.9},
+    "header_footer_distance_mm": {"header": 9.9, "footer": 8.9},
+    "font_family": "TH Sarabun New",
+    "body_size_pt": 16,
+    "heading_size_pt": 18,
+    "page_numbers": true
+  },
+  "header": {
+    "left": "Version…... Date…………………………",
+    "right": "AP 02/2026",
+    "fields": [
+      {
+        "id": "form_version",
+        "label": "Version",
+        "fill_by": "user"
+      },
+      {
+        "id": "form_date",
+        "label": "Date",
+        "fill_by": "user"
+      }
+    ]
+  },
+  "footer": {
+    "text": "หน้า {PAGE} จาก {NUMPAGES}",
+    "text_en": "Page {PAGE} from {NUMPAGES}"
+  },
+  "rules": {
+    "highlight_color": "red",
+    "check_thai_spelling": true
+  },
+  "sections": [
+    {
+      "id": "title",
+      "number": "1",
+      "title": "ชื่อโครงการวิจัย (Title)",
+      "title_en": "Research Project Title",
+      "fields": [
+        {
+          "id": "title_th",
+          "label": "(ชื่อภาษาไทย)",
+          "label_en": "(Thai Title)",
+          "type": "text",
+          "fill_by": "ai"
+        },
+        {
+          "id": "title_en",
+          "label": "(ชื่อภาษาอังกฤษ)",
+          "label_en": "(English Title)",
+          "type": "text",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "field_of_study",
+      "number": "2",
+      "title": "สาขาวิชาที่ทำการวิจัย",
+      "title_en": "Field of Research",
+      "fields": [
+        {
+          "id": "field_of_study",
+          "label": "สาขาวิชา",
+          "label_en": "Field of Research",
+          "hint": "เช่น แพทยศาสตร์ ทันตแพทยศาสตร์ เป็นต้น",
+          "type": "text",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "team",
+      "number": "3",
+      "title": "ผู้วิจัย ผู้วิจัยร่วม และที่ปรึกษา",
+      "title_en": "Investigators",
+      "subsections": [
+        {
+          "id": "pi",
+          "number": "3.1",
+          "title": "ผู้วิจัยหลัก (Principal Investigator)",
+          "title_en": "Principal Investigator",
+          "fields": [
+            {
+              "id": "pi_name",
+              "label": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+              "label_en": "Name",
+              "type": "text",
+              "fill_by": "user"
+            },
+            {
+              "id": "pi_affiliation",
+              "label": "สาขาวิชาและหน่วยงาน",
+              "label_en": "Affiliation",
+              "type": "text",
+              "fill_by": "user"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline",
+      "number": "4",
+      "title": "ช่วงเวลาที่ทำการวิจัย",
+      "title_en": "Study Period",
+      "fields": [
+        {
+          "id": "start_month_year",
+          "label": "เดือน/ปี ที่จะเริ่ม",
+          "label_en": "Start Date",
+          "type": "text",
+          "fill_by": "user"
+        }
+      ]
+    },
+    {
+      "id": "location",
+      "number": "5",
+      "title": "สถานที่ทำการวิจัย",
+      "title_en": "Location",
+      "fields": [
+        {
+          "id": "location",
+          "label": "สถานที่",
+          "label_en": "Location",
+          "type": "textarea",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "significance",
+      "number": "6",
+      "title": "ความสำคัญของปัญหา",
+      "title_en": "Significance",
+      "fields": [
+        {
+          "id": "problem_significance",
+          "label": "สรุปความสำคัญ",
+          "label_en": "Significance",
+          "type": "textarea",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "objectives",
+      "number": "7",
+      "title": "วัตถุประสงค์",
+      "title_en": "Objectives",
+      "fields": [
+        {
+          "id": "objectives",
+          "label": "วัตถุประสงค์",
+          "label_en": "Objectives",
+          "type": "textarea",
+          "fill_by": "ai"
+        }
+      ]
+    },
+    {
+      "id": "benefits",
+      "number": "8",
+      "title": "ประโยชน์",
+      "title_en": "Benefits",
+      "fields": [
+        {
+          "id": "benefits",
+          "label": "ประโยชน์",
+          "label_en": "Benefits",
+          "type": "textarea",
+          "fill_by": "ai"
+        }
+      ]
+    }
+  ]
+}

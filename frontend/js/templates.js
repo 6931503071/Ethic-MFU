@@ -72,11 +72,13 @@ async function previewTemplate(tpl) {
     const section = document.getElementById('templatePreviewSection');
     const host = document.getElementById('templatePreview');
     host.innerHTML = '';
+    section.style.display = 'block';
     const buf = await loadTemplateBuffer(tpl);
     await docx.renderAsync(buf, host, null, {
         className: 'docx', inWrapper: true, breakPages: true,
-        ignoreWidth: false, ignoreHeight: false, renderHeaders: true, renderFooters: true,
+        ignoreFonts: true, ignoreWidth: false, ignoreHeight: false, renderHeaders: true, renderFooters: true,
     });
+    
     currentTemplate = tpl;
     currentTemplateBuffer = buf;
     document.getElementById('templatePreviewTitle').textContent = 'พรีวิว: ' + tpl.title;
@@ -85,8 +87,16 @@ async function previewTemplate(tpl) {
     if (window.TemplateEditor) {
         TemplateEditor.enable(host, { lang: tpl.id.endsWith('_en') ? 'en' : 'th' });
     }
-    section.scrollIntoView({ behavior: 'smooth' });
+    if (window.TemplateCheckbox) {
+        TemplateCheckbox.enable(host);
+    }
+    if (window.A4Paginate) {
+    await A4Paginate.run(host);
+    if (typeof A4Paginate.autoFit === 'function') { A4Paginate.autoFit(host); }
 }
+    }
+    section.scrollIntoView({ behavior: 'smooth' });
+    
 
 /** Download the ORIGINAL template bytes (unmodified). */
 function downloadCurrentTemplate() {

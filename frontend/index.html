@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Document Generator — EC-MFU</title>
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/document.css">
     <style>
-        /* ── Thai Font Import ── */
-        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap');
-
+    
         * {
             font-family: 'Sarabun', 'TH Sarabun New', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
@@ -42,7 +44,7 @@
         }
         .upload-box .choose-btn:hover { background: #2563eb; }
         .file-badge {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 8px;
             background: #d1fae5;
@@ -297,17 +299,15 @@
                 <label for="docCategory">หมวดหมู่เอกสาร</label>
                 <select id="docCategory">
                     <option value="">— เลือกหมวดหมู่ —</option>
-                    <optgroup label="แม่แบบฟอร์ม (พรีวิวทันที ไม่ต้องอัปโหลดไฟล์)">
                         <option value="ap02_th">AP 02/2026 แบบเสนอโครงการวิจัย (ไทย)</option>
                         <option value="ap02_en">AP 02/2026 Research Protocol (English)</option>
                         <option value="memo_th">บันทึกข้อความ</option>
                         <option value="letter_th">หนังสือภายนอก</option>
-                    </optgroup>
-                    <optgroup label="วิเคราะห์จากไฟล์ที่อัปโหลด (AI)">
+
                         <option value="ethics_submission">Ethics Submission</option>
                         <option value="general">General Document</option>
                         <option value="administrative">Administrative Document</option>
-                    </optgroup>
+
                 </select>
             </div>
             <div class="config-group">
@@ -397,12 +397,15 @@
 <script src="lib/docx-preview.min.js"></script>
 <script src="js/api.js"></script>
 <script src="js/preview_editor.js"></script>
+<script src="js/checkbox.js"></script>
 <script src="js/templates.js"></script>
+<script src="js/ap02_renderer.js"></script>
 <script src="js/a4_preview.js"></script>
+<script src="js/a4_paginate.js?v=2"></script>
 <script>
 // ═══════════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════
+// ═════════════════════════════════════════──
 let uploadedFile   = null;
 let generatedData  = null;
 let activeProto    = 0;
@@ -493,7 +496,7 @@ function handleFile(file) {
     const badge = document.getElementById('fileBadge');
     document.getElementById('badgeName').textContent = file.name;
     document.getElementById('badgeSize').textContent = (file.size / (1024*1024)).toFixed(1) + ' MB';
-    badge.style.display = 'inline-flex';
+    badge.style.display = 'flex';
 
     hideError();
     renderSteps(); // reset steps
@@ -517,6 +520,7 @@ async function generate() {
         try {
             await previewTemplate(tpl);
         } catch (err) {
+            console.error(err); 
             showError(err.message, null);
         } finally {
             document.getElementById('generateBtn').disabled = false;

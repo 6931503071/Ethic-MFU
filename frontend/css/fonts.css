@@ -1,19 +1,22 @@
 /* frontend/css/fonts.css
-  ฝังฟอนต์ TH Sarabun New จากไฟล์ในโปรเจกต์ (ไม่พึ่งฟอนต์ที่ติดตั้งในเครื่องผู้ใช้)
-  สัญญาฟอนต์: GPL 2.0 or later with Font Exception
-  ดูรายละเอียดที่ ../fonts/font-notice.txt และ ../fonts/GPL-2.0.txt */
+  1) @import ต้องอยู่บนสุดของไฟล์ (เหนือกฎอื่นทั้งหมด) ไม่เช่นนั้นเบราว์เซอร์จะข้ามไป
+  2) ฝังฟอนต์ TH Sarabun New จากไฟล์ในโปรเจกต์ (ไม่พึ่งฟอนต์ที่ติดตั้งในเครื่องผู้ใช้)
+      สัญญาอนุญาตฟอนต์: GPL 2.0 or later with Font Exception
+      รายละเอียดที่ ../fonts/font-notice.txt และ ../fonts/GPL-2.0.txt */
 
-/* ตัวปกติ (Regular) */
-@font-face /*ลงทะเบียนฟอนต์ */
-{
+/* ── ฟอนต์สำหรับหน้าจอแอป (UI) ── ต้องเป็นบรรทัดแรกของไฟล์ */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap');
+
+/* ── TH Sarabun New ตัวปกติ (Regular) ── */
+@font-face {
   font-family: "TH Sarabun New";
-   src: url("../fonts/THSarabunNew.ttf") format("truetype"); /* เป็นไฟล์ .ttf ให้เบราว์เซอร์ไม่ต้องเดา */
+  src: url("../fonts/THSarabunNew.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: block; /* รอฟอนต์โหลดเสร็จก่อนค่อยแสดงข้อความ */
 }
 
-/* ตัวหนา (Bold) - เปิดใช้เมื่อยืนยันแล้วว่าหัวข้อต้องหนา และมีไฟล์ Bold ในโฟลเดอร์ fonts
+/* ── TH Sarabun New ตัวหนา (Bold) ── */
 @font-face {
   font-family: "TH Sarabun New";
   src: url("../fonts/THSarabunNew-Bold.ttf") format("truetype");
@@ -21,11 +24,9 @@
   font-style: normal;
   font-display: block;
 }
-*/
 
-/* ขนาดตัวอักษรของเอกสาร AP 02 กำหนดไว้ที่เดียว แก้ที่นี่ที่เดียวแล้วใช้ตัวแปรนี้ทุกที่ */
-:root 
-{
+/* ── ขนาดตัวอักษรของเอกสาร AP 02 กำหนดไว้ที่เดียว แก้ที่นี่แล้วใช้ตัวแปรนี้ทุกที่ ── */
+:root {
   --doc-font-family: "TH Sarabun New", sans-serif;
   --doc-font-size-body: 16pt;
   --doc-font-size-heading: 18pt;

@@ -101,8 +101,8 @@
   function isPlaceholder(t) {
     var s = t.replace(/\s+/g, ' ').trim();
     return /^ระบุ\s*(\.{2,}|…)/.test(s) ||
-           /^(อธิบายรายละเอียด|แสดงสูตร)/.test(s) ||
-           /^[\s.…]*(\d+\s*[.)][\s.…]*)*$/.test(s);
+      /^(อธิบายรายละเอียด|แสดงสูตร)/.test(s) ||
+      /^[\s.…]*(\d+\s*[.)][\s.…]*)*$/.test(s);
   }
 
   var PREPARED = ANCHORS.map(function (a) {

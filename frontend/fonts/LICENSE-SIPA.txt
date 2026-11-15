@@ -1,0 +1,16 @@
+SIPA National Fonts (ฟอนต์แห่งชาติ SIPA / กรมทรัพย์สินทางปัญญา)
+================================================================
+
+Included font families:
+- TH Sarabun New (THSarabunNew)
+- TH Sarabun PSK (THSarabunPSK)
+
+Source:
+Software Industry Promotion Agency (Public Organization) (SIPA) and
+Department of Intellectual Property (DIP), Thailand.
+
+License / Terms of Use:
+These fonts are distributed under the DIP-SIPA Font License (GPL v2.0 with
+Font Exception / free public use and redistribution). They may be freely used,
+embedded in documents (including PDF), bundled with software, and redistributed
+without fee.

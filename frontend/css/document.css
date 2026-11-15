@@ -1,0 +1,111 @@
+/* ==========================================================
+    document.css — พรีวิวเอกสาร A4 (docx-preview + a4_paginate.js)
+    @font-face ของ TH Sarabun New อยู่ใน fonts.css
+   ========================================================== */
+
+:root {
+    --a4-w: 210mm;
+    --a4-h: 297mm;
+    --pg-top: 25.4mm;
+    --pg-bottom: 20mm;
+    --pg-side: 24.9mm;
+    --hdr-top: 9.9mm;   /* header ห่างขอบบน  */
+    --ftr-bottom: 8.9mm;/* footer ห่างขอบล่าง */
+}
+
+/* พื้นหลังเทาอ่อนด้านหลังแผ่นกระดาษ (มุมมอง Print Layout) */
+.docx-wrapper {
+    background: #e5e7eb !important;
+    padding: 16px 0 !important;
+    display: flex !important;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+/* แผ่นกระดาษ A4 แต่ละแผ่น */
+.docx-wrapper > section.docx {
+    box-sizing: border-box !important;
+    position: relative;
+    width: var(--a4-w) !important;
+    height: var(--a4-h) !important;
+    min-height: var(--a4-h) !important;
+    padding: var(--pg-top) var(--pg-side) var(--pg-bottom) !important;
+    margin: 0 auto 16px !important;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .22) !important;
+    overflow: hidden;
+    flex: 0 0 auto;
+    display: block !important;
+}
+
+/* พื้นที่เนื้อหา = 297 − 25.4 − 20 = 251.6mm (ตัวแบ่งหน้าวัดจากความสูงนี้) */
+.docx-wrapper > section.docx > article {
+    height: calc(var(--a4-h) - var(--pg-top) - var(--pg-bottom));
+    overflow: visible;
+    margin: 0 !important;
+}
+
+/* header/footer ลอยอิสระ ไม่ดันเนื้อหา และไม่ใช้ margin ลบของ docx-preview */
+.docx-wrapper > section.docx > header,
+.docx-wrapper > section.docx > footer {
+    position: absolute !important;
+    left: var(--pg-side);
+    right: var(--pg-side);
+    margin: 0 !important;
+    min-height: 0 !important;
+}
+.docx-wrapper > section.docx > header { top: var(--hdr-top); }
+.docx-wrapper > section.docx > footer { bottom: var(--ftr-bottom); }
+
+/* กล่องข้อความลอย (text box) ที่ Word กำหนดตำแหน่งเทียบ "หน้ากระดาษ"
+   docx-preview ใส่แค่ margin-top แต่ไม่ใส่ top จึงถูกวางเทียบย่อหน้าแล้วทะลุขอบหน้า → ทำให้เกิดหน้าว่าง */
+.docx-wrapper > section.docx svg[style*="mso-position-vertical-relative:page"] { top: 0 !important; }
+
+/* กล่อง "หมายเหตุ" ลอยท้ายแม่แบบ (คำแนะนำการจัดรูปแบบของฟอร์ม ซึ่งฟอร์มเองระบุว่าลบได้)
+   ซ่อนไว้เพื่อไม่ให้ทับตาราง/ช่องกรอก — ไม่กระทบไฟล์ DOCX ต้นฉบับที่ดาวน์โหลด */
+.docx-wrapper > section.docx svg[style*="mso-position-vertical-relative:page"] { display: none !important; }
+
+/* ช่องกรอกในตาราง: line-height เท่าแถวของ Word (ข้อความ "กรอกข้อมูล…" 16pt ทำให้แถวสูงขึ้น ~8px/แถว
+   จนหน้า 1 ล้นไม่ตรงต้นฉบับ). ไม่แตะ font-size ของ preview_editor.js เพื่อให้ตัวอักษรที่พิมพ์ยังเป็น 16pt */
+.docx-wrapper section.docx .fill-field[data-fill="cell"] { line-height: 1.1 !important; }
+
+/* กรอบพรีวิวกว้างพอให้เห็น A4 เต็มแผ่น (210mm ≈ 794px) ไม่ต้องเลื่อนซ้าย-ขวา; จอแคบกว่านี้ a4_paginate.js ย่อให้อัตโนมัติ */
+body .page-wrap { max-width: 920px; }
+/* ไม่มี scrollbar ซ้อนในกรอบพรีวิว: กระดาษ A4 กางต่อกันลงมา ใช้ scrollbar หลักของหน้าเว็บตัวเดียว
+   (ใช้ clip ไม่ใช่ hidden เพราะ overflow-x:hidden จะบังคับให้แกน y กลายเป็น auto แล้วเกิด scrollbar ซ้อน) */
+#templatePreview { max-height: none !important; height: auto !important; overflow: visible !important; overflow-x: clip !important; }
+
+/* ช่องกรอก/checkbox ต้องไม่ขยายความสูงบรรทัด */
+.tpl-cb, .tpl-field, [data-tpl-field] {
+    line-height: 1 !important;
+    vertical-align: baseline;
+    max-height: 1.2em;
+}
+
+/* ---------- พิมพ์: A4 พอดี ไม่มีพื้นหลัง/เงา/ขอบเว็บ ---------- */
+@page { size: A4; margin: 0; }
+
+@media print {
+    html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+    body > *:not(.page-wrap) { display: none !important; }
+    .page-wrap { max-width: none !important; margin: 0 !important; padding: 0 !important; }
+    .page-wrap > *:not(#templatePreviewSection) { display: none !important; }
+    #templatePreviewSection { display: block !important; background: none !important;
+        box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+    #templatePreviewSection > *:not(#templatePreview) { display: none !important; }
+    #templatePreview { max-height: none !important; overflow: visible !important;
+        padding: 0 !important; background: none !important; border-radius: 0 !important; }
+    .docx-wrapper { background: none !important; padding: 0 !important; display: block !important; zoom: 1 !important; }
+    .docx-wrapper > section.docx {
+        margin: 0 !important; border: 0 !important; box-shadow: none !important;
+        height: 296.6mm !important; min-height: 0 !important; /* กันล้นเป็นหน้าว่างจากการปัดเศษ */
+        break-after: auto; page-break-after: auto;
+    }
+    /* ใช้ break-before กับแผ่นที่ 2 เป็นต้นไป แทน break-after เพื่อไม่ให้เกิดหน้าว่างท้ายเอกสาร */
+    .docx-wrapper > section.docx + section.docx { break-before: page; page-break-before: always; }
+    #tplEditBar, #a4ZoomBar { display: none !important; }
+    .fill-field { outline: 0 !important; background: none !important; }
+    .fill-field[data-empty="true"]::before { content: none !important; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

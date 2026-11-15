@@ -1,0 +1,1849 @@
+    {
+    "template_id": "AP02",
+    "version": "0.1-draft",
+    "master_docx_language": "th",
+    "verified_against_real_docx": false,
+    "notes": [
+        "สร้างจากข้อความของแบบฟอร์ม ยังไม่ได้ผูกตำแหน่งกับ DOCX จริง (ฟิลด์ anchor_th ใช้ค้นหาข้อความป้ายในไฟล์จริง)",
+        "user_only = ห้ามเติมอัตโนมัติ; needs_confirmation = ต่อให้พบในต้นฉบับ ผู้ใช้ต้องยืนยันก่อนใช้"
+    ],
+    "fields": [
+        {
+        "id": "doc_version",
+        "section": "header",
+        "type": "text",
+        "label_th": "Version",
+        "label_en": "Version",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "Version"
+        },
+        {
+        "id": "doc_date",
+        "section": "header",
+        "type": "text",
+        "label_th": "Date",
+        "label_en": "Date",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "Date"
+        },
+        {
+        "id": "page_counter",
+        "section": "footer",
+        "type": "pagefield",
+        "label_th": "หน้า X จาก Y",
+        "label_en": "Page X from Y",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "หน้า X จาก Y",
+        "system_managed": true
+        },
+        {
+        "id": "title_th",
+        "section": "1",
+        "type": "text",
+        "label_th": "ชื่อภาษาไทย",
+        "label_en": "Thai title",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Research Title"
+        ],
+        "anchor_th": "ชื่อภาษาไทย"
+        },
+        {
+        "id": "title_en",
+        "section": "1",
+        "type": "text",
+        "label_th": "ชื่อภาษาอังกฤษ",
+        "label_en": "English title",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Research Title"
+        ],
+        "anchor_th": "ชื่อภาษาอังกฤษ"
+        },
+        {
+        "id": "field_of_research",
+        "section": "2",
+        "type": "text",
+        "label_th": "สาขาวิชาที่ทำการวิจัย",
+        "label_en": "Field of research",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Field of Research"
+        ],
+        "anchor_th": "สาขาวิชาที่ทำการวิจัย"
+        },
+        {
+        "id": "pi_name",
+        "section": "3.1",
+        "type": "text",
+        "label_th": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+        "label_en": "Academic title-name-surname",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล"
+        },
+        {
+        "id": "pi_dept",
+        "section": "3.1",
+        "type": "text",
+        "label_th": "สาขาวิชาและหน่วยงาน (นักศึกษาระบุชั้นปี)",
+        "label_en": "Department/affiliation (student: year)",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "สาขาวิชาและหน่วยงาน (นักศึกษาระบุชั้นปี)"
+        },
+        {
+        "id": "pi_address",
+        "section": "3.1",
+        "type": "text",
+        "label_th": "ที่อยู่ (ที่ทำงาน)",
+        "label_en": "Address (workplace)",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ที่อยู่ (ที่ทำงาน)"
+        },
+        {
+        "id": "pi_phone",
+        "section": "3.1",
+        "type": "text",
+        "label_th": "เบอร์โทรศัพท์",
+        "label_en": "Telephone",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เบอร์โทรศัพท์"
+        },
+        {
+        "id": "pi_email",
+        "section": "3.1",
+        "type": "text",
+        "label_th": "อีเมล",
+        "label_en": "Email",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "อีเมล"
+        },
+        {
+        "id": "co_investigators",
+        "section": "3.2",
+        "type": "table",
+        "label_th": "ผู้วิจัยร่วม",
+        "label_en": "Co-investigators",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ผู้วิจัยร่วม",
+        "min_items": 3,
+        "columns": [
+            "name",
+            "dept",
+            "contact"
+        ],
+        "repeatable_rows": true
+        },
+        {
+        "id": "advisors",
+        "section": "3.3",
+        "type": "table",
+        "label_th": "ที่ปรึกษาโครงการวิจัย",
+        "label_en": "Research advisors",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ที่ปรึกษาโครงการวิจัย",
+        "min_items": 2,
+        "columns": [
+            "name",
+            "dept",
+            "contact"
+        ],
+        "repeatable_rows": true,
+        "note": "ในแบบฟอร์มเดิมป้ายหัวข้อนี้เป็นเลข 3. (ซ้ำกับหัวข้อ 3)"
+        },
+        {
+        "id": "coord_name",
+        "section": "3.4",
+        "type": "text",
+        "label_th": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล",
+        "label_en": "Coordinator name",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ตำแหน่งวิชาการ-ยศ-ชื่อ-สกุล"
+        },
+        {
+        "id": "coord_phone",
+        "section": "3.4",
+        "type": "text",
+        "label_th": "เบอร์โทรศัพท์",
+        "label_en": "Coordinator telephone",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เบอร์โทรศัพท์"
+        },
+        {
+        "id": "coord_email",
+        "section": "3.4",
+        "type": "text",
+        "label_th": "อีเมล",
+        "label_en": "Coordinator email",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "อีเมล"
+        },
+        {
+        "id": "coordinator_note",
+        "section": "3.4",
+        "type": "note",
+        "label_th": "ผู้ประสานงานโครงการวิจัย",
+        "label_en": "Research coordinator",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ผู้ประสานงานโครงการวิจัย",
+        "note": "ในแบบฟอร์มเดิมป้ายหัวข้อนี้เป็นเลข 4. (ซ้ำกับหัวข้อ 4)"
+        },
+        {
+        "id": "start_month_be",
+        "section": "4",
+        "type": "month_year_be",
+        "label_th": "เดือน/ปีที่จะเริ่มเก็บข้อมูล",
+        "label_en": "Data collection start",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เดือน/ปีที่จะเริ่มเก็บข้อมูล"
+        },
+        {
+        "id": "duration_months",
+        "section": "4",
+        "type": "number",
+        "label_th": "ระยะเวลาเก็บข้อมูล (เดือน)",
+        "label_en": "Duration (months)",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ระยะเวลาเก็บข้อมูล (เดือน)"
+        },
+        {
+        "id": "end_month_be",
+        "section": "4",
+        "type": "month_year_be",
+        "label_th": "เดือน/ปีที่คาดว่าจะสิ้นสุดการวิจัย",
+        "label_en": "Expected end",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เดือน/ปีที่คาดว่าจะสิ้นสุดการวิจัย"
+        },
+        {
+        "id": "study_site",
+        "section": "5",
+        "type": "text",
+        "label_th": "สถานที่ทำการวิจัย",
+        "label_en": "Study site",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Study Site"
+        ],
+        "anchor_th": "สถานที่ทำการวิจัย"
+        },
+        {
+        "id": "background",
+        "section": "6",
+        "type": "longtext",
+        "label_th": "ความสำคัญของปัญหาที่จะทำการวิจัย",
+        "label_en": "Background and significance",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Research Background",
+            "Research Significance",
+            "Research Problems"
+        ],
+        "anchor_th": "ความสำคัญของปัญหาที่จะทำการวิจัย"
+        },
+        {
+        "id": "objective_primary",
+        "section": "7.1",
+        "type": "list",
+        "label_th": "วัตถุประสงค์หลัก",
+        "label_en": "Primary objective",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Research Objectives"
+        ],
+        "anchor_th": "วัตถุประสงค์หลัก",
+        "min_items": 1
+        },
+        {
+        "id": "objectives_secondary",
+        "section": "7.2",
+        "type": "list",
+        "label_th": "วัตถุประสงค์รอง",
+        "label_en": "Secondary objectives",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Research Objectives"
+        ],
+        "anchor_th": "วัตถุประสงค์รอง",
+        "min_items": 3
+        },
+        {
+        "id": "expected_benefits",
+        "section": "8",
+        "type": "longtext",
+        "label_th": "ประโยชน์ที่จะได้จากการวิจัย",
+        "label_en": "Expected benefits",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Expected Outcomes",
+            "Research Benefits"
+        ],
+        "anchor_th": "ประโยชน์ที่จะได้จากการวิจัย"
+        },
+        {
+        "id": "literature_review",
+        "section": "9",
+        "type": "longtext",
+        "label_th": "การรวบรวมรายงานที่เกี่ยวข้อง",
+        "label_en": "Literature review",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Literature Review"
+        ],
+        "anchor_th": "การรวบรวมรายงานที่เกี่ยวข้อง"
+        },
+        {
+        "id": "study_design",
+        "section": "10",
+        "type": "text",
+        "label_th": "รูปแบบการวิจัย",
+        "label_en": "Study design",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Study Design"
+        ],
+        "anchor_th": "รูปแบบการวิจัย"
+        },
+        {
+        "id": "target_population",
+        "section": "11.1",
+        "type": "longtext",
+        "label_th": "ประชากรเป้าหมาย",
+        "label_en": "Target population",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Population"
+        ],
+        "anchor_th": "ประชากรเป้าหมาย"
+        },
+        {
+        "id": "sample_size",
+        "section": "11.2",
+        "type": "longtext",
+        "label_th": "ขนาดตัวอย่าง (พร้อมสูตรคำนวณ)",
+        "label_en": "Sample size (with formula)",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Sample Group"
+        ],
+        "anchor_th": "ขนาดตัวอย่าง (พร้อมสูตรคำนวณ)"
+        },
+        {
+        "id": "recruitment",
+        "section": "11.3",
+        "type": "multichoice",
+        "label_th": "วิธีการเข้าถึงและสรรหาผู้เข้าร่วมการวิจัย",
+        "label_en": "Recruitment process",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Recruitment"
+        ],
+        "anchor_th": "วิธีการเข้าถึงและสรรหาผู้เข้าร่วมการวิจัย",
+        "options": [
+            {
+            "id": "direct",
+            "label_th": "เชิญชวนโดยตรง",
+            "has_detail": true
+            },
+            {
+            "id": "social",
+            "label_th": "ผ่านสื่อสังคมออนไลน์หรือแอปพลิเคชั่น (ส่งข้อความให้คณะกรรมการพิจารณา)"
+            },
+            {
+            "id": "referral",
+            "label_th": "ขอความร่วมมือผ่านแพทย์/พยาบาล"
+            },
+            {
+            "id": "poster",
+            "label_th": "แผ่นป้ายประชาสัมพันธ์ (ระบุสถานที่และส่งแผ่นป้าย)",
+            "has_detail": true
+            },
+            {
+            "id": "other",
+            "label_th": "อื่นๆ",
+            "has_detail": true
+            }
+        ]
+        },
+        {
+        "id": "inclusion_criteria",
+        "section": "11.4",
+        "type": "list",
+        "label_th": "เกณฑ์การคัดเข้าร่วมการวิจัย",
+        "label_en": "Inclusion criteria",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Eligibility Criteria"
+        ],
+        "anchor_th": "เกณฑ์การคัดเข้าร่วมการวิจัย",
+        "min_items": 3
+        },
+        {
+        "id": "exclusion_criteria",
+        "section": "11.5",
+        "type": "list",
+        "label_th": "เกณฑ์การคัดออกจากการวิจัย",
+        "label_en": "Exclusion criteria",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Eligibility Criteria"
+        ],
+        "anchor_th": "เกณฑ์การคัดออกจากการวิจัย",
+        "min_items": 3
+        },
+        {
+        "id": "withdrawal_criteria",
+        "section": "11.6",
+        "type": "list",
+        "label_th": "เกณฑ์การถอนออกจากการวิจัย",
+        "label_en": "Withdrawal criteria",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Withdrawal Criteria"
+        ],
+        "anchor_th": "เกณฑ์การถอนออกจากการวิจัย",
+        "min_items": 3
+        },
+        {
+        "id": "early_termination_criteria",
+        "section": "11.7",
+        "type": "list",
+        "label_th": "เกณฑ์การยุติการวิจัยก่อนกำหนด",
+        "label_en": "Early termination criteria",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Early Termination Criteria"
+        ],
+        "anchor_th": "เกณฑ์การยุติการวิจัยก่อนกำหนด",
+        "min_items": 3
+        },
+        {
+        "id": "proc_12_1_1",
+        "section": "12.1.1",
+        "type": "longtext",
+        "label_th": "การดำเนินการวิจัยโดยละเอียด (แนบ flow chart)",
+        "label_en": "Study procedures",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Research Methodology",
+            "Data Collection"
+        ],
+        "anchor_th": "การดำเนินการวิจัยโดยละเอียด (แนบ flow chart)"
+        },
+        {
+        "id": "proc_12_1_2",
+        "section": "12.1.2",
+        "type": "longtext",
+        "label_th": "การแบ่งกลุ่มและการดำเนินการแต่ละกลุ่ม",
+        "label_en": "Group allocation",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Methodology"
+        ],
+        "anchor_th": "การแบ่งกลุ่มและการดำเนินการแต่ละกลุ่ม"
+        },
+        {
+        "id": "proc_12_1_3",
+        "section": "12.1.3",
+        "type": "longtext",
+        "label_th": "การใช้ยาหลอก/กลุ่มควบคุม",
+        "label_en": "Placebo/control",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Methodology"
+        ],
+        "anchor_th": "การใช้ยาหลอก/กลุ่มควบคุม"
+        },
+        {
+        "id": "proc_12_1_4",
+        "section": "12.1.4",
+        "type": "longtext",
+        "label_th": "การเก็บตัวอย่างชีวภาพเพื่อใช้ในอนาคต",
+        "label_en": "Biological specimen storage",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Methodology"
+        ],
+        "anchor_th": "การเก็บตัวอย่างชีวภาพเพื่อใช้ในอนาคต"
+        },
+        {
+        "id": "proc_12_1_5",
+        "section": "12.1.5",
+        "type": "longtext",
+        "label_th": "การถ่ายภาพหรือบันทึกเสียง",
+        "label_en": "Photographs/audio recordings",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Methodology"
+        ],
+        "anchor_th": "การถ่ายภาพหรือบันทึกเสียง"
+        },
+        {
+        "id": "proc_12_1_6",
+        "section": "12.1.6",
+        "type": "longtext",
+        "label_th": "การดำเนินการเมื่อการวิจัยเสร็จสิ้น",
+        "label_en": "Procedures on study completion",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Methodology"
+        ],
+        "anchor_th": "การดำเนินการเมื่อการวิจัยเสร็จสิ้น"
+        },
+        {
+        "id": "special_A",
+        "section": "12.2.A",
+        "type": "toggle",
+        "label_th": "งานวิจัยเกี่ยวกับยา",
+        "label_en": "Investigational drug",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "งานวิจัยเกี่ยวกับยา"
+        },
+        {
+        "id": "special_A_drug_names",
+        "section": "12.2.A",
+        "type": "text",
+        "label_th": "ชื่อยา (ทุกชนิด)",
+        "label_en": "ชื่อยา (ทุกชนิด)",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ชื่อยา (ทุกชนิด)",
+        "conditional_on": "special_A"
+        },
+        {
+        "id": "special_A_drug_status",
+        "section": "12.2.A",
+        "type": "choice",
+        "label_th": "สถานะการขึ้นทะเบียน อย.",
+        "label_en": "สถานะการขึ้นทะเบียน อย.",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "สถานะการขึ้นทะเบียน อย.",
+        "conditional_on": "special_A"
+        },
+        {
+        "id": "special_B",
+        "section": "12.2.B",
+        "type": "toggle",
+        "label_th": "การตรวจวินิจฉัยหรือทำหัตถการนอกเหนือจากปกติ",
+        "label_en": "Procedures beyond standard practice",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "การตรวจวินิจฉัยหรือทำหัตถการนอกเหนือจากปกติ"
+        },
+        {
+        "id": "special_B_procedures",
+        "section": "12.2.B",
+        "type": "multichoice",
+        "label_th": "รายการตรวจ/หัตถการเพิ่มเติม (เจาะเลือด, CT, รังสี, ดมยาสลบ/ผ่าตัด, อื่นๆ)",
+        "label_en": "รายการตรวจ/หัตถการเพิ่มเติม (เจาะเลือด, CT, รังสี, ดมยาสลบ/ผ่าตัด, อื่นๆ)",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "รายการตรวจ/หัตถการเพิ่มเติม (เจาะเลือด, CT, รังสี, ดมยาสลบ/ผ่าตัด, อื่นๆ)",
+        "conditional_on": "special_B"
+        },
+        {
+        "id": "special_C",
+        "section": "12.2.C",
+        "type": "toggle",
+        "label_th": "อาหาร: ผลิตภัณฑ์อาหาร",
+        "label_en": "Food products",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "อาหาร: ผลิตภัณฑ์อาหาร"
+        },
+        {
+        "id": "special_C_composition",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "คุณลักษณะเฉพาะ สูตร ที่มาวัตถุดิบ รูปแบบ",
+        "label_en": "คุณลักษณะเฉพาะ สูตร ที่มาวัตถุดิบ รูปแบบ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "คุณลักษณะเฉพาะ สูตร ที่มาวัตถุดิบ รูปแบบ",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_C_preparation",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "กระบวนการเตรียม",
+        "label_en": "กระบวนการเตรียม",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "กระบวนการเตรียม",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_C_consumption_storage",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "วิธีบริโภคและเก็บรักษา",
+        "label_en": "วิธีบริโภคและเก็บรักษา",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "วิธีบริโภคและเก็บรักษา",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_C_safety_data",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "ข้อมูลความปลอดภัย",
+        "label_en": "ข้อมูลความปลอดภัย",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ข้อมูลความปลอดภัย",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_C_nutrients",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "ชนิดและปริมาณสารอาหาร",
+        "label_en": "ชนิดและปริมาณสารอาหาร",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ชนิดและปริมาณสารอาหาร",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_C_additives",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "วัตถุเจือปนอาหาร",
+        "label_en": "วัตถุเจือปนอาหาร",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "วัตถุเจือปนอาหาร",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_C_contamination",
+        "section": "12.2.C",
+        "type": "longtext",
+        "label_th": "มาตรการป้องกันการปนเปื้อน",
+        "label_en": "มาตรการป้องกันการปนเปื้อน",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "มาตรการป้องกันการปนเปื้อน",
+        "conditional_on": "special_C"
+        },
+        {
+        "id": "special_D",
+        "section": "12.2.D",
+        "type": "toggle",
+        "label_th": "อาหาร: ผลิตภัณฑ์เสริมอาหาร",
+        "label_en": "Dietary supplements",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "อาหาร: ผลิตภัณฑ์เสริมอาหาร"
+        },
+        {
+        "id": "special_D_composition",
+        "section": "12.2.D",
+        "type": "longtext",
+        "label_th": "คุณลักษณะเฉพาะ สูตร ที่มา รูปแบบ",
+        "label_en": "คุณลักษณะเฉพาะ สูตร ที่มา รูปแบบ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "คุณลักษณะเฉพาะ สูตร ที่มา รูปแบบ",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_D_consumption_storage",
+        "section": "12.2.D",
+        "type": "longtext",
+        "label_th": "วิธีบริโภคและเก็บรักษา",
+        "label_en": "วิธีบริโภคและเก็บรักษา",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "วิธีบริโภคและเก็บรักษา",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_D_safety_data",
+        "section": "12.2.D",
+        "type": "longtext",
+        "label_th": "ข้อมูลความปลอดภัย",
+        "label_en": "ข้อมูลความปลอดภัย",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ข้อมูลความปลอดภัย",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_D_vitamins_minerals",
+        "section": "12.2.D",
+        "type": "longtext",
+        "label_th": "ปริมาณวิตามิน/แร่ธาตุ",
+        "label_en": "ปริมาณวิตามิน/แร่ธาตุ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ปริมาณวิตามิน/แร่ธาตุ",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_D_additives",
+        "section": "12.2.D",
+        "type": "longtext",
+        "label_th": "วัตถุเจือปนอาหาร",
+        "label_en": "วัตถุเจือปนอาหาร",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "วัตถุเจือปนอาหาร",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_D_contamination",
+        "section": "12.2.D",
+        "type": "longtext",
+        "label_th": "มาตรการป้องกันการปนเปื้อน",
+        "label_en": "มาตรการป้องกันการปนเปื้อน",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "มาตรการป้องกันการปนเปื้อน",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_D_manufacturer",
+        "section": "12.2.D",
+        "type": "text",
+        "label_th": "ผู้ผลิตหรือผู้นำเข้า",
+        "label_en": "ผู้ผลิตหรือผู้นำเข้า",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ผู้ผลิตหรือผู้นำเข้า",
+        "conditional_on": "special_D"
+        },
+        {
+        "id": "special_E",
+        "section": "12.2.E",
+        "type": "toggle",
+        "label_th": "ผลิตภัณฑ์สมุนไพร",
+        "label_en": "Herbal products",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ผลิตภัณฑ์สมุนไพร"
+        },
+        {
+        "id": "special_E_product_type",
+        "section": "12.2.E",
+        "type": "choice",
+        "label_th": "ชนิดผลิตภัณฑ์",
+        "label_en": "ชนิดผลิตภัณฑ์",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ชนิดผลิตภัณฑ์",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_scientific_names",
+        "section": "12.2.E",
+        "type": "longtext",
+        "label_th": "ชื่อวิทยาศาสตร์",
+        "label_en": "ชื่อวิทยาศาสตร์",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ชื่อวิทยาศาสตร์",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_formulation",
+        "section": "12.2.E",
+        "type": "longtext",
+        "label_th": "สูตรตำรับ (%w/w)",
+        "label_en": "สูตรตำรับ (%w/w)",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "สูตรตำรับ (%w/w)",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_efficacy_evidence",
+        "section": "12.2.E",
+        "type": "multichoice",
+        "label_th": "ข้อมูลอ้างอิงทางสุขภาพ",
+        "label_en": "ข้อมูลอ้างอิงทางสุขภาพ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ข้อมูลอ้างอิงทางสุขภาพ",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_preparation",
+        "section": "12.2.E",
+        "type": "longtext",
+        "label_th": "กรรมวิธีการเตรียม",
+        "label_en": "กรรมวิธีการเตรียม",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "กรรมวิธีการเตรียม",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_quality_control",
+        "section": "12.2.E",
+        "type": "longtext",
+        "label_th": "การควบคุมคุณภาพ",
+        "label_en": "การควบคุมคุณภาพ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "การควบคุมคุณภาพ",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_registration",
+        "section": "12.2.E",
+        "type": "text",
+        "label_th": "เอกสารทะเบียนผลิตภัณฑ์",
+        "label_en": "เอกสารทะเบียนผลิตภัณฑ์",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "เอกสารทะเบียนผลิตภัณฑ์",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_E_production_level",
+        "section": "12.2.E",
+        "type": "choice",
+        "label_th": "ระดับการผลิต",
+        "label_en": "ระดับการผลิต",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ระดับการผลิต",
+        "conditional_on": "special_E"
+        },
+        {
+        "id": "special_F",
+        "section": "12.2.F",
+        "type": "toggle",
+        "label_th": "การพัฒนาเครื่องสำอาง",
+        "label_en": "Cosmetic development",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "การพัฒนาเครื่องสำอาง"
+        },
+        {
+        "id": "special_F_use_mode",
+        "section": "12.2.F",
+        "type": "choice",
+        "label_th": "รูปแบบการใช้ (Leave-on/Rinse-off)",
+        "label_en": "รูปแบบการใช้ (Leave-on/Rinse-off)",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "รูปแบบการใช้ (Leave-on/Rinse-off)",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_F_formulation",
+        "section": "12.2.F",
+        "type": "longtext",
+        "label_th": "ส่วนประกอบและปริมาณ (%w/w)",
+        "label_en": "ส่วนประกอบและปริมาณ (%w/w)",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ส่วนประกอบและปริมาณ (%w/w)",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_F_plant_extract",
+        "section": "12.2.F",
+        "type": "longtext",
+        "label_th": "สารสกัดจากพืช",
+        "label_en": "สารสกัดจากพืช",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "สารสกัดจากพืช",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_F_safety_data",
+        "section": "12.2.F",
+        "type": "longtext",
+        "label_th": "ข้อมูลความปลอดภัยของส่วนประกอบ",
+        "label_en": "ข้อมูลความปลอดภัยของส่วนประกอบ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ข้อมูลความปลอดภัยของส่วนประกอบ",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_F_preparation",
+        "section": "12.2.F",
+        "type": "longtext",
+        "label_th": "กรรมวิธีการเตรียม",
+        "label_en": "กรรมวิธีการเตรียม",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "กรรมวิธีการเตรียม",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_F_quality_control",
+        "section": "12.2.F",
+        "type": "longtext",
+        "label_th": "การควบคุมคุณภาพ",
+        "label_en": "การควบคุมคุณภาพ",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "การควบคุมคุณภาพ",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_F_registration",
+        "section": "12.2.F",
+        "type": "text",
+        "label_th": "ชื่อการค้า เลขทะเบียน สถานที่ผลิต",
+        "label_en": "ชื่อการค้า เลขทะเบียน สถานที่ผลิต",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "ชื่อการค้า เลขทะเบียน สถานที่ผลิต",
+        "conditional_on": "special_F"
+        },
+        {
+        "id": "special_G",
+        "section": "12.2.G",
+        "type": "toggle",
+        "label_th": "เครื่องมือแพทย์",
+        "label_en": "Medical devices",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เครื่องมือแพทย์"
+        },
+        {
+        "id": "special_G_device_list",
+        "section": "12.2.G",
+        "type": "list",
+        "label_th": "เครื่องมือแพทย์ (ชื่อ ยี่ห้อ รุ่น)",
+        "label_en": "เครื่องมือแพทย์ (ชื่อ ยี่ห้อ รุ่น)",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Special Category Details"
+        ],
+        "anchor_th": "เครื่องมือแพทย์ (ชื่อ ยี่ห้อ รุ่น)",
+        "conditional_on": "special_G"
+        },
+        {
+        "id": "outcome_table",
+        "section": "12.2b",
+        "type": "table",
+        "label_th": "สรุปการวัดผลการวิจัย (Outcome measurement)",
+        "label_en": "Outcome measurement summary",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Instruments",
+            "Data Collection"
+        ],
+        "anchor_th": "สรุปการวัดผลการวิจัย (Outcome measurement)",
+        "min_items": 7,
+        "columns": [
+            "outcome",
+            "tool",
+            "assessor"
+        ],
+        "repeatable_rows": true,
+        "note": "ในแบบฟอร์มเดิมหัวข้อนี้ใช้เลข 12.2 ซ้ำกับหัวข้อ 12.2 (งานวิจัยเฉพาะ)"
+        },
+        {
+        "id": "operational_definitions",
+        "section": "12.3",
+        "type": "longtext",
+        "label_th": "คำจำกัดความ (Operational definition)",
+        "label_en": "Operational definitions",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Operational Definitions"
+        ],
+        "anchor_th": "คำจำกัดความ (Operational definition)"
+        },
+        {
+        "id": "statistical_analysis",
+        "section": "13",
+        "type": "longtext",
+        "label_th": "การวิเคราะห์ทางสถิติ",
+        "label_en": "Statistical analysis",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": false,
+        "accepts": [
+            "Data Analysis"
+        ],
+        "anchor_th": "การวิเคราะห์ทางสถิติ"
+        },
+        {
+        "id": "consent_provider",
+        "section": "14.1",
+        "type": "text",
+        "label_th": "ผู้ให้ข้อมูลและขอความยินยอม",
+        "label_en": "Who obtains consent",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ผู้ให้ข้อมูลและขอความยินยอม"
+        },
+        {
+        "id": "consent_method",
+        "section": "14.1",
+        "type": "multichoice",
+        "label_th": "วิธีขอความยินยอม",
+        "label_en": "Consent method",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "วิธีขอความยินยอม",
+        "options": [
+            {
+            "id": "written",
+            "label_th": "ลงลายมือชื่อ (Written)"
+            },
+            {
+            "id": "action",
+            "label_th": "โดยการกระทำ (Consent by action)"
+            },
+            {
+            "id": "verbal",
+            "label_th": "ด้วยวาจา (Verbal)"
+            },
+            {
+            "id": "e_consent",
+            "label_th": "อิเล็กทรอนิกส์ (e-Consent)"
+            },
+            {
+            "id": "waiver",
+            "label_th": "ขอยกเว้น (Waiver) พร้อมเหตุผล"
+            }
+        ]
+        },
+        {
+        "id": "consent_when_where",
+        "section": "14.1",
+        "type": "text",
+        "label_th": "เมื่อไร ที่ใด",
+        "label_en": "When/where consent obtained",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เมื่อไร ที่ใด"
+        },
+        {
+        "id": "consent_decision_time",
+        "section": "14.1",
+        "type": "text",
+        "label_th": "เวลาให้ตัดสินใจ",
+        "label_en": "Time to decide",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เวลาให้ตัดสินใจ"
+        },
+        {
+        "id": "vulnerable_present",
+        "section": "14.2",
+        "type": "choice",
+        "label_th": "มี/ไม่มีกลุ่มอ่อนแอและเปราะบาง",
+        "label_en": "Vulnerable subjects present",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "มี/ไม่มีกลุ่มอ่อนแอและเปราะบาง"
+        },
+        {
+        "id": "vulnerable_types",
+        "section": "14.2",
+        "type": "multichoice",
+        "label_th": "ประเภทกลุ่มเปราะบาง",
+        "label_en": "Vulnerable subject types",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ประเภทกลุ่มเปราะบาง",
+        "conditional_on": "vulnerable_present",
+        "options": [
+            {
+            "id": "cognitive",
+            "label_th": "Cognitive / communication"
+            },
+            {
+            "id": "institutional",
+            "label_th": "Institutional"
+            },
+            {
+            "id": "deferral",
+            "label_th": "Deferral"
+            },
+            {
+            "id": "medical",
+            "label_th": "Medical"
+            },
+            {
+            "id": "economic",
+            "label_th": "Economic"
+            },
+            {
+            "id": "social",
+            "label_th": "Social"
+            },
+            {
+            "id": "other",
+            "label_th": "อื่นๆ (ระบุ)"
+            }
+        ]
+        },
+        {
+        "id": "vulnerable_protection",
+        "section": "14.2",
+        "type": "longtext",
+        "label_th": "การปกป้องเพิ่มเติม",
+        "label_en": "Additional protection",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "การปกป้องเพิ่มเติม",
+        "conditional_on": "vulnerable_present"
+        },
+        {
+        "id": "risk_physical",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "ความเสี่ยงทางกาย",
+        "label_en": "Physical risk",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "ความเสี่ยงทางกาย"
+        },
+        {
+        "id": "risk_psychological",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "ความเสี่ยงทางจิตใจ",
+        "label_en": "Psychological risk",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "ความเสี่ยงทางจิตใจ"
+        },
+        {
+        "id": "risk_economic",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "ความเสี่ยงทางเศรษฐกิจ",
+        "label_en": "Economic risk",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "ความเสี่ยงทางเศรษฐกิจ"
+        },
+        {
+        "id": "risk_social",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "ความเสี่ยงทางสังคม",
+        "label_en": "Social risk",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "ความเสี่ยงทางสังคม"
+        },
+        {
+        "id": "risk_other",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "ความเสี่ยงอื่น ๆ",
+        "label_en": "Other risks",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "ความเสี่ยงอื่น ๆ"
+        },
+        {
+        "id": "burdens",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "ความไม่สะดวกสบาย",
+        "label_en": "Burdens",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "ความไม่สะดวกสบาย"
+        },
+        {
+        "id": "risk_mitigation",
+        "section": "14.3",
+        "type": "longtext",
+        "label_th": "วิธีการลดความเสี่ยงและความไม่สะดวกสบาย",
+        "label_en": "Risk minimization",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Risks and Burdens"
+        ],
+        "anchor_th": "วิธีการลดความเสี่ยงและความไม่สะดวกสบาย"
+        },
+        {
+        "id": "benefit_direct",
+        "section": "14.4",
+        "type": "longtext",
+        "label_th": "ประโยชน์โดยตรงต่อผู้เข้าร่วมวิจัย",
+        "label_en": "Direct benefit",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Benefits",
+            "Expected Outcomes"
+        ],
+        "anchor_th": "ประโยชน์โดยตรงต่อผู้เข้าร่วมวิจัย"
+        },
+        {
+        "id": "benefit_indirect",
+        "section": "14.4",
+        "type": "longtext",
+        "label_th": "ประโยชน์ทางอ้อม",
+        "label_en": "Indirect benefit",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Benefits",
+            "Expected Outcomes"
+        ],
+        "anchor_th": "ประโยชน์ทางอ้อม"
+        },
+        {
+        "id": "benefit_others",
+        "section": "14.4",
+        "type": "longtext",
+        "label_th": "ประโยชน์ต่อผู้อื่นหรือการเพิ่มองค์ความรู้",
+        "label_en": "Benefit to others",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Research Benefits",
+            "Expected Outcomes"
+        ],
+        "anchor_th": "ประโยชน์ต่อผู้อื่นหรือการเพิ่มองค์ความรู้"
+        },
+        {
+        "id": "post_trial_benefits",
+        "section": "14.5",
+        "type": "longtext",
+        "label_th": "ประโยชน์หลังสิ้นสุดการวิจัย",
+        "label_en": "Post-trial benefits",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ประโยชน์หลังสิ้นสุดการวิจัย"
+        },
+        {
+        "id": "post_trial_care",
+        "section": "14.5",
+        "type": "longtext",
+        "label_th": "การดูแลรักษาหลังสิ้นสุดการวิจัย",
+        "label_en": "Post-trial care",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "การดูแลรักษาหลังสิ้นสุดการวิจัย"
+        },
+        {
+        "id": "data_type",
+        "section": "14.6",
+        "type": "choice",
+        "label_th": "ชนิดของข้อมูล (identifiable/anonymized)",
+        "label_en": "Data type",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ชนิดของข้อมูล (identifiable/anonymized)"
+        },
+        {
+        "id": "data_storage",
+        "section": "14.6",
+        "type": "multichoice",
+        "label_th": "รูปแบบการเก็บข้อมูล",
+        "label_en": "Data storage format",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "รูปแบบการเก็บข้อมูล",
+        "options": [
+            {
+            "id": "dataset",
+            "label_th": "ไฟล์ Data set ในคอมพิวเตอร์",
+            "has_detail": true
+            },
+            {
+            "id": "cloud",
+            "label_th": "ระบบคลาวด์",
+            "has_detail": true
+            },
+            {
+            "id": "paper",
+            "label_th": "กระดาษ",
+            "has_detail": false
+            },
+            {
+            "id": "other",
+            "label_th": "อื่นๆ",
+            "has_detail": true
+            }
+        ]
+        },
+        {
+        "id": "data_protection",
+        "section": "14.6",
+        "type": "longtext",
+        "label_th": "วิธีรักษาความลับของข้อมูล",
+        "label_en": "Data confidentiality method",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "วิธีรักษาความลับของข้อมูล"
+        },
+        {
+        "id": "data_retention_years",
+        "section": "14.6",
+        "type": "number",
+        "label_th": "ระยะเวลาเก็บรักษา (ปี)",
+        "label_en": "Retention (years)",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ระยะเวลาเก็บรักษา (ปี)"
+        },
+        {
+        "id": "data_destruction",
+        "section": "14.6",
+        "type": "longtext",
+        "label_th": "การทำลายข้อมูล",
+        "label_en": "Data destruction",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "การทำลายข้อมูล"
+        },
+        {
+        "id": "community_research",
+        "section": "15",
+        "type": "toggle",
+        "label_th": "เป็นงานวิจัยในชุมชนหรือไม่",
+        "label_en": "Community-based research",
+        "required": false,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "เป็นงานวิจัยในชุมชนหรือไม่"
+        },
+        {
+        "id": "community_consult",
+        "section": "15",
+        "type": "longtext",
+        "label_th": "การปรึกษาหารือกับผู้นำชุมชน",
+        "label_en": "Consultation with leaders",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Community Considerations"
+        ],
+        "anchor_th": "การปรึกษาหารือกับผู้นำชุมชน",
+        "conditional_on": "community_research"
+        },
+        {
+        "id": "community_benefit",
+        "section": "15",
+        "type": "longtext",
+        "label_th": "ประโยชน์ต่อชุมชน",
+        "label_en": "Community benefit",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Community Considerations"
+        ],
+        "anchor_th": "ประโยชน์ต่อชุมชน",
+        "conditional_on": "community_research"
+        },
+        {
+        "id": "community_impact",
+        "section": "15",
+        "type": "longtext",
+        "label_th": "ผลกระทบต่อชุมชน",
+        "label_en": "Community impact",
+        "required": false,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "Community Considerations"
+        ],
+        "anchor_th": "ผลกระทบต่อชุมชน",
+        "conditional_on": "community_research"
+        },
+        {
+        "id": "timeline",
+        "section": "16",
+        "type": "gantt",
+        "label_th": "แผนการดำเนินการวิจัย",
+        "label_en": "Implementation plan",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "แผนการดำเนินการวิจัย",
+        "months": [
+            "ม.ย. 69",
+            "พ.ค. 69",
+            "มิ.ย. 69",
+            "ก.ค. 69",
+            "ส.ค. 69",
+            "ก.ย. 69",
+            "ต.ค. 69",
+            "พ.ย. 69"
+        ],
+        "tasks": [
+            "เตรียมข้อมูลและยื่นขอรับพิจารณาจริยธรรมการวิจัย",
+            "ประกาศรับและคัดกรองผู้เข้าร่วมงานวิจัย",
+            "ดำเนินการเก็บข้อมูล",
+            "ติดตามผลการวิจัยครั้งที่ 1",
+            "ติดตามผลการวิจัยครั้งที่ 2",
+            "วิเคราะห์ผลการวิจัย",
+            "สรุปผลการวิจัยและแจ้งปิดโครงการวิจัย"
+        ],
+        "note": "เดือนในแบบฟอร์มเป็นค่าตัวอย่าง ผู้ใช้ต้องปรับให้ตรงกับแผนจริง; ผู้รับผิดชอบเป็นข้อมูลบุคคล"
+        },
+        {
+        "id": "funding",
+        "section": "17.1",
+        "type": "multichoice",
+        "label_th": "แหล่งทุนวิจัย (พร้อมจำนวนเงิน)",
+        "label_en": "Funding source",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "แหล่งทุนวิจัย (พร้อมจำนวนเงิน)",
+        "options": [
+            {
+            "id": "self",
+            "label_th": "ทุนส่วนตัว",
+            "has_detail": false
+            },
+            {
+            "id": "government",
+            "label_th": "ทุนจากหน่วยงานของรัฐบาล",
+            "has_detail": true
+            },
+            {
+            "id": "nonprofit",
+            "label_th": "ทุนจากองค์กรที่ไม่แสวงหากำไร",
+            "has_detail": true
+            },
+            {
+            "id": "private",
+            "label_th": "ทุนจากบริษัทเอกชน",
+            "has_detail": true
+            }
+        ]
+        },
+        {
+        "id": "budget_items",
+        "section": "17.2",
+        "type": "table",
+        "label_th": "รายละเอียดงบประมาณ",
+        "label_en": "Budget breakdown",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "รายละเอียดงบประมาณ",
+        "min_items": 9,
+        "columns": [
+            "item",
+            "amount_thb"
+        ],
+        "rows": [
+            "ค่าตอบแทนผู้เข้าร่วมการวิจัย",
+            "ค่าดูแลรักษาและฟื้นฟูผู้เข้าร่วมการวิจัย กรณีเกิดเหตุการณ์ไม่พึงประสงค์",
+            "ค่าใช้จ่ายด้านอุปกรณ์การวิจัย",
+            "ค่าเดินทาง / ค่าที่พัก",
+            "ค่าเขียนแบบ ออกแบบ และจัดทำต้นแบบ",
+            "ค่าครุภัณฑ์",
+            "ค่าวิเคราะห์ข้อมูล",
+            "อื่น ๆ",
+            ""
+        ],
+        "repeatable_rows": true
+        },
+        {
+        "id": "references",
+        "section": "18",
+        "type": "list",
+        "label_th": "เอกสารอ้างอิง (Vancouver หรือ APA เท่านั้น)",
+        "label_en": "References",
+        "required": true,
+        "user_only": false,
+        "needs_confirmation": true,
+        "accepts": [
+            "References"
+        ],
+        "anchor_th": "เอกสารอ้างอิง (Vancouver หรือ APA เท่านั้น)",
+        "verbatim_only": true
+        },
+        {
+        "id": "appendix_checklist",
+        "section": "19",
+        "type": "multichoice",
+        "label_th": "ภาคผนวกที่แนบ",
+        "label_en": "Appendices",
+        "required": true,
+        "user_only": true,
+        "needs_confirmation": false,
+        "accepts": [],
+        "anchor_th": "ภาคผนวกที่แนบ",
+        "options": [
+            {
+            "id": "crf",
+            "label_th": "แบบบันทึกข้อมูล (CRF)"
+            },
+            {
+            "id": "questionnaire",
+            "label_th": "แบบสอบถาม"
+            },
+            {
+            "id": "ap03_1",
+            "label_th": "AP 03_1"
+            },
+            {
+            "id": "ap03_2",
+            "label_th": "AP 03_2 (เก็บข้อมูล/ตัวอย่างชีวภาพ)"
+            },
+            {
+            "id": "ap03_3",
+            "label_th": "AP 03_3 (พันธุกรรม)"
+            },
+            {
+            "id": "ap03_4",
+            "label_th": "AP 03_4 (เด็ก 7-12 ปี)"
+            },
+            {
+            "id": "ap03_5",
+            "label_th": "AP 03_5 (ศพ)"
+            },
+            {
+            "id": "ap03_6",
+            "label_th": "AP 03_6 (รายงานกรณีศึกษา)"
+            },
+            {
+            "id": "cv",
+            "label_th": "ประวัติผู้วิจัย (ลงนาม/วันที่)"
+            },
+            {
+            "id": "ethics_training",
+            "label_th": "หลักฐานอบรมจริยธรรม + ICH GCP"
+            },
+            {
+            "id": "coi",
+            "label_th": "เอกสารผลประโยชน์ทับซ้อน AP 01_2"
+            },
+            {
+            "id": "advisor_cert",
+            "label_th": "หนังสือรับรองอาจารย์ที่ปรึกษา AP 01_3"
+            },
+            {
+            "id": "advertisement",
+            "label_th": "โฆษณา"
+            },
+            {
+            "id": "other",
+            "label_th": "อื่นๆ"
+            },
+            {
+            "id": "special_docs",
+            "label_th": "เอกสารแนบงานวิจัยเฉพาะ"
+            }
+        ],
+        "note": "แบบฟอร์มเดิมอ้าง AP 03_x/2024 (ฉบับไทย) แต่ฉบับอังกฤษอ้าง /2026 และอ้างหัวข้อ 12.1.7 ที่ไม่มี: ต้องยืนยันกับ EC-MFU ก่อนใช้"
+        }
+    ]
+    }

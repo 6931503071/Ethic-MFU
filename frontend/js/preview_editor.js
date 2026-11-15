@@ -39,6 +39,13 @@
     .fill-field[data-state="done"],.fill-field[data-state="done"] *{color:#000 !important}
     .fill-field[data-state="done"]{outline:1px dotted rgba(22,163,74,.55);background:transparent}
     .fill-field:focus{outline:2px solid #3b82f6;background:#eff6ff}
+
+    .fill-field,.fill-field *,.fill-field[data-empty="true"]::before{
+        font-family:'TH Sarabun New',sans-serif !important;
+        font-size:16pt !important;
+        font-weight:normal !important;
+        font-style:normal !important;
+    }
     .fill-field[data-empty="true"]::before{content:attr(data-hint);color:#dc2626;opacity:.75;pointer-events:none}
     #tplEditBar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
         background:#fff7ed;border:1px solid #fdba74;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:14px}

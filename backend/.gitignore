@@ -6,5 +6,8 @@ tmp_uploads/
 
 # สภาพแวดล้อมและไฟล์ที่ Python สร้างเอง
 .venv/
+.venv*/
+node_modules/
 __pycache__/
 *.pyc
+.pytest_cache/

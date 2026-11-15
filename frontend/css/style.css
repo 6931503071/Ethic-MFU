@@ -13,9 +13,6 @@
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* ── Thai Font Import ── */
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
